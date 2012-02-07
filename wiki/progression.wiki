@@ -1,0 +1,20 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Ce projet est réalisé par des étudiants pour une majeur en conception de jeux vidéos à l'Université du Québec À Chicoutimi (UQAC).<br>
+La date d'échéance de ce projet est avant le *25 avril 2012*.
+
+
+= Description du Projet =
+
+Comme projet, nous avons pensé à réaliser un jeu vidéo de tir multidirectionnel où le joueur doit  survivre à une invasion de morts-vivants. Le but du jeu est d’éliminer tous les morts-vivants dans un niveau fixe. Plus le joueur réussit de niveaux, plus le niveau de difficulté augmente. Par exemple, lors de la progression, il y a de nouveaux morts-vivants avec des pouvoirs différents et il y en a davantage par niveau. Le joueur peut acquérir de nouvelles armes pour augmenter ses chances de survie dans chaque niveau. De plus, nous avons pensé à intégrer la possibilité de jouer en coopération avec des amis dans notre jeu en réseau, cependant le jeu étant d’une grande ampleur, il est possible que cette fonctionnalité ne soit pas réalisé.
+
+= Hello World... Tout à un commencement = 
+
+
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
