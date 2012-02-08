@@ -12,9 +12,14 @@ Comme projet, nous avons pensé à réaliser un jeu vidéo de tir multidirection
 
 = Hello World... Tout à un commencement = 
 
+Puisque nous commençons dans l'univers du jeu vidéo, il va de soit que des tests seront effectués. Tout d'abord, nos premiers tests constituent un élément de familiarisation avec XNA Game Studio.
+<br/><br/>
+Voici les tests qui ont été effectué:
+  * Faire afficher une chaîne de caractère à l'écran et l'animé pour que ce ne soit pas que du texte brute;
+  * Faire affichier des sprites et les faire bouger sur la fenêtre de jeu;
+  * Prochaine étape: Animé les sprites à l'aide de SpriteSheet.
 
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+#Add your content here.  Format your content with:
+#  * Text in *bold* or _italic_
+#  * Headings, paragraphs, and lists
+#  * Automatic links to other wiki pages
