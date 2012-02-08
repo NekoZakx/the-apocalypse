@@ -38,7 +38,7 @@ namespace WindowsGame1
         double[] button_timer = new double[NUMBER_OF_BUTTONS];
         //mouse pressed and mouse just pressed
         bool mpressed, prev_mpressed = false;
-        //mouse location in window
+        //mouse location in window.
         int mx, my;
         double frame_time;
 
