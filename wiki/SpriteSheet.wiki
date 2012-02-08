@@ -1,0 +1,5 @@
+#summary One-sentence summary of this page.
+
+= Définition =
+
+Une SpriteSheet est une feuille de Sprite. Cette feuille contient plusieurs images différente du même sprite dans le but de produire une animation avec des frames. Le programme découpera l'image de la spritesheet selon vos préférences et ainsi recueillir chacune des images de la spritesheet. Il ne suffit de savoir quelle est la frame qui contient tel animation.
