@@ -97,26 +97,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="music\Pendulum - The Vulture.wav.mp3">
-      <Name>thevulture</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-    <Compile Include="music\Rammstein - Du Hast.wav.mp3">
-      <Name>duhast</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-    <Compile Include="music\The Crystal Method - Name of the Game.wav.mp3">
-      <Name>nameofthegame</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-    <Compile Include="music\The Prodigy - Invaders Must Die.wav.mp3">
-      <Name>invadersmustdie</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
+    <Folder Include="music\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
