@@ -10,8 +10,6 @@ namespace WindowsGame1
     {
         SoundEffect[] sounds;
         SoundEffectInstance[] sfi;
-        float volume = 1;
-        float pitch = 0;
 
         public SFXBank(SoundEffect[] sounds)
         {
