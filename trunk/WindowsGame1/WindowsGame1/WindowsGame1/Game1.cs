@@ -24,10 +24,17 @@ namespace WindowsGame1
             JUST_RELEASED,
             DOWN
         }
-        const int NUMBER_OF_BUTTONS = 3,
+        const int NUMBER_OF_BUTTONS = 10,
             EASY_BUTTON_INDEX = 0,
             MEDIUM_BUTTON_INDEX = 1,
             HARD_BUTTON_INDEX = 2,
+            HANDGUN_BUTTON_INDEX = 3,
+            ZOMBIE1_BUTTON_INDEX = 4,
+            ZOMBIE2_BUTTON_INDEX = 5,
+            VOLUMEPLUS_BUTTON_INDEX = 6,
+            VOLUMEMINUS_BUTTON_INDEX = 7,
+            PITCHPLUS_BUTTON_INDEX = 8,
+            PITCHMINUS_BUTTON_INDEX = 9,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
         Color background_color;
@@ -41,6 +48,7 @@ namespace WindowsGame1
         //mouse location in window.
         int mx, my;
         double frame_time;
+        SFXBank sb;
 
 
 
@@ -161,6 +169,25 @@ namespace WindowsGame1
                 Content.Load<Texture2D>(@"gfx/medium");
             button_texture[HARD_BUTTON_INDEX] =
                 Content.Load<Texture2D>(@"gfx/hard");
+            button_texture[HANDGUN_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/handgun");
+            button_texture[ZOMBIE1_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/zombie1");
+            button_texture[ZOMBIE2_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/zombie2");
+            button_texture[VOLUMEPLUS_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/volume+");
+            button_texture[VOLUMEMINUS_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/volume-");
+            button_texture[PITCHPLUS_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/pitch+");
+            button_texture[PITCHMINUS_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/pitch-");
+
+            sb = new SFXBank(new SoundEffect[] {
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"), 
+                Content.Load<SoundEffect>(@"sfx/zombie1"), 
+                Content.Load<SoundEffect>(@"sfx/zombie2")});
 
             // TODO: use this.Content to load your game content here
         }
@@ -573,6 +600,55 @@ namespace WindowsGame1
                 case HARD_BUTTON_INDEX:
                     background_color = Color.Red;
                     parsedText = parseText("Mode de jeu Actif: Hard");
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case HANDGUN_BUTTON_INDEX:
+                    sb.play(0);
+                    parsedText = parseText("POW!");
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case ZOMBIE1_BUTTON_INDEX:
+                    sb.play(1);
+                    parsedText = parseText("OMG! ZOMBIE!");
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case ZOMBIE2_BUTTON_INDEX:
+                    sb.play(2);
+                    parsedText = parseText("OMG! ZOMBIE!");
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case VOLUMEPLUS_BUTTON_INDEX:
+                    sb.setVolume(sb.getVolume() + (float)0.1);
+                    parsedText = parseText("Volume: " + sb.getVolume());
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case VOLUMEMINUS_BUTTON_INDEX:
+                    sb.setVolume(sb.getVolume() - (float)0.1);
+                    parsedText = parseText("Volume: " + sb.getVolume());
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case PITCHPLUS_BUTTON_INDEX:
+                    sb.setPitch(sb.getPitch() + (float)0.1);
+                    parsedText = parseText("Pitch: " + sb.getPitch());
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case PITCHMINUS_BUTTON_INDEX:
+                    sb.setPitch(sb.getPitch() - (float)0.1);
+                    parsedText = parseText("Pitch: " + sb.getPitch());
                     typedText = "";
                     isDoneDrawing = false;
                     typedTextLength = 0;
