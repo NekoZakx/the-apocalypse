@@ -51,9 +51,10 @@ namespace WindowsGame1
         SFXBank sb;
 
 
-
-
-
+        Texture2D laser;
+        Vector2 laserPosition;
+        int laserSpeed;
+        bool shooted;
 
 
         GraphicsDeviceManager graphics;
@@ -125,8 +126,8 @@ namespace WindowsGame1
             blank.SetData(new[] { Color.White });
             //dst.Width = 540; //On peut changer manuellement les dimensions du sprite affichée
 
-
-
+            shooted = false; // Le laser n'a pas été tiré
+            laserSpeed = 6; // Vitesse du laser
 
 
             // starting x and y locations to stack buttons
@@ -195,6 +196,8 @@ namespace WindowsGame1
                 Content.Load<SoundEffect>(@"sfx/zombie1"), 
                 Content.Load<SoundEffect>(@"sfx/zombie2")});
 
+            laser = Content.Load<Texture2D>(@"gfx/laser");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -204,6 +207,7 @@ namespace WindowsGame1
         /// </summary>
         protected override void UnloadContent()
         {
+            laser.Dispose();
             // TODO: Unload any non ContentManager content here
         }
 
@@ -215,6 +219,13 @@ namespace WindowsGame1
         KeyboardState oldState = Keyboard.GetState();
         protected override void Update(GameTime gameTime)
         {
+            MouseState ms = Mouse.GetState();
+            // update mouse variables
+            MouseState mouse_state = Mouse.GetState();
+            mx = mouse_state.X;
+            my = mouse_state.Y;
+            prev_mpressed = mpressed;
+            mpressed = mouse_state.LeftButton == ButtonState.Pressed;
 
             if (!isDoneDrawing)
             {
@@ -237,22 +248,22 @@ namespace WindowsGame1
                 }
             }
 
+            // Si le laser n'est plus visible et qu'il a été tiré
+            // On ne le met plus à jour
+            if (shooted && laserPosition.Y + laser.Height <= 0)
+                shooted = false; // On peut maintenant retirer un autre laser
 
+            // Si le laser a été tiré on le fait monter
+            if (shooted)
+            {
+                laserPosition.Y -= laserSpeed;
+            }
 
-
-
-
-
-
-
-
-
-
-
-
+            // Tire le laser
+            if (ms.LeftButton == ButtonState.Pressed)
+                shootLaser();
 
             KeyboardState newState = Keyboard.GetState();
-            MouseState ms = Mouse.GetState();
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || newState.IsKeyDown(Keys.Escape))
                 this.Exit();
@@ -344,13 +355,6 @@ namespace WindowsGame1
             // get elapsed frame time in seconds
             frame_time = gameTime.ElapsedGameTime.Milliseconds / 1000.0;
 
-            // update mouse variables
-            MouseState mouse_state = Mouse.GetState();
-            mx = mouse_state.X;
-            my = mouse_state.Y;
-            prev_mpressed = mpressed;
-            mpressed = mouse_state.LeftButton == ButtonState.Pressed;
-
             update_buttons();
             // TODO: Add your update logic here
             oldState = newState;
@@ -382,7 +386,9 @@ namespace WindowsGame1
             spriteBatch.Draw(sprite2, dst2, src2, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
             
             //spriteBatch.DrawString(font, "Hello World !", new Vector2(), Color.Red);
-            
+
+            if (shooted)
+                spriteBatch.Draw(laser, laserPosition, Color.White);
             
             spriteBatch.End();
             // TODO: Add your drawing code here
@@ -685,6 +691,17 @@ namespace WindowsGame1
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void shootLaser()
+        {
+            if (!shooted)
+            {
+                // La position du laser est définie par :
+                // - la position en X de la mire
+                laserPosition = new Vector2(location.X + (sprite.Width / 2), location.Y + (sprite.Height / 2));
+                shooted = true; // Le laser est tiré !
             }
         }
     }
