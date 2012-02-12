@@ -96,7 +96,6 @@
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Compile Include="gfx\btnsound\handgun.png">
       <Name>handgun</Name>
@@ -130,6 +129,13 @@
     </Compile>
     <Compile Include="gfx\btnsound\zombie2.png">
       <Name>zombie2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gfx\laser.jpg">
+      <Name>laser</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
