@@ -184,8 +184,14 @@ namespace WindowsGame1
             button_texture[PITCHMINUS_BUTTON_INDEX] =
                 Content.Load<Texture2D>(@"gfx/btnsound/pitch-");
 
+            //Si possible, faire en sorte qu'il est possible de faire jouer un seul son plusieurs fois, au lieu de le loader plusieurs fois.
             sb = new SFXBank(new SoundEffect[] {
-                Content.Load<SoundEffect>(@"sfx/pistolshoot"), 
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
+                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
                 Content.Load<SoundEffect>(@"sfx/zombie1"), 
                 Content.Load<SoundEffect>(@"sfx/zombie2")});
 
@@ -605,21 +611,45 @@ namespace WindowsGame1
                     typedTextLength = 0;
                     break;
                 case HANDGUN_BUTTON_INDEX:
-                    sb.play(0);
+                    //Si possible, utiliser une autre façon que celle-là.
+                    if (sb.getState(0) == SoundState.Playing)
+                    {
+                        if (sb.getState(1) == SoundState.Playing)
+                        {
+                            if (sb.getState(2) == SoundState.Playing)
+                            {
+                                if (sb.getState(3) == SoundState.Playing)
+                                {
+                                    if (sb.getState(4) == SoundState.Playing)
+                                        sb.play(5);
+                                    else
+                                        sb.play(4);
+                                }
+                                else
+                                    sb.play(3);
+                            }
+                            else
+                                sb.play(2);
+                        }
+                        else
+                            sb.play(1);
+                    }
+                    else
+                        sb.play(0);
                     parsedText = parseText("POW!");
                     typedText = "";
                     isDoneDrawing = false;
                     typedTextLength = 0;
                     break;
                 case ZOMBIE1_BUTTON_INDEX:
-                    sb.play(1);
+                    sb.play(6);
                     parsedText = parseText("OMG! ZOMBIE!");
                     typedText = "";
                     isDoneDrawing = false;
                     typedTextLength = 0;
                     break;
                 case ZOMBIE2_BUTTON_INDEX:
-                    sb.play(2);
+                    sb.play(7);
                     parsedText = parseText("OMG! ZOMBIE!");
                     typedText = "";
                     isDoneDrawing = false;

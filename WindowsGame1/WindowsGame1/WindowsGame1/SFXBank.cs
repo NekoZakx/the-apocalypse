@@ -51,6 +51,11 @@ namespace WindowsGame1
             return this.volume;
         }
 
+        public SoundState getState(int soundIndex)
+        {
+            return sfi[soundIndex].State;
+        }
+
         public void play(int soundIndex)
         {
             sfi[soundIndex].Play();
