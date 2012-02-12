@@ -96,9 +96,7 @@
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="music\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="gfx\btnsound\handgun.png">
       <Name>handgun</Name>
