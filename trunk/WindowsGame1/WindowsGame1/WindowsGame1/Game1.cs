@@ -24,7 +24,7 @@ namespace WindowsGame1
             JUST_RELEASED,
             DOWN
         }
-        const int NUMBER_OF_BUTTONS = 10,
+        const int NUMBER_OF_BUTTONS = 12,
             EASY_BUTTON_INDEX = 0,
             MEDIUM_BUTTON_INDEX = 1,
             HARD_BUTTON_INDEX = 2,
@@ -35,6 +35,8 @@ namespace WindowsGame1
             VOLUMEMINUS_BUTTON_INDEX = 7,
             PITCHPLUS_BUTTON_INDEX = 8,
             PITCHMINUS_BUTTON_INDEX = 9,
+            PANPLUS_BUTTON_INDEX = 10,
+            PANMINUS_BUTTON_INDEX = 11,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
         Color background_color;
@@ -184,14 +186,13 @@ namespace WindowsGame1
                 Content.Load<Texture2D>(@"gfx/btnsound/pitch+");
             button_texture[PITCHMINUS_BUTTON_INDEX] =
                 Content.Load<Texture2D>(@"gfx/btnsound/pitch-");
+            button_texture[PANPLUS_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/pan+");
+            button_texture[PANMINUS_BUTTON_INDEX] =
+                Content.Load<Texture2D>(@"gfx/btnsound/pan-");
 
             //Si possible, faire en sorte qu'il est possible de faire jouer un seul son plusieurs fois, au lieu de le loader plusieurs fois.
             sb = new SFXBank(new SoundEffect[] {
-                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
-                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
-                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
-                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
-                Content.Load<SoundEffect>(@"sfx/pistolshoot"),
                 Content.Load<SoundEffect>(@"sfx/pistolshoot"),
                 Content.Load<SoundEffect>(@"sfx/zombie1"), 
                 Content.Load<SoundEffect>(@"sfx/zombie2")});
@@ -617,45 +618,21 @@ namespace WindowsGame1
                     typedTextLength = 0;
                     break;
                 case HANDGUN_BUTTON_INDEX:
-                    //Si possible, utiliser une autre façon que celle-là.
-                    if (sb.getState(0) == SoundState.Playing)
-                    {
-                        if (sb.getState(1) == SoundState.Playing)
-                        {
-                            if (sb.getState(2) == SoundState.Playing)
-                            {
-                                if (sb.getState(3) == SoundState.Playing)
-                                {
-                                    if (sb.getState(4) == SoundState.Playing)
-                                        sb.play(5);
-                                    else
-                                        sb.play(4);
-                                }
-                                else
-                                    sb.play(3);
-                            }
-                            else
-                                sb.play(2);
-                        }
-                        else
-                            sb.play(1);
-                    }
-                    else
-                        sb.play(0);
+                    sb.play(0);
                     parsedText = parseText("POW!");
                     typedText = "";
                     isDoneDrawing = false;
                     typedTextLength = 0;
                     break;
                 case ZOMBIE1_BUTTON_INDEX:
-                    sb.play(6);
+                    sb.play(1);
                     parsedText = parseText("OMG! ZOMBIE!");
                     typedText = "";
                     isDoneDrawing = false;
                     typedTextLength = 0;
                     break;
                 case ZOMBIE2_BUTTON_INDEX:
-                    sb.play(7);
+                    sb.play(2);
                     parsedText = parseText("OMG! ZOMBIE!");
                     typedText = "";
                     isDoneDrawing = false;
@@ -685,6 +662,20 @@ namespace WindowsGame1
                 case PITCHMINUS_BUTTON_INDEX:
                     sb.setPitch(sb.getPitch() - (float)0.1);
                     parsedText = parseText("Pitch: " + sb.getPitch());
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case PANPLUS_BUTTON_INDEX:
+                    sb.setPan(sb.getPan() + (float)0.1);
+                    parsedText = parseText("Pan: " + sb.getPan());
+                    typedText = "";
+                    isDoneDrawing = false;
+                    typedTextLength = 0;
+                    break;
+                case PANMINUS_BUTTON_INDEX:
+                    sb.setPan(sb.getPan() - (float)0.1);
+                    parsedText = parseText("Pan: " + sb.getPan());
                     typedText = "";
                     isDoneDrawing = false;
                     typedTextLength = 0;
