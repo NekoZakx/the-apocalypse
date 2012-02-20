@@ -19,6 +19,12 @@ Voici les tests qui ont été effectué:
   * Faire affichier des sprites et les faire bouger sur la fenêtre de jeu;
   * Prochaine étape: Animé les sprites à l'aide de SpriteSheet.
 
+= La structure du programme = 
+
+Pour le bon fonctionnement du programme, une bonne analyse doit être faite. Avec le peu de développement que nous avons effectués, nous avons réalisé le diagramme de classe. Ce diagramme à été conçu avec le peu d'expérience dans XNA que l'équipe dispose. Cependant, les données à conservé au niveau des objets est du pareil au même peu importe le langage de programmation.
+<br /><br/>
+Le diagramme de classe est disponible à l'adresse suivante: <a href="http://dl.dropbox.com/u/15342998/The_Apocalypse.vsd">lien</a>
+
 #Add your content here.  Format your content with:
 #  * Text in *bold* or _italic_
 #  * Headings, paragraphs, and lists
