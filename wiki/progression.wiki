@@ -24,3 +24,45 @@ Voici les tests qui ont été effectué:
 Pour le bon fonctionnement du programme, une bonne analyse doit être faite. Avec le peu de développement que nous avons effectués, nous avons réalisé le diagramme de classe. Ce diagramme à été conçu avec le peu d'expérience dans XNA que l'équipe dispose. Cependant, les données à conservé au niveau des objets est du pareil au même peu importe le langage de programmation.
 <br />
 Le diagramme de classe est disponible à l'adresse suivante: <a href="http://dl.dropbox.com/u/15342998/The_Apocalypse.vsd">lien</a>
+
+= L'envoie de projectile (Principe) =
+
+Le X permet de savoir où le joueur regarde.(Gauche/Droite)
+X Positif : Regarde à droite
+X Négatif: Regarde à gauche
+<br />
+Le Y permet de savoir où le joueur regarde (Haut/Bas)
+Y Positif: Regarde en bas
+Y Négatif: Regarde en haut
+<br />
+Ne pas oublier qu'en programmation le Y pointe vers le bas!
+<br />
+La formule est nul autre que Y = MX
+<br />
+Le M est calculable en effectuant la division suivante:
+<br />
+M = (Mouse_Y - Player_Y)/(Mouse_X - Player_X)
+<br />
+La variable X est le temps de jeu diviser par l'intervalle de vitesse auquel on veut que la balle soit.
+*Ce n'est pas des vrais méthodes!!! Cependant le principe reste le même*
+<br />
+DepartBalle = gametime.getTime();
+<br />
+X = (gametime.getTime()-DepartBalleinterval) + Player_X;
+<br />
+Lors du lancement de la balle le joueur peu etre en mouvement. Il faut donc enregistré toute les données modifiable par le joueur, tel que Player_X, Player_Y, Mouse_X, Mouse_Y.
+<br />
+Sauvegarder aussi le M pour ne pas avoir a recalculer la pente à chaque fois. Seul le X et le Y devrait être modifier selon le temps qui s'est écoulé en jeu.
+<br />
+Cependant... Puisque la balle va avec le temps de jeu. Il se peu qu'elle passe des pixels et il ne faut pas que cela arrive! Si j'ai un zombie en 1,1 et que je passe de 0,0 à 2,2... Je n'ai pas tuer le zombie mais il était dans ma trajectoire.
+<br />
+il faut donc que pour chaque X E N tant que N <= client.size.X.width
+et donc le temps ne servirait qu'a ralentir l'exécution de la balle et donc pour le X tout change!
+<br />
+if(gametime.getTime()-100 >= UpdatePosition)
+{
+UpdatePosition = gametime.getTime();
+x++;
+}
+<br />
+La balle va donc avancer de 1 pixel à toute les 100 millisecondes soit... 10 pixel/seconde... Il faudrait reduire le temps un peu mais cela reste un principe.
