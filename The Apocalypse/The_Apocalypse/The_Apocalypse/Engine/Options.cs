@@ -52,6 +52,8 @@ namespace The_Apocalypse
 
         int brightness;
         int contrast;
+        int width = 0;
+        int height = 0;
 
         bool inputBool = false;
 
@@ -80,7 +82,8 @@ namespace The_Apocalypse
 
         public void setButtonData(int X, int Y)
         {
-            
+            height = Y*2;
+            width = X*2;
             int x = X - BUTTON_WIDTH;
             int y = Y - ((NUMBER_OF_BUTTONS / 2) * BUTTON_HEIGHT) / 2;
 
@@ -252,11 +255,11 @@ namespace The_Apocalypse
         {
             
             spriteBatch.Begin(SpriteSortMode.Immediate, brightnessBlend);
-            spriteBatch.Draw(whiteTexture, new Rectangle(0, 0, 960, 600), new Color(brightness, brightness, brightness, 255));
+            spriteBatch.Draw(whiteTexture, new Rectangle(0, 0, width, height), new Color(brightness, brightness, brightness, 255));
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.Immediate, contrastBlend);
-            spriteBatch.Draw(whiteTexture, new Rectangle(0, 0, 960, 600), new Color(contrast, contrast, contrast, 255));
+            spriteBatch.Draw(whiteTexture, new Rectangle(0, 0, width, height), new Color(contrast, contrast, contrast, 255));
             spriteBatch.End();
 
             GraphicsDevice.BlendState = BlendState.Opaque;
@@ -398,7 +401,11 @@ namespace The_Apocalypse
     Keys.K, Keys.L, Keys.M, Keys.N, Keys.O,
     Keys.P, Keys.Q, Keys.R, Keys.S, Keys.T,
     Keys.U, Keys.V, Keys.W, Keys.X, Keys.Y,
-    Keys.Z, Keys.Back, Keys.Space, Keys.Enter };
+    Keys.Z, 
+    Keys.D0, Keys.D1, Keys.D2, Keys.D3, 
+    Keys.D4, Keys.D5, Keys.D6, Keys.D7, 
+    Keys.D8, Keys.D9, 
+    Keys.Back, Keys.Space, Keys.Enter };
 
         KeyboardState currentKeyboardState;
         KeyboardState lastKeyboardState;
@@ -426,6 +433,36 @@ namespace The_Apocalypse
 
             switch (key)
             {
+                case Keys.D0:
+                    newChar += "0";
+                    break;
+                case Keys.D1:
+                    newChar += "1";
+                    break;
+                case Keys.D2:
+                    newChar += "2";
+                    break;
+                case Keys.D3:
+                    newChar += "3";
+                    break;
+                case Keys.D4:
+                    newChar += "4";
+                    break;
+                case Keys.D5:
+                    newChar += "5";
+                    break;
+                case Keys.D6:
+                    newChar += "6";
+                    break;
+                case Keys.D7:
+                    newChar += "7";
+                    break;
+                case Keys.D8:
+                    newChar += "8";
+                    break;
+                case Keys.D9:
+                    newChar += "9";
+                    break;
                 case Keys.A:
                     newChar += "a";
                     break;
