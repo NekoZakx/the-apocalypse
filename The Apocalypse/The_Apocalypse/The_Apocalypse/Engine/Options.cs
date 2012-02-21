@@ -19,7 +19,7 @@ namespace The_Apocalypse
             JUST_RELEASED,
             DOWN
         }
-        const int NUMBER_OF_BUTTONS = 14,
+        const int NUMBER_OF_BUTTONS = 16,
             
             VOLUMEPLUS_BUTTON_INDEX = 0,
             VOLUMEMINUS_BUTTON_INDEX = 1,
@@ -35,6 +35,8 @@ namespace The_Apocalypse
             APPLY_BUTTON_INDEX = 11,
             TEXTBOX_INDEX = 12,
             FULLSCREEN_BUTTON_INDEX = 13,
+            EXIT_BUTTON_INDEX = 14,
+            MAINMENU_BUTTON_INDEX = 15,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
 
@@ -56,6 +58,7 @@ namespace The_Apocalypse
         int height = 0;
 
         bool inputBool = false;
+        public bool closeProgram = false;
 
         BlendState brightnessBlend;
         BlendState contrastBlend;
@@ -124,28 +127,44 @@ namespace The_Apocalypse
         {
             this.GraphicsDevice = GraphicsDevice;
             this.graphics = graphics;
-            button_texture[VOLUMEPLUS_BUTTON_INDEX] =    Content.Load<Texture2D>(@"Button/volume+");
-            button_texture[VOLUMEMINUS_BUTTON_INDEX] =   Content.Load<Texture2D>(@"Button/volume-");
 
-            button_texture[PITCHPLUS_BUTTON_INDEX] =     Content.Load<Texture2D>(@"Button/pitch+");
-            button_texture[PITCHMINUS_BUTTON_INDEX] =    Content.Load<Texture2D>(@"Button/pitch-");
-
-            button_texture[PANPLUS_BUTTON_INDEX] =       Content.Load<Texture2D>(@"Button/pan+");
-            button_texture[PANMINUS_BUTTON_INDEX] =      Content.Load<Texture2D>(@"Button/pan-");
+            //Ligne de la saisie du nom du joueur
+            button_texture[TEXTBOX_INDEX] =              Content.Load<Texture2D>(@"Button/textbox");
             
+            //Ligne du mode Plein Écran
+            button_texture[FULLSCREEN_BUTTON_INDEX] =    Content.Load<Texture2D>(@"Button/fullscreen");
+            
+            //Ligne du Volume
+            button_texture[VOLUMEMINUS_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/volume-");
+            button_texture[VOLUMEPLUS_BUTTON_INDEX] =    Content.Load<Texture2D>(@"Button/volume+");
+
+            //Ligne du Pitch
+            button_texture[PITCHMINUS_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/pitch-");
+            button_texture[PITCHPLUS_BUTTON_INDEX] =     Content.Load<Texture2D>(@"Button/pitch+");
+
+            //Ligne de la Balance
+            button_texture[PANMINUS_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/pan-");
+            button_texture[PANPLUS_BUTTON_INDEX] =       Content.Load<Texture2D>(@"Button/pan+");
+
+            //Ligne du Brightness
+            button_texture[BRIGHTNESSMINUS_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/bright-");
             button_texture[BRIGHTNESSPLUS_BUTTON_INDEX]= Content.Load<Texture2D>(@"Button/bright+");
-            button_texture[BRIGHTNESSMINUS_BUTTON_INDEX]=Content.Load<Texture2D>(@"Button/bright-");
 
-            button_texture[CONTRASSPLUS_BUTTON_INDEX] =  Content.Load<Texture2D>(@"Button/contrass+");
+            //Ligne de la Contraste
             button_texture[CONTRASSMINUS_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/contrass-");
+            button_texture[CONTRASSPLUS_BUTTON_INDEX] =  Content.Load<Texture2D>(@"Button/contrass+");
 
-            button_texture[APPLY_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/apply");
-            button_texture[DEFAULT_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/default");
+            //Ligne de validation des paramètres ou remise à zéro
+            button_texture[APPLY_BUTTON_INDEX] =         Content.Load<Texture2D>(@"Button/apply");
+            button_texture[DEFAULT_BUTTON_INDEX] =       Content.Load<Texture2D>(@"Button/default");
+
+            //Ligne pour quitter la partie en cours ou le programme
+            button_texture[MAINMENU_BUTTON_INDEX] =      Content.Load<Texture2D>(@"Button/mainmenu");
+            button_texture[EXIT_BUTTON_INDEX] =          Content.Load<Texture2D>(@"Button/exit");
 
             font = Content.Load<SpriteFont>(@"Fonts/TextFont");
 
-            button_texture[TEXTBOX_INDEX] = Content.Load<Texture2D>(@"Button/textbox");
-            button_texture[FULLSCREEN_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/fullscreen"); 
+            
 
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
@@ -377,6 +396,9 @@ namespace The_Apocalypse
                     graphics.IsFullScreen = !graphics.IsFullScreen;
                     graphics.ApplyChanges();
                     break;
+                case EXIT_BUTTON_INDEX:
+                    closeProgram = true;
+                    break;
                 default:
                     break;
             }
@@ -395,6 +417,8 @@ namespace The_Apocalypse
             Sound_Preview.Pan = 0;
             //ecrire dans un fichier!
         }
+
+
         Keys[] keysToCheck = new Keys[] { 
     Keys.A, Keys.B, Keys.C, Keys.D, Keys.E,
     Keys.F, Keys.G, Keys.H, Keys.I, Keys.J,

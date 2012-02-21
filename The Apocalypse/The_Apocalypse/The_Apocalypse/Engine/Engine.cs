@@ -20,6 +20,7 @@ namespace The_Apocalypse
         SpriteBatch spriteBatch;
         bool isPaused = false;
         Options options;
+        //DÉFINIR CLASSE level
 
         public Engine()
         {
@@ -77,7 +78,6 @@ namespace The_Apocalypse
         protected override void Update(GameTime gameTime)
         {
             KeyboardState newState = Keyboard.GetState();
-
             if (oldState.IsKeyDown(Keys.Escape) && newState.IsKeyUp(Keys.Escape))
             {
                 isPaused = !isPaused;
@@ -85,7 +85,13 @@ namespace The_Apocalypse
 
             if (isPaused)
             {
+                if (options.closeProgram)
+                    this.Exit();
                 options.update_buttons(gameTime);
+            }
+            else
+            {
+                //Jouer le jeu. Toutes les données seront modifiées. CLASSE level
             }
 
             oldState = newState;
@@ -106,6 +112,7 @@ namespace The_Apocalypse
                 options.setButtonData((this.Window.ClientBounds.Width / 2), (this.Window.ClientBounds.Height / 2));
                 options.Draw(gameTime, spriteBatch);
             }
+            //Afficher les données du jeu. Théoriquement les données ne devrait pas être modifier puisque l'update ne se fait pas. CLASSE level
             base.Draw(gameTime);
         }
     }
