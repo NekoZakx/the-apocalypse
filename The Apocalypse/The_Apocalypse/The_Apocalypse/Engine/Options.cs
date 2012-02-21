@@ -19,7 +19,7 @@ namespace The_Apocalypse
             JUST_RELEASED,
             DOWN
         }
-        const int NUMBER_OF_BUTTONS = 13,
+        const int NUMBER_OF_BUTTONS = 14,
             
             VOLUMEPLUS_BUTTON_INDEX = 0,
             VOLUMEMINUS_BUTTON_INDEX = 1,
@@ -34,6 +34,7 @@ namespace The_Apocalypse
             DEFAULT_BUTTON_INDEX = 10,
             APPLY_BUTTON_INDEX = 11,
             TEXTBOX_INDEX = 12,
+            FULLSCREEN_BUTTON_INDEX = 13,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
 
@@ -59,6 +60,7 @@ namespace The_Apocalypse
 
         SoundEffectInstance Sound_Preview;
         GraphicsDevice GraphicsDevice;
+        GraphicsDeviceManager graphics;
 
         public Options(int X,int Y)
         {
@@ -73,35 +75,52 @@ namespace The_Apocalypse
             contrastBlend.ColorSourceBlend = contrastBlend.AlphaSourceBlend = Blend.DestinationColor;
             contrastBlend.ColorDestinationBlend = contrastBlend.AlphaDestinationBlend = Blend.SourceColor;
 
+            setButtonData(X, Y);            
+        }
 
-
+        public void setButtonData(int X, int Y)
+        {
+            
             int x = X - BUTTON_WIDTH;
-            int y = Y - ((NUMBER_OF_BUTTONS/2) * BUTTON_HEIGHT)/2;
+            int y = Y - ((NUMBER_OF_BUTTONS / 2) * BUTTON_HEIGHT) / 2;
+
+            if (x == button_rectangle[TEXTBOX_INDEX].X && y == button_rectangle[TEXTBOX_INDEX].Y)
+                return;
 
             button_state[TEXTBOX_INDEX] = BState.UP;
             button_color[TEXTBOX_INDEX] = Color.White;
             button_timer[TEXTBOX_INDEX] = 0.0;
-            button_rectangle[TEXTBOX_INDEX] = new Rectangle(x, y, BUTTON_WIDTH*2, BUTTON_HEIGHT);
+            button_rectangle[TEXTBOX_INDEX] = new Rectangle(x, y, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+            y += BUTTON_HEIGHT;
+            button_state[FULLSCREEN_BUTTON_INDEX] = BState.UP;
+            button_color[FULLSCREEN_BUTTON_INDEX] = Color.White;
+            button_timer[FULLSCREEN_BUTTON_INDEX] = 0.0;
+            button_rectangle[FULLSCREEN_BUTTON_INDEX] = new Rectangle(x, y, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
             y += BUTTON_HEIGHT;
 
-            for (int i = 0; i < NUMBER_OF_BUTTONS - 1; i=i+2)
+            for (int i = 0; i < NUMBER_OF_BUTTONS; i = i + 2)
             {
-                button_state[i + 1] = BState.UP;
-                button_color[i + 1] = Color.White;
-                button_timer[i + 1] = 0.0;
-                button_rectangle[i + 1] = new Rectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
-                
-                button_state[i] = BState.UP;
-                button_color[i] = Color.White;
-                button_timer[i] = 0.0;
-                button_rectangle[i] = new Rectangle(x + BUTTON_WIDTH, y, BUTTON_WIDTH, BUTTON_HEIGHT);
-                y += BUTTON_HEIGHT;
+                if (i != TEXTBOX_INDEX && i != FULLSCREEN_BUTTON_INDEX)
+                {
+                    button_state[i + 1] = BState.UP;
+                    button_color[i + 1] = Color.White;
+                    button_timer[i + 1] = 0.0;
+                    button_rectangle[i + 1] = new Rectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+                    button_state[i] = BState.UP;
+                    button_color[i] = Color.White;
+                    button_timer[i] = 0.0;
+                    button_rectangle[i] = new Rectangle(x + BUTTON_WIDTH, y, BUTTON_WIDTH, BUTTON_HEIGHT);
+                    y += BUTTON_HEIGHT;
+                }
             }
         }
 
-        public void LoadTexture(ContentManager Content, GraphicsDevice GraphicsDevice)
+
+        public void LoadTexture(ContentManager Content, GraphicsDevice GraphicsDevice, GraphicsDeviceManager graphics)
         {
             this.GraphicsDevice = GraphicsDevice;
+            this.graphics = graphics;
             button_texture[VOLUMEPLUS_BUTTON_INDEX] =    Content.Load<Texture2D>(@"Button/volume+");
             button_texture[VOLUMEMINUS_BUTTON_INDEX] =   Content.Load<Texture2D>(@"Button/volume-");
 
@@ -123,6 +142,7 @@ namespace The_Apocalypse
             font = Content.Load<SpriteFont>(@"Fonts/TextFont");
 
             button_texture[TEXTBOX_INDEX] = Content.Load<Texture2D>(@"Button/textbox");
+            button_texture[FULLSCREEN_BUTTON_INDEX] = Content.Load<Texture2D>(@"Button/fullscreen"); 
 
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
@@ -271,13 +291,24 @@ namespace The_Apocalypse
                 {
                     spriteBatch.DrawString(font, contrast.ToString(), new Vector2(button_rectangle[i].X + BUTTON_WIDTH * 2 + 50, button_rectangle[i].Y), Color.White);
                 }
+                else if (i == FULLSCREEN_BUTTON_INDEX)
+                {
+                    spriteBatch.DrawString(font, graphics.IsFullScreen.ToString(), new Vector2(button_rectangle[i].X + BUTTON_WIDTH * 2 + 50, button_rectangle[i].Y), Color.White);
+                }
             }
-            if ((DateTime.Now - update).Milliseconds >= 500 && (DateTime.Now - update).Milliseconds < 1000)
-                spriteBatch.DrawString(font, inputText + "|", new Vector2(button_rectangle[TEXTBOX_INDEX].X, button_rectangle[TEXTBOX_INDEX].Y + 5), Color.Black);
-            else if ((DateTime.Now - update).Milliseconds >= 0 && (DateTime.Now - update).Milliseconds < 500)
-                spriteBatch.DrawString(font, inputText, new Vector2(button_rectangle[TEXTBOX_INDEX].X, button_rectangle[TEXTBOX_INDEX].Y + 5), Color.Black);
+            if (inputBool)
+            {
+                if ((DateTime.Now - update).Milliseconds >= 500 && (DateTime.Now - update).Milliseconds < 1000)
+                    spriteBatch.DrawString(font, inputText + "|", new Vector2(button_rectangle[TEXTBOX_INDEX].X + BUTTON_WIDTH - (font.MeasureString(inputText).Length() / 2), button_rectangle[TEXTBOX_INDEX].Y + 5), Color.Black);
+                else if ((DateTime.Now - update).Milliseconds >= 0 && (DateTime.Now - update).Milliseconds < 500)
+                    spriteBatch.DrawString(font, inputText, new Vector2(button_rectangle[TEXTBOX_INDEX].X + BUTTON_WIDTH - (font.MeasureString(inputText).Length() / 2), button_rectangle[TEXTBOX_INDEX].Y + 5), Color.Black);
+                else
+                    update = DateTime.Now;
+            }
             else
-                update = DateTime.Now ;
+            {
+                spriteBatch.DrawString(font, inputText, new Vector2(button_rectangle[TEXTBOX_INDEX].X + BUTTON_WIDTH - (font.MeasureString(inputText).Length() / 2), button_rectangle[TEXTBOX_INDEX].Y + 5), Color.Black);
+            }
             spriteBatch.End();
             
         }
@@ -339,6 +370,10 @@ namespace The_Apocalypse
                 case TEXTBOX_INDEX:
                     inputBool = true;
                     break;
+                case FULLSCREEN_BUTTON_INDEX:
+                    graphics.IsFullScreen = !graphics.IsFullScreen;
+                    graphics.ApplyChanges();
+                    break;
                 default:
                     break;
             }
@@ -363,7 +398,7 @@ namespace The_Apocalypse
     Keys.K, Keys.L, Keys.M, Keys.N, Keys.O,
     Keys.P, Keys.Q, Keys.R, Keys.S, Keys.T,
     Keys.U, Keys.V, Keys.W, Keys.X, Keys.Y,
-    Keys.Z, Keys.Back, Keys.Space };
+    Keys.Z, Keys.Back, Keys.Space, Keys.Enter };
 
         KeyboardState currentKeyboardState;
         KeyboardState lastKeyboardState;
@@ -471,6 +506,9 @@ namespace The_Apocalypse
                     break;
                 case Keys.Space:
                     newChar += " ";
+                    break;
+                case Keys.Enter:
+                    inputBool = false;
                     break;
                 case Keys.Back:
                     if (inputText.Length != 0)
