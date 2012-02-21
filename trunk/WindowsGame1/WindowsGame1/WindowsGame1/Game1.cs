@@ -222,7 +222,7 @@ namespace WindowsGame1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         KeyboardState oldState = Keyboard.GetState();
         float M = 0, B = 0;
-        int x = 0, ms_X, ms_Y, p_X, p_Y;
+        float x = 0, ms_X, ms_Y, p_X, p_Y;
         protected override void Update(GameTime gameTime)
         {
             MouseState ms = Mouse.GetState();
@@ -265,19 +265,12 @@ namespace WindowsGame1
             {
                 if (ms_X - p_X < 0)
                 {
-                    if ((DateTime.Now - UpdatePosition).Milliseconds >= 10)
-                    {
-                        UpdatePosition = DateTime.Now;
-                        x--;
-                    }else
-
-                    if((DateTime.Now - UpdatePosition).Milliseconds >= 10)
-                    {
-                        UpdatePosition = DateTime.Now;
-                        x++;
-                    }
+                    x -= (1/(Math.Abs(M) + 1)) * 20;
                 }
-
+                else
+                {
+                    x += (1 / (Math.Abs(M) + 1)) * 20;
+                }
                 laserPosition.X = x + p_X;
                 laserPosition.Y = (M * laserPosition.X) + B;
             }
@@ -285,17 +278,21 @@ namespace WindowsGame1
             // Tire le laser
             if (ms.LeftButton == ButtonState.Pressed)
             {
-                ms_X = mouse_state.X;
-                ms_Y = mouse_state.Y;
-                p_X = (int)location.X;
-                p_Y = (int)location.Y;
-                try
+                if (!shooted)
                 {
-                    M = ((ms_Y - p_Y) / (ms_X - p_X));
+                    ms_X = mouse_state.X;
+                    ms_Y = mouse_state.Y;
+                    p_X = (int)location.X;
+                    p_Y = (int)location.Y;
+                    x = 0;
+                    try
+                    {
+                        M = ((ms_Y - p_Y) / (ms_X - p_X));
+                    }
+                    catch (Exception e) { M = 0; }
+                    B = p_Y - (M * p_X);
+                    shootLaser();
                 }
-                catch (Exception e) { M = 1; }
-                B = p_Y - (M * p_X);
-                shootLaser();
             }
 
             KeyboardState newState = Keyboard.GetState();
