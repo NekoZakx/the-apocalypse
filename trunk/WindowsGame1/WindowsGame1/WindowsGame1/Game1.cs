@@ -52,6 +52,7 @@ namespace WindowsGame1
         double frame_time;
         SFXBank sb;
 
+        DateTime UpdatePosition;
 
         Texture2D laser;
         Vector2 laserPosition;
@@ -112,6 +113,8 @@ namespace WindowsGame1
             dst.Height = src.Height;
             dst2.Width = src2.Width;
             dst2.Height = src2.Height;
+
+            UpdatePosition = DateTime.Now;
 
             //Definition de la taille de jeu maximal, Pour améliorer la qualité il faudrait "strech" les éléments
             this.graphics.PreferredBackBufferWidth = 960;
@@ -218,6 +221,8 @@ namespace WindowsGame1
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         KeyboardState oldState = Keyboard.GetState();
+        float M = 0, B = 0;
+        int x = 0, ms_X, ms_Y, p_X, p_Y;
         protected override void Update(GameTime gameTime)
         {
             MouseState ms = Mouse.GetState();
@@ -227,6 +232,7 @@ namespace WindowsGame1
             my = mouse_state.Y;
             prev_mpressed = mpressed;
             mpressed = mouse_state.LeftButton == ButtonState.Pressed;
+            
 
             if (!isDoneDrawing)
             {
@@ -251,18 +257,46 @@ namespace WindowsGame1
 
             // Si le laser n'est plus visible et qu'il a été tiré
             // On ne le met plus à jour
-            if (shooted && laserPosition.Y + laser.Height <= 0)
+            if (shooted && laserPosition.Y <= 0 || laserPosition.X <= 0 || laserPosition.Y >= this.Window.ClientBounds.Height || laserPosition.X >= this.Window.ClientBounds.Width)
                 shooted = false; // On peut maintenant retirer un autre laser
 
             // Si le laser a été tiré on le fait monter
             if (shooted)
             {
-                laserPosition.Y -= laserSpeed;
+                if (ms_X - p_X < 0)
+                {
+                    if ((DateTime.Now - UpdatePosition).Milliseconds >= 10)
+                    {
+                        UpdatePosition = DateTime.Now;
+                        x--;
+                    }else
+
+                    if((DateTime.Now - UpdatePosition).Milliseconds >= 10)
+                    {
+                        UpdatePosition = DateTime.Now;
+                        x++;
+                    }
+                }
+
+                laserPosition.X = x + p_X;
+                laserPosition.Y = (M * laserPosition.X) + B;
             }
 
             // Tire le laser
             if (ms.LeftButton == ButtonState.Pressed)
+            {
+                ms_X = mouse_state.X;
+                ms_Y = mouse_state.Y;
+                p_X = (int)location.X;
+                p_Y = (int)location.Y;
+                try
+                {
+                    M = ((ms_Y - p_Y) / (ms_X - p_X));
+                }
+                catch (Exception e) { M = 1; }
+                B = p_Y - (M * p_X);
                 shootLaser();
+            }
 
             KeyboardState newState = Keyboard.GetState();
             // Allows the game to exit
