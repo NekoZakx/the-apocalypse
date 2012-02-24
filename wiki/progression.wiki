@@ -29,6 +29,7 @@ Le diagramme de classe est disponible à l'adresse suivante: <a href="http://dl.
 
 Le principe d'envoyer un projectile dans tout jeux vidéo est exprimé selon des formules mathématiques. Puisque la balle est vu comme étant un point sur un plan cartésien où le X et le Y sont strictement positive. Soit la balle dessine une formule de degrée 1 (Une Droite de forme Y = MX + B).
 
+
 Soit M la pente que la balle parcourera dans l'espace du jeu.
 Soit X la position sur laquel la balle se déplacera.
 Il est important de prendre note qu'une droite n'ayant aucune pente doit avoir la même vitesse qu'une pente incliné ou complètement vertical.
@@ -37,7 +38,67 @@ Soit B la valeur de Y lors que X = 0.
 La variable M se calcul très simplement par la formule du taux de variation qui va comme suit:
 
 <pre>
-△Y    Position_souris_Y - Position_joueur_Y
---- = --------------------------------------
-△X    Position_souris_X - Position_joueur_X
+     △Y    Position_souris_Y - Position_joueur_Y
+M = ---- = --------------------------------------
+     △X    Position_souris_X - Position_joueur_X
+</pre>
+
+Maintenant que la pente est trouvé, il est possible de trouvé la valeur de B:
+
+<pre>
+B = Position_joueur_Y - (M * Position_joueur_X)
+</pre>
+
+Maintenant que M et B sont trouvé, la trajectoire de la balle est connus. Il faut trouvé de quel côté la balle doit parcourir cette trajectoire:
+
+
+<pre>
+Le joueur regarde à gauche si:
+Position_souris_X - Position_joueur_X est vrai quand le résultat est < 0
+Le joueur regarde à droite si la première condition est fausse.
+</pre>
+
+Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat.
+
+<pre>
+Démonstration:
+Pour X ayant une pente de 0, 
+la vitesse du parcours de la droite sera de N
+
+Pour X ayant une pente de 1,
+la vitesse du parcours de la droite sera de 2N
+
+Pour X ayant une pente de 2,
+la vitesse du parcours de la droite sera de 4N
+
+La formule global est donc de (2^m)*N, soit une formule exponentiel.
+</pre>
+
+La formule global résultante pour chaque variation de la pente doit être  d'ordre exponentiel pour que la ratio de vitesse de pente 0 soit équivalent à la pente N. Cependant on ne veut pas que la vitesse augmente exponentiellement comme dans la démonstration, nous voulons plutôt qu'elle se retrouve à perdre de la vitesse exponentiellement.
+
+<pre>
+Nouvelle formule Global: X = X +(1/(|M| + 1))
+
+Pour X ayant une pente de -1 et X = 0,
+X = (1/(|-1| + 1))
+X = 1/2
+
+Pour X ayant une pente de 0 et X = 0,
+X = (1/(|0| + 1))
+X = 1
+
+Pour X ayant une pente de 1 et X = 0,
+X = (1/(|1| + 1))
+X = 1/2
+
+Pour X ayant une pente de 1 et X = 0,
+X = (1/(|1| + 1))
+X = 1/2
+
+Pour X ayant une pente de 2 et X = 0,
+X = (1/(|2| + 1))
+X = 1/3
+
+Une pente de 1 est 2 fois plus rapide qu'une pente de 0. (Démonstration)
+Donc elle doit être 2 fois moins vite pour égaler la pente de 0. ■(CQFD)
 </pre>
