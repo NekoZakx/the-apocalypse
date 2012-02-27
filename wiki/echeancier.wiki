@@ -1,10 +1,10 @@
 = Échéancier =
 
-<table border="1" cellspacing="0" cellpadding="2" dir="ltr">
+<table border="1" cellspacing="0" cellpadding="2" >
 <tr>
    <td>En Date du</td>
    <td>Tâche à effectuer</td>
-   <td>Effectif (nombre de personne)</td>
+   <td width="240px">Effectif (nombre de personne)</td>
    <td>Nombre d’heures</td>
    <td>Pondération</td>
 </tr>
@@ -13,7 +13,11 @@
    <td>Semaine du 23 au 29 Janvier</td>
    <td>Rédactions des divers analyses constituant la base du projet et formation à Team Foundation Server (TFS)
    </td>
-   <td>3 - Analyses</td>
+   <td>
+       <table>
+            <tr><td>3 - Analyses</td></tr>
+       </table>
+   </td>
    <td>12</td>
    <td></td>
 </tr>
@@ -21,7 +25,13 @@
 <tr>
    <td>Semaine du 30 au 5 Février</td>
    <td>Suite de la rédaction des analyses et développement de module critique du projet</td>
-   <td>1 - Analyses<br />1 - Analyses &<br />Développement<br />1 - Développement</td>
+   <td>
+       <table>
+            <tr><td>1 - Analyses</td></tr>
+            <tr><td>1 - Analyses & Développement</td></tr>
+            <tr><td>1 - Développement</td></tr>
+       </table>
+   </td>
    <td>12</td>
    <td></td>
 </tr>
@@ -30,7 +40,12 @@
    <td>Semaine du 6 au 12 Février</td>
    <td>Développement de la base du projet et test des divers modules préconçus.
    </td>
-   <td>1 - Tests modules 2 - Développement</td>
+   <td>
+      <table>
+            <tr><td>1 - Tests modules</td></tr>
+            <tr><td>2 - Développement</td></tr>
+       </table>       
+   </td>
    <td>12</td>
    <td></td>
 </tr>
@@ -38,7 +53,13 @@
 <tr>
    <td>Semaine du 13 au 19 Février</td>
    <td>Importation des modules conçus et préparation de la présentation du projet pour notre professeur</td>
-   <td>1 - Importation 2 - Préparation de la Présentation 3 - Présentation</td>
+   <td>
+       <table>
+            <tr><td>1 - Importation</td></tr>
+            <tr><td>2 - Préparation de la Présentation</td></tr>
+            <tr><td>3 - Présentation</td></tr>
+       </table>        
+   </td>
    <td>12</td>
    <td></td>
 </tr>
@@ -46,18 +67,29 @@
 <tr>
    <td>Semaine du 20 au 26 Février</td>
    <td>Retour sur l’état actuel du projet et ajustements.Programmation des personnages.</td>
-   <td>3 - Réunion Retour 3 - Ajustement 2 - Programmation
-Personnages 1 - Programmation Monstres</td>
+   <td>
+       <table>
+            <tr><td>3 - Réunion Retour</td></tr>
+            <tr><td>3 - Ajustement</td></tr>
+            <tr><td>2 - Programmation Personnages</td></tr>
+            <tr><td>1 - Programmation Monstres</td></tr>
+       </table> 
+   </td>
    <td>8</td>
    <td></td>
 </tr>
 
 <tr>
-   <td></td>
-   <td></td>
-   <td></td>
-   <td></td>
-   <td></td>
+   <td>Semaine du 27 au 4 Mars</td>
+   <td>Programmation des monstres.Programmation des animations pour les personnages et les monstres.</td>
+   <td>
+       <table>
+            <tr><td>3 - Programmation Monstres</td></tr>
+            <tr><td>2 - Programmation Animation</td></tr>
+       </table>
+   </td>
+   <td>8</td>
+   <td>50%, varie selon le temps de travail.</td>
 </tr>
 
 <tr>
