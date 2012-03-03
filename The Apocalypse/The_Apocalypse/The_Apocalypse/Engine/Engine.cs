@@ -87,6 +87,7 @@ namespace The_Apocalypse
             if (oldState.IsKeyDown(Keys.Escape) && newState.IsKeyUp(Keys.Escape))
             {
                 isPaused = !isPaused;
+                options.LoadPreferenceData();
             }
 
             if (isPaused)

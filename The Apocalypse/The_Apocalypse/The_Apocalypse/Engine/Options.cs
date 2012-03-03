@@ -170,6 +170,8 @@ namespace The_Apocalypse
             whiteTexture.SetData<Color>(new Color[] { Color.White });
 
             Sound_Preview = (Content.Load<SoundEffect>(@"SoundFX/pistolshoot")).CreateInstance();
+
+            LoadPreferenceData();
         }
 
         // wrapper for hit_image_alpha taking Rectangle and Texture
@@ -415,10 +417,18 @@ namespace The_Apocalypse
                     break;
             }
         }
-
+        public void LoadPreferenceData()
+        {
+            //Load from Database.sdf
+            brightness = 255;
+            contrast = 128;
+            Sound_Preview.Volume = 1;
+            Sound_Preview.Pitch = 0;
+            Sound_Preview.Pan = 0;
+        }
         void ApplyChanges()
         {
-            //Ecrire dans un fichier!
+            //Save to Database.sdf
         }
         void DefaultConfig()
         {
@@ -427,7 +437,7 @@ namespace The_Apocalypse
             Sound_Preview.Volume = 1;
             Sound_Preview.Pitch = 0;
             Sound_Preview.Pan = 0;
-            //ecrire dans un fichier!
+            //Save to Database.sdf
         }
 
 

@@ -55,6 +55,7 @@ namespace The_Apocalypse
 
         public void LoadPreferenceData()
         {
+            //Load from Database.sdf
             brightness = 100;
             contrast = 128;
         }
