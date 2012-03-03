@@ -111,6 +111,7 @@
     <Compile Include="Character\Character.cs" />
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Character\Monster.cs" />
+    <Compile Include="Engine\MainMenu.cs" />
     <Compile Include="Engine\Options.cs" />
     <Compile Include="Character\Player.cs" />
     <Compile Include="Engine\Position.cs" />
