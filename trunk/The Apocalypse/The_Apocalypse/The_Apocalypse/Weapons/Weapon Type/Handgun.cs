@@ -100,9 +100,7 @@ namespace The_Apocalypse
             }
         }
 
-        public Handgun()
-        {
-        }
+        public Handgun(){}
 
         public void shoot()
         {
