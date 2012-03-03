@@ -437,6 +437,8 @@ namespace The_Apocalypse
             Sound_Preview.Volume = 1;
             Sound_Preview.Pitch = 0;
             Sound_Preview.Pan = 0;
+            inputText = "Player";
+            graphics.IsFullScreen = false;
             //Save to Database.sdf
         }
 
