@@ -52,11 +52,6 @@
     <Folder Include="SpriteSheet\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button\handgun.png">
-      <Name>handgun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Button\pan+.png">
       <Name>pan+</Name>
       <Importer>TextureImporter</Importer>
@@ -84,16 +79,6 @@
     </Compile>
     <Compile Include="Button\volume-.png">
       <Name>volume-</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Button\zombie1.png">
-      <Name>zombie1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Button\zombie2.png">
-      <Name>zombie2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -173,6 +158,13 @@
     </Compile>
     <Compile Include="Button\mainmenu.png">
       <Name>mainmenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Button\play.png">
+      <Name>play</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

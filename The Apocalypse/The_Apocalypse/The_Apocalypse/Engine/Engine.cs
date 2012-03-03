@@ -18,9 +18,10 @@ namespace The_Apocalypse
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        bool isPaused = false;
+        bool isPaused = false, isMainMenu = true;
         Options options;
-        //DÉFINIR CLASSE level
+        MainMenu main;
+        Level game;
 
         public Engine()
         {
@@ -43,6 +44,9 @@ namespace The_Apocalypse
             this.IsMouseVisible = true;
 
             options = new Options((this.Window.ClientBounds.Width / 2),(this.Window.ClientBounds.Height / 2));
+            main = new MainMenu();
+            game = new Level();
+            game.initialize(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 
             base.Initialize();
         }
@@ -56,6 +60,8 @@ namespace The_Apocalypse
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             options.LoadTexture(Content, GraphicsDevice, graphics);
+            main.LoadTexture(Content);
+            game.LoadContent(GraphicsDevice);
             // TODO: use this.Content to load your game content here
         }
 
@@ -91,7 +97,15 @@ namespace The_Apocalypse
             }
             else
             {
-                //Jouer le jeu. Toutes les données seront modifiées. CLASSE level
+                if (isMainMenu)
+                {
+                    if (main.closeProgram)
+                        this.Exit();
+                    if (main.play)
+                        this.isMainMenu = false;
+                    main.update_buttons(gameTime);
+                }
+                //Update du jeu.
             }
 
             oldState = newState;
@@ -107,12 +121,25 @@ namespace The_Apocalypse
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
+            if (isMainMenu)
+            {
+                main.Draw(gameTime, spriteBatch);
+            }
+            else
+            {
+                //Draw du jeu. Dès que le play est appuyer on rentre ici.
+            }
             if (isPaused)
             {
                 options.setButtonData((this.Window.ClientBounds.Width / 2), (this.Window.ClientBounds.Height / 2));
                 options.Draw(gameTime, spriteBatch);
             }
-            //Afficher les données du jeu. Théoriquement les données ne devrait pas être modifier puisque l'update ne se fait pas. CLASSE level
+            else
+            {
+                //Control brightness/contrast, in else to desactivate it for option preview
+                game.DrawContrastAndBrightness(spriteBatch);
+            }
+            
             base.Draw(gameTime);
         }
     }

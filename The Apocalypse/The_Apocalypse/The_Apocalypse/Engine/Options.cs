@@ -259,7 +259,7 @@ namespace The_Apocalypse
                     }
                 }
 
-                if (button_state[i] == BState.JUST_RELEASED)
+                if (button_state[i] == BState.DOWN)
                 {
                     take_action_on_button(i);
                 }
@@ -343,33 +343,45 @@ namespace The_Apocalypse
             {
                 case VOLUMEPLUS_BUTTON_INDEX:
                     Sound_Preview.Play();
-                    if (Sound_Preview.Volume + (float)0.1 <= 1)
-                        Sound_Preview.Volume += (float)0.1;
+                    if (Sound_Preview.Volume + (float)0.01 <= 1)
+                        Sound_Preview.Volume += (float)0.01;
+                    else if (Sound_Preview.Volume + (float)0.01 >= 1)
+                        Sound_Preview.Volume = 1;
                     break;
                 case VOLUMEMINUS_BUTTON_INDEX:
                     Sound_Preview.Play();
-                    if (Sound_Preview.Volume - (float)0.1 >= 0)
-                        Sound_Preview.Volume -= (float)0.1;
+                    if (Sound_Preview.Volume - (float)0.01 >= 0)
+                        Sound_Preview.Volume -= (float)0.01;
+                    else if (Sound_Preview.Volume - (float)0.01 < 0)
+                        Sound_Preview.Volume = 0;
                     break;
                 case PITCHPLUS_BUTTON_INDEX:
                     Sound_Preview.Play();
-                    if (Sound_Preview.Pitch + (float)0.1 <= 1)
-                        Sound_Preview.Pitch += (float)0.1;
+                    if (Sound_Preview.Pitch + (float)0.01 <= 1)
+                        Sound_Preview.Pitch += (float)0.01;
+                    else if (Sound_Preview.Pitch + (float)0.01 >= 1)
+                        Sound_Preview.Pitch = 1;
                     break;
                 case PITCHMINUS_BUTTON_INDEX:
                     Sound_Preview.Play();
-                    if (Sound_Preview.Pitch - (float)0.1 >= -1)
-                        Sound_Preview.Pitch -= (float)0.1;
+                    if (Sound_Preview.Pitch - (float)0.01 >= -1)
+                        Sound_Preview.Pitch -= (float)0.01;
+                    else if (Sound_Preview.Pitch - (float)0.01 <= -1)
+                        Sound_Preview.Pitch = -1;
                     break;
                 case PANPLUS_BUTTON_INDEX:
                     Sound_Preview.Play();
-                    if (Sound_Preview.Pan + (float)0.1 <= 1)
-                        Sound_Preview.Pan += (float)0.1;
+                    if (Sound_Preview.Pan + (float)0.01 <= 1)
+                        Sound_Preview.Pan += (float)0.01;
+                    else if (Sound_Preview.Pan + (float)0.01 >= 1)
+                        Sound_Preview.Pan = 1;
                     break;
                 case PANMINUS_BUTTON_INDEX:
                     Sound_Preview.Play();
-                    if (Sound_Preview.Pan - (float)0.1 >= -1)
-                        Sound_Preview.Pan -= (float)0.1;
+                    if (Sound_Preview.Pan - (float)0.01 >= -1)
+                        Sound_Preview.Pan -= (float)0.01;
+                    else if (Sound_Preview.Pan - (float)0.01 <= -1)
+                        Sound_Preview.Pan = -1;
                     break;
                 case BRIGHTNESSPLUS_BUTTON_INDEX:
                     brightness++;
