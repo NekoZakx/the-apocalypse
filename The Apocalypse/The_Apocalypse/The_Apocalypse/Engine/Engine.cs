@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.IO;
 
 namespace The_Apocalypse
 {
@@ -42,11 +43,32 @@ namespace The_Apocalypse
 
             //Définit si l'on voit la souris ou non. Nous pouvons la généré.
             this.IsMouseVisible = true;
+            if (!File.Exists("Preference.xml"))
+            {
+                //First Logon Process
+
+                XmlReaderWriter file = new XmlReaderWriter();
+                file.OpenWrite("Preference.xml");
+
+                file.WriteCategory("Preference");
+
+                file.WriteNextTextNode("username", "Player");
+                file.WriteNextTextNode("brightness", "255");
+                file.WriteNextTextNode("contrast", "128");
+                file.WriteNextTextNode("volume", "1");
+                file.WriteNextTextNode("pitch", "0");
+                file.WriteNextTextNode("pan", "0");
+                file.WriteNextTextNode("fullscreen", "False");
+
+                file.WriteEndCategory();
+
+                file.WriteClose();
+            }
 
             options = new Options((this.Window.ClientBounds.Width / 2),(this.Window.ClientBounds.Height / 2));
             main = new MainMenu();
             game = new Level();
-            game.initialize(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+            game.initialize(this.graphics.PreferredBackBufferWidth, this.graphics.PreferredBackBufferHeight);
 
             base.Initialize();
         }
