@@ -11,7 +11,7 @@ namespace The_Apocalypse
 		string login; //Le nom d'utilisateur.
 		string password; //Le mot de passe de l'utilisateur.
 		string schema; //Le schéma dans lequel on fera les requêtes.
-        OdbcConnection BD; //L'objet OdbcConnection qui sera utilisée dans les fonctions de cette classe.
+        OdbcConnection DB; //L'objet OdbcConnection qui sera utilisée dans les fonctions de cette classe.
         bool connected = false; //Cette variable permet aux fonctions de savoir si la connexion est faite ou non.
 		
         //Ce constructeur s'applique si on ne spécifie pas de driver quand on instancie la classe BD.
@@ -38,8 +38,8 @@ namespace The_Apocalypse
         {
             if (!connected) //Si la connexion n'est pas déjà faite...
             {
-                BD = new OdbcConnection("Driver={"+this.driver+"};Server="+this.server+";Database="+this.schema+";Uid="+this.login+";Pwd="+this.password+";Trusted_connection=no"); //La connexion vers la BD est créée ici.
-                BD.Open(); //La connexion est faite.
+                DB = new OdbcConnection("Driver={"+this.driver+"};Server="+this.server+";Database="+this.schema+";Uid="+this.login+";Pwd="+this.password+";Trusted_connection=no"); //La connexion vers la BD est créée ici.
+                DB.Open(); //La connexion est faite.
                 connected = true; //On confirme la connexion grâce à cette variable.
             }
         }
@@ -49,7 +49,7 @@ namespace The_Apocalypse
         {
             if (connected) //Si la connexion est faite...
             {
-                OdbcCommand command = new OdbcCommand(query, BD); //La requête vers la BD est créée ici.
+                OdbcCommand command = new OdbcCommand(query, DB); //La requête vers la BD est créée ici.
                 command.ExecuteNonQuery(); //La requête est exécutée.
             }
         }
@@ -62,7 +62,7 @@ namespace The_Apocalypse
             if (connected) //Si la connexion est faite...
             {
                 List<object[]> retour = new List<object[]>(); //La liste de tableaux d'objets est créée ici.
-                OdbcCommand command = new OdbcCommand(query, BD); //La requête vers la BD est créée ici.
+                OdbcCommand command = new OdbcCommand(query, DB); //La requête vers la BD est créée ici.
                 OdbcDataReader resultat = command.ExecuteReader(); //Les résultats de la requête sont mits ici.
                 while (resultat.Read()) //Cette boucle remplit la liste de tableaux d'objets "retour", selon le nombre de lignes dans les résultats.
                 {
@@ -81,7 +81,7 @@ namespace The_Apocalypse
         {
             if (connected) //Si la connexion est faite...
             {
-                BD.Close(); //On la défait.
+                DB.Close(); //On la défait.
                 connected = false; //Et on met la variable de confirmation à false.
             }
         }
