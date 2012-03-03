@@ -25,13 +25,29 @@ namespace The_Apocalypse
             set;
         }
 
-        /*float speed;
+        float speed
+        {
+            get;
+            set;
+        }
 
-        bool touchZombie;
+        bool touchZombie
+        {
+            get;
+            set;
+        }
 
-        bool melee;
+        bool melee
+        {
+            get;
+            set;
+        }
 
-        Area area;*/
+        Area area
+        {
+            get;
+            set;
+        }
 
         void shoot();
     }
