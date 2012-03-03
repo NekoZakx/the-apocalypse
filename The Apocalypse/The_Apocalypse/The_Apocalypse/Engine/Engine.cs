@@ -110,6 +110,7 @@ namespace The_Apocalypse
             {
                 isPaused = !isPaused;
                 options.LoadPreferenceData();
+                game.LoadPreferenceData();
             }
 
             if (isPaused)
