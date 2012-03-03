@@ -55,9 +55,13 @@ namespace The_Apocalypse
 
         public void LoadPreferenceData()
         {
-            //Load from Database.sdf
-            brightness = 100;
-            contrast = 128;
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            brightness = Int32.Parse(file.FindReadNode("brightness"));
+            contrast = Int32.Parse(file.FindReadNode("contrast"));
+
+            file.ReadClose();
         }
     }
 }

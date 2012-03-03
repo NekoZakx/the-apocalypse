@@ -64,5 +64,17 @@ namespace The_Apocalypse
             textWriter.WriteEndDocument();
             textWriter.Close();
         }
+
+        public string FindReadNode(string NodeName)
+        {
+            textReader = new XmlTextReader(textReader.BaseURI);
+            do
+            {
+                textReader.Read();
+            } while (textReader.NodeType != XmlNodeType.Element || textReader.Name != NodeName);
+            textReader.Read();
+
+            return textReader.Value.ToString();
+        }
     }
 }
