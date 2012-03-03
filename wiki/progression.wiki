@@ -72,7 +72,7 @@ la vitesse du parcours de la droite sera de 4N
 La formule global est donc de (2^m)*N, soit une formule exponentiel.
 </pre>
 
-La formule global résultante pour chaque variation de la pente doit être  d'ordre exponentiel pour que la ratio de vitesse de pente 0 soit équivalent à la pente N. Cependant on ne veut pas que la vitesse augmente exponentiellement comme dans la démonstration, nous voulons plutôt qu'elle se retrouve à perdre de la vitesse exponentiellement.
+La formule global résultante pour chaque variation de la pente doit être  d'ordre exponentiel pour que la ratio de vitesse de pente 0 soit équivalent à la pente N. Cependant on ne veut pas que la vitesse augmente exponentiellement comme dans la démonstration, nous voulons plutôt qu'elle se retrouve à perdre de la vitesse sur une fonction d'ordre logarithmique.
 
 <pre>
 Nouvelle formule Global: X = X ± (1/(|M| + 1))
