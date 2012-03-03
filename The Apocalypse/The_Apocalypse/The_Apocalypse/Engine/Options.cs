@@ -396,16 +396,20 @@ namespace The_Apocalypse
                         Sound_Preview.Pan = -1;
                     break;
                 case BRIGHTNESSPLUS_BUTTON_INDEX:
-                    brightness++;
+                    if(brightness <= 255)
+                        brightness++;
                     break;
                 case BRIGHTNESSMINUS_BUTTON_INDEX:
-                    brightness--;
+                    if (brightness >= 50)
+                        brightness--;
                     break;
                 case CONTRASSPLUS_BUTTON_INDEX:
-                    contrast++;
+                    if (contrast <= 255)
+                        contrast++;
                     break;
                 case CONTRASSMINUS_BUTTON_INDEX:
-                    contrast--;
+                    if (contrast >= 0)
+                        contrast--;
                     break;
                 case APPLY_BUTTON_INDEX:
                     ApplyChanges();
