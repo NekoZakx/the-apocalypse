@@ -2,42 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace The_Apocalypse
 {
     class Normal : Monster
     {
-
-        private string _name = "Normal";
-        private int _damage = 1;
-        private int _hp = 20;
-        private Area _area; //À faire (Zone::Near)
+        private string __name = "Normal";
+        private int __damage = 1;
+        private int __hp = 20;
+        private Area __area; //À faire (Area::Near)
 
         public Normal()
         {
         }
 
-        public int damage
+        public int _damage
         {
             get
             {
-                return _damage;
+                return __damage;
             }
             set
             {
-                _damage = value;
+                __damage = value;
             }
         }
 
-        public Area area
+        public Area _area
         {
             get
             {
-                return _area;
+                return __area;
             }
             set
             {
-                _area = value;
+                __area = value;
             }
         }
 
