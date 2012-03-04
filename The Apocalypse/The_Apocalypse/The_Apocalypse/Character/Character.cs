@@ -25,6 +25,8 @@ namespace The_Apocalypse
             set;
         }
 
+        void move(float angle);
+
         void Update(GameTime gameTime);
 
         void Draw(GameTime gameTime);

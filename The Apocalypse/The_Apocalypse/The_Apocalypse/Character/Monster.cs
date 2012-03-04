@@ -61,6 +61,10 @@ namespace The_Apocalypse
             }
         }
 
+        public void move(float angle)
+        {
+        }
+
         public void Update(GameTime gameTime)
         {
             //À faire

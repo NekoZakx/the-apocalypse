@@ -74,6 +74,10 @@ namespace The_Apocalypse
             _weapon.shoot();
         }
 
+        public void move(float angle)
+        {
+        }
+
         public void Update(GameTime gameTime)
         {
             //À faire
@@ -86,7 +90,6 @@ namespace The_Apocalypse
 
         public void LoadContent(ContentManager contentManager)
         {
-            //À faire
         }
     }
 }
