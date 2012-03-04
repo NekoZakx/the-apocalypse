@@ -25,7 +25,7 @@ namespace The_Apocalypse
             XmlReaderWriter file = new XmlReaderWriter();
             file.OpenRead("Preference.xml");
 
-            _position = new Position(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
+            _position = new Position(Int32.Parse(file.FindReadNode("width"))/2, Int32.Parse(file.FindReadNode("height"))/2);
 
             file.ReadClose();
         }
