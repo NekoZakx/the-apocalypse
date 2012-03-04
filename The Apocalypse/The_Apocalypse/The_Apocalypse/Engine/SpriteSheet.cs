@@ -31,9 +31,9 @@ namespace The_Apocalypse
             return sheet[nuFrame];
         }
 
-        public void setCurrentFrame(int currentFrame)
+        public void setCurrentFrame(int nuFrame)
         {
-            this.currentFrame = currentFrame;
+            this.currentFrame = nuFrame;
         }
 
         public int getCurrentFrame()
