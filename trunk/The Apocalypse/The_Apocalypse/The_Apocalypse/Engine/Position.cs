@@ -15,15 +15,16 @@ namespace The_Apocalypse
             this.x = x;
             this.y = y;
         }
-
-        public int X()
+        public int X
         {
-            return x;
+            get{return x;}
+            set{x = value;}
         }
 
-        public int Y()
+        public int Y
         {
-            return y;
+            get{return y;}
+            set{y = value;}
         }
     }
 }
