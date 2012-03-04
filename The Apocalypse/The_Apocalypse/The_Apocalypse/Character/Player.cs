@@ -215,6 +215,7 @@ namespace The_Apocalypse
         public void Update(GameTime gameTime)
         {
             orientation();
+            move(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
