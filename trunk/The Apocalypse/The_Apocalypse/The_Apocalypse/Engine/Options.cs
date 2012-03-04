@@ -104,6 +104,8 @@ namespace The_Apocalypse
 
             buttons[APPLY_BUTTON_INDEX].oneClick = true;
             buttons[DEFAULT_BUTTON_INDEX].oneClick = true;
+            buttons[MAINMENU_BUTTON_INDEX].oneClick = true;
+            buttons[EXIT_BUTTON_INDEX].oneClick = true;
         }
         
         public void setButtonData(int X, int Y)
@@ -135,6 +137,8 @@ namespace The_Apocalypse
 
             buttons[APPLY_BUTTON_INDEX].oneClick = true;
             buttons[DEFAULT_BUTTON_INDEX].oneClick = true;
+            buttons[MAINMENU_BUTTON_INDEX].oneClick = true;
+            buttons[EXIT_BUTTON_INDEX].oneClick = true;
         }
 
 
@@ -192,7 +196,7 @@ namespace The_Apocalypse
         
 
         DateTime update = DateTime.Now;
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
 
             spriteBatch.Begin(SpriteSortMode.Immediate, brightnessBlend);

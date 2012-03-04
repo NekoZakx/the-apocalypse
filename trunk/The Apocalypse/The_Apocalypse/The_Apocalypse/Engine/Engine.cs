@@ -85,7 +85,7 @@ namespace The_Apocalypse
             spriteBatch = new SpriteBatch(GraphicsDevice);
             options.LoadTexture(Content, GraphicsDevice, graphics);
             main.LoadTexture(Content);
-            game.LoadContent(GraphicsDevice);
+            game.LoadContent(GraphicsDevice,Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -138,7 +138,7 @@ namespace The_Apocalypse
                         this.isMainMenu = false;
                     main.Update(gameTime);
                 }
-                //Update du jeu.
+                game.Update(gameTime);
             }
 
             oldState = newState;
@@ -162,7 +162,7 @@ namespace The_Apocalypse
             {
                 if (main.play)
                 {
-                    //Draw du jeu. Dès que le play est appuyer on rentre ici.
+                    game.Draw(spriteBatch);
                 }
                 
                 else
@@ -173,7 +173,7 @@ namespace The_Apocalypse
             if (isPaused)
             {
                 options.setButtonData((this.Window.ClientBounds.Width / 2), (this.Window.ClientBounds.Height / 2));
-                options.Draw(gameTime, spriteBatch);
+                options.Draw(spriteBatch);
             }
             else
             {
