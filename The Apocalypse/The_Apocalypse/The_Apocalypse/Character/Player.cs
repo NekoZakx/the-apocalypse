@@ -157,7 +157,9 @@ namespace The_Apocalypse
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
             spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle(_position.X, _position.Y, _width, _height), Color.White);
+            spriteBatch.End();
         }
 
         public void LoadContent(ContentManager contentManager)
