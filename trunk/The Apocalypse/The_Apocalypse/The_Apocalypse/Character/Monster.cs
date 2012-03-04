@@ -16,6 +16,7 @@ namespace The_Apocalypse
         private SpriteSheet _spriteSheet;
         private int _width = 50;
         private int _height = 50;
+        private Vector2 _speed;
         
         int damage
         {
@@ -101,7 +102,19 @@ namespace The_Apocalypse
             }
         }
 
-        public void move()
+        public Vector2 speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+
+        public void move(GameTime gameTime)
         {
         }
 

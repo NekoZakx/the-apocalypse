@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
@@ -15,6 +17,7 @@ namespace The_Apocalypse
         private SpriteSheet __spriteSheet;
         private int __width = 50;
         private int __height = 50;
+        private Vector2 __speed = new Vector2(150, 150);
 
         public Normal()
         {
@@ -77,6 +80,18 @@ namespace The_Apocalypse
             set
             {
                 __height = value;
+            }
+        }
+
+        public Vector2 _speed
+        {
+            get
+            {
+                return __speed;
+            }
+            set
+            {
+                __speed = value;
             }
         }
 

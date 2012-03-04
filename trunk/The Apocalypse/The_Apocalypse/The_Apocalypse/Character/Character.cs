@@ -43,7 +43,13 @@ namespace The_Apocalypse
             set;
         }
 
-        void move();
+        Vector2 speed
+        {
+            get;
+            set;
+        }
+
+        void move(GameTime gameTime);
 
         void Update(GameTime gameTime);
 
