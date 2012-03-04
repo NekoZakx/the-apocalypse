@@ -35,6 +35,7 @@ namespace The_Apocalypse
         {
             Initialize();
         }
+
         public void Initialize()
         {
             int x = 10;
@@ -47,6 +48,7 @@ namespace The_Apocalypse
                 y += BUTTON_HEIGHT + 10;
             }
         }
+
         public void setButtonData()
         {
             int x = 10;
@@ -58,7 +60,6 @@ namespace The_Apocalypse
                 y += BUTTON_HEIGHT + 10;
             }
         }
-
 
         public void LoadTexture(ContentManager Content)
         {

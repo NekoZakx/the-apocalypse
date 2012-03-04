@@ -121,6 +121,7 @@ namespace The_Apocalypse
                 {
                     isMainMenu = true;
                     main.play = false;
+                    isPaused = false;
                     options.mainMenu = false;
                 }
                 options.Update(gameTime);
