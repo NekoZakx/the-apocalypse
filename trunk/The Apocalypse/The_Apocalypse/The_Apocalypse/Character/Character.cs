@@ -35,7 +35,7 @@ namespace The_Apocalypse
 
         void Update(GameTime gameTime);
 
-        void Draw(SpriteBatch srpiteBatch);
+        void Draw(SpriteBatch spriteBatch);
 
         void LoadContent(ContentManager contentManager);
     }
