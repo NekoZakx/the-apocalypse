@@ -9,6 +9,8 @@ namespace The_Apocalypse
     {
         int M = 0, B = 0, Orientation = 0;
         Position positionNow = new Position(0, 0);
+        Position positionStart = new Position(0, 0);
+        Position positionEnd = new Position(0, 0);
 
         public void Direct(int x1, int x2, int y1, int y2)
         {
@@ -21,6 +23,11 @@ namespace The_Apocalypse
             {
                 Orientation = 1;
             }
+
+            positionStart.X = x1;
+            positionStart.Y = y1;
+            positionEnd.X = x2;
+            positionEnd.Y = y2;
 
             M = ((y2 - y1) / (x2 - x1));
             B = y1 - (M * x1);
