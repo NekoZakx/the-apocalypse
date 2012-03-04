@@ -11,6 +11,7 @@ namespace The_Apocalypse
     {
         private Texture2D[] sheet;
         private int nbFrame = 0;
+        private int currentFrame = 0;
 
         public SpriteSheet(int nbFrame, string textureName, ContentManager Content)
         {
@@ -20,9 +21,24 @@ namespace The_Apocalypse
                 sheet[i] = Content.Load<Texture2D>(textureName+i); 
         }
 
+        public Texture2D Frame()
+        {
+            return sheet[currentFrame];
+        }
+
         public Texture2D Frame(int nuFrame)
         {
             return sheet[nuFrame];
+        }
+
+        public void setCurrentFrame(int currentFrame)
+        {
+            this.currentFrame = currentFrame;
+        }
+
+        public int getCurrentFrame()
+        {
+            return this.currentFrame;
         }
 
     }

@@ -31,6 +31,18 @@ namespace The_Apocalypse
             set;
         }
 
+        int width
+        {
+            get;
+            set;
+        }
+
+        int height
+        {
+            get;
+            set;
+        }
+
         void move();
 
         void Update(GameTime gameTime);

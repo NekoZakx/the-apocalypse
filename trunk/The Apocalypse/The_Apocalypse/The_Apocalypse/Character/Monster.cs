@@ -14,6 +14,8 @@ namespace The_Apocalypse
         private int _hp;
         private Position _position;
         private SpriteSheet _spriteSheet;
+        private int _width = 50;
+        private int _height = 50;
         
         int damage
         {
@@ -72,6 +74,30 @@ namespace The_Apocalypse
             set
             {
                 _spriteSheet = value;
+            }
+        }
+
+        public int width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+
+        public int height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
             }
         }
 
