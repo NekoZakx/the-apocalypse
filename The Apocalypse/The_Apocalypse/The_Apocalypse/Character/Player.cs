@@ -121,7 +121,7 @@ namespace The_Apocalypse
         {
             MouseState state = Mouse.GetState();
 
-            double angle = Angle(_position.X, position.Y, state.X, state.Y);
+            double angle = Angle(_position.X, -position.Y, state.X, -state.Y);
 
             // 22.5 + 45 + 22.5 + 22.5 +45 +22.5 +22.5 +45 +22.5 +22.5 +45 +22.5 = 360
 
