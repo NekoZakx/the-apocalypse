@@ -59,6 +59,8 @@ namespace The_Apocalypse
                 file.WriteNextTextNode("pitch", "0");
                 file.WriteNextTextNode("pan", "0");
                 file.WriteNextTextNode("fullscreen", "False");
+                file.WriteNextTextNode("width", this.graphics.PreferredBackBufferWidth.ToString());
+                file.WriteNextTextNode("height", this.graphics.PreferredBackBufferHeight.ToString());
 
                 file.WriteEndCategory();
 
