@@ -169,7 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SpriteSheet\ArrowTest\E.png">
-      <Name>arrow2</Name>
+      <Name>arrow0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -179,17 +179,17 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="SpriteSheet\ArrowTest\N-W.png">
-      <Name>arrow7</Name>
+      <Name>arrow3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="SpriteSheet\ArrowTest\N.png">
-      <Name>arrow0</Name>
+      <Name>arrow2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="SpriteSheet\ArrowTest\S-E.png">
-      <Name>arrow3</Name>
+      <Name>arrow7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -199,12 +199,12 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="SpriteSheet\ArrowTest\S.png">
-      <Name>arrow4</Name>
+      <Name>arrow6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="SpriteSheet\ArrowTest\W.png">
-      <Name>arrow6</Name>
+      <Name>arrow4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

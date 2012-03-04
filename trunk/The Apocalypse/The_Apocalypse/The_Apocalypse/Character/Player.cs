@@ -121,6 +121,28 @@ namespace The_Apocalypse
         {
             MouseState state = Mouse.GetState();
 
+            double angle = Angle(_position.X, position.Y, state.X, state.Y);
+
+            // 22.5 + 45 + 22.5 + 22.5 +45 +22.5 +22.5 +45 +22.5 +22.5 +45 +22.5 = 360
+
+            // 22.5 + 45 + 45 + 45 + 45 +45 + 45 + 45 + 22.5 = 360
+
+            if ((angle >= 0 && angle < 22.5) || (angle >= 337.5 && angle < 360))
+                _spriteSheet.setCurrentFrame(0);
+            else if (angle >= 22.5 && angle < 67.5)
+                _spriteSheet.setCurrentFrame(1);
+            else if (angle >= 67.5 && angle < 112.5)
+                _spriteSheet.setCurrentFrame(2);
+            else if (angle >= 112.5 && angle < 157.5)
+                _spriteSheet.setCurrentFrame(3);
+            else if (angle >= 157.5 && angle < 202.5)
+                _spriteSheet.setCurrentFrame(4);
+            else if (angle >= 202.5 && angle < 247.5)
+                _spriteSheet.setCurrentFrame(5);
+            else if (angle >= 247.5 && angle < 292.5)
+                _spriteSheet.setCurrentFrame(6);
+            else if (angle >= 292.5 && angle < 337.5)
+                _spriteSheet.setCurrentFrame(7);
 
         }
 
@@ -135,12 +157,49 @@ namespace The_Apocalypse
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle(_position.X, _position.Y, 50, 50), Color.White);
+            spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle(_position.X, _position.Y, _width, _height), Color.White);
         }
 
         public void LoadContent(ContentManager contentManager)
         {
             _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/arrow", contentManager);
+        }
+
+        //Fonction pour calculer l'angle entre deux points
+        //Source : http://www.carlosfemmer.com/post/2006/02/Calculate-Angle-between-2-points-using-C.aspx
+        private double Angle(double px1, double py1, double px2, double py2)
+        {
+            // Negate X and Y values
+            double pxRes = px2 - px1;
+            double pyRes = py2 - py1;
+            double angle = 0.0;
+            // Calculate the angle
+            if (pxRes == 0.0)
+            {
+                if (pxRes == 0.0)
+                    angle = 0.0;
+                else if (pyRes > 0.0) angle = System.Math.PI / 2.0;
+                else
+                    angle = System.Math.PI * 3.0 / 2.0;
+            }
+            else if (pyRes == 0.0)
+            {
+                if (pxRes > 0.0)
+                    angle = 0.0;
+                else
+                    angle = System.Math.PI;
+            }
+            else
+            {
+                if (pxRes < 0.0)
+                    angle = System.Math.Atan(pyRes / pxRes) + System.Math.PI;
+                else if (pyRes < 0.0) angle = System.Math.Atan(pyRes / pxRes) + (2 * System.Math.PI);
+                else
+                    angle = System.Math.Atan(pyRes / pxRes);
+            }
+            // Convert to degrees
+            angle = angle * 180 / System.Math.PI; return angle;
+
         }
     }
 }
