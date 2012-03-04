@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
@@ -30,11 +31,11 @@ namespace The_Apocalypse
             set;
         }
 
-        void move(float angle);
+        void move();
 
         void Update(GameTime gameTime);
 
-        void Draw(GameTime gameTime);
+        void Draw(SpriteBatch srpiteBatch);
 
         void LoadContent(ContentManager contentManager);
     }
