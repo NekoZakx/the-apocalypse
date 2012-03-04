@@ -2,38 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
     class SpriteSheet
     {
-        private Texture2D sheet;
+        private Texture2D[] sheet;
         private int nbFrame = 0;
-        private int width = 0;
-        private int height = 0;
 
-        public SpriteSheet(Texture2D sheet, int nbFrame)
+        public SpriteSheet(int nbFrame, string textureName, ContentManager Content)
         {
-            this.sheet = sheet;
             this.nbFrame = nbFrame;
-            this.width = sheet.Width / nbFrame;
-            this.height = sheet.Height;
+            sheet = new Texture2D[nbFrame];
+            for (int i = 0; i < nbFrame; i++)
+                sheet[i] = Content.Load<Texture2D>(@"SpriteSheet/ArrowTest/arrow"+i); 
         }
 
-        public Texture2D Texture2D()
+        public Texture2D Frame(int nuFrame)
         {
-            return sheet;
-        }
-
-        public int Width()
-        {
-            return width;
-        }
-
-        public int Height()
-        {
-            return height;
+            return sheet[nuFrame];
         }
 
     }
