@@ -12,6 +12,7 @@ namespace The_Apocalypse
         private string _name;
         private int _hp;
         private Position _position;
+        private SpriteSheet _spriteSheet;
 
         private Weapon _weapon;
 
@@ -59,6 +60,18 @@ namespace The_Apocalypse
             }
         }
 
+        public SpriteSheet spriteSheet
+        {
+            get
+            {
+                return _spriteSheet;
+            }
+            set
+            {
+                _spriteSheet = value;
+            }
+        }
+
         public Weapon getWeapon()
         {
             return _weapon;
@@ -90,6 +103,7 @@ namespace The_Apocalypse
 
         public void LoadContent(ContentManager contentManager)
         {
+            _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/arrow", contentManager);
         }
     }
 }
