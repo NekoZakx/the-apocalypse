@@ -17,7 +17,7 @@ namespace The_Apocalypse
             this.nbFrame = nbFrame;
             sheet = new Texture2D[nbFrame];
             for (int i = 0; i < nbFrame; i++)
-                sheet[i] = Content.Load<Texture2D>(@"SpriteSheet/ArrowTest/arrow"+i); 
+                sheet[i] = Content.Load<Texture2D>(textureName+i); 
         }
 
         public Texture2D Frame(int nuFrame)
