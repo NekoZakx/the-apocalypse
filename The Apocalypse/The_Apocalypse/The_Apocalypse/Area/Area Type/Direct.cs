@@ -39,5 +39,16 @@ namespace The_Apocalypse
             positionNow.X = (int)(positionNow.X + (Orientation) * (1 / (Math.Pow(2, Math.Abs(M)))));
             positionNow.Y = (M * positionNow.X) + B;
         }
+
+        public void GetLimit()
+        {
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            positionEnd.X = Int32.Parse(file.FindReadNode("width"));
+            positionEnd.Y = Int32.Parse(file.FindReadNode("height"));
+
+            file.ReadClose();
+        }
     }
 }
