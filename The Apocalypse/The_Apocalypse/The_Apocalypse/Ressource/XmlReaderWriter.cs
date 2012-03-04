@@ -68,11 +68,9 @@ namespace The_Apocalypse
         public string FindReadNode(string NodeName)
         {
             textReader = new XmlTextReader(textReader.BaseURI);
-            do
-            {
-                textReader.Read();
-            } while (textReader.NodeType != XmlNodeType.Element || textReader.Name != NodeName);
-            textReader.Read();
+            while ((textReader.NodeType != XmlNodeType.Element || textReader.Name != NodeName) && textReader.Read());
+            if (!textReader.Read())
+                throw new Exception("L'élément recherché est introuvable");
 
             return textReader.Value.ToString();
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace The_Apocalypse
 {
@@ -15,12 +16,12 @@ namespace The_Apocalypse
         BlendState brightnessBlend;
         BlendState contrastBlend;
         Texture2D whiteTexture;
+        Player player;
 
         public void initialize(int WIDTH, int HEIGHT)
         {
             width = WIDTH; 
             height = HEIGHT;
-
             LoadPreferenceData();
 
             brightnessBlend = new BlendState();
@@ -30,14 +31,18 @@ namespace The_Apocalypse
             contrastBlend = new BlendState();
             contrastBlend.ColorSourceBlend = contrastBlend.AlphaSourceBlend = Blend.DestinationColor;
             contrastBlend.ColorDestinationBlend = contrastBlend.AlphaDestinationBlend = Blend.SourceColor;
+
+            player = new Player();
+            
         }
 
-        public void LoadContent(GraphicsDevice GraphicsDevice)
+        public void LoadContent(GraphicsDevice GraphicsDevice,ContentManager Content)
         {
             this.GraphicsDevice = GraphicsDevice;
-
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
+
+            //player.LoadContent(Content);
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)
@@ -51,6 +56,16 @@ namespace The_Apocalypse
             spriteBatch.End();
 
             GraphicsDevice.BlendState = BlendState.Opaque;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            //player.Draw(spriteBatch);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            //player.Update(gameTime);
         }
 
         public void LoadPreferenceData()
