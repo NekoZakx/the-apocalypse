@@ -17,6 +17,7 @@ namespace The_Apocalypse
         private SpriteSheet _spriteSheet;
         private int _width = 50;
         private int _height = 50;
+        private Vector2 _speed = new Vector2(150, 150);
 
         private Weapon _weapon;
 
@@ -102,6 +103,18 @@ namespace The_Apocalypse
             }
         }
 
+        public Vector2 speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+
         public Weapon getWeapon()
         {
             return _weapon;
@@ -146,8 +159,57 @@ namespace The_Apocalypse
 
         }
 
-        public void move()
+        KeyboardState oldState = Keyboard.GetState();
+
+        public void move(GameTime gameTime)
         {
+            KeyboardState newState = Keyboard.GetState();
+
+            if (newState.IsKeyDown(Keys.D))
+            {
+                //orientation = SpriteEffects.FlipHorizontally;
+                float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                int deplacementX = (int)(_speed.X * elapsedTime);
+                _position.X += deplacementX;
+                //dst.X = (int)_position.X;
+            }
+            /*else if (newState.IsKeyUp(Keys.D) && oldState.IsKeyDown(Keys.D))
+            {
+                orientation = SpriteEffects.FlipHorizontally;
+            }*/
+            if (newState.IsKeyDown(Keys.A))
+            {
+                //orientation = SpriteEffects.None;
+                float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                int deplacementX = (int)(_speed.X * elapsedTime);
+                _position.X -= deplacementX;
+                //dst.X = (int)_position.X;
+            }
+            /*else if (newState.IsKeyUp(Keys.A) && oldState.IsKeyDown(Keys.A))
+            {
+                orientation = SpriteEffects.None;
+            }*/
+            if (newState.IsKeyDown(Keys.W))
+            {
+                float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                int deplacementY = (int)(_speed.Y * elapsedTime);
+                _position.Y -= deplacementY;
+                //dst.Y = (int)_position.Y;
+            }
+            else if (newState.IsKeyUp(Keys.W) && oldState.IsKeyDown(Keys.W))
+            {
+            }
+            if (newState.IsKeyDown(Keys.S))
+            {
+                float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                int deplacementY = (int)(_speed.Y * elapsedTime);
+                _position.Y += deplacementY;
+                //dst.Y = (int)_position.Y;
+            }
+            /*else if (newState.IsKeyUp(Keys.S) && oldState.IsKeyDown(Keys.S))
+            {
+            }*/
+            oldState = newState;
         }
 
         public void Update(GameTime gameTime)
