@@ -38,6 +38,10 @@ namespace The_Apocalypse
         {
             positionNow.X = (int)(positionNow.X + (Orientation) * (1 / (Math.Pow(2, Math.Abs(M)))));
             positionNow.Y = (M * positionNow.X) + B;
+            if(positionNow.X <= positionEnd.X && positionNow.X >= 0 && positionNow.Y >= 0 && positionNow.Y <= positionEnd.Y)
+            {
+                UpdatePosition();
+            }
         }
 
         public void GetLimit()
