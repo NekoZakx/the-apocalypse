@@ -31,6 +31,17 @@ namespace The_Apocalypse
             file.ReadClose();
         }
 
+        public void reset()
+        {
+            _hp = 100;
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            _position = new Position(Int32.Parse(file.FindReadNode("width")) / 2, Int32.Parse(file.FindReadNode("height")) / 2);
+
+            file.ReadClose();
+        }
+
         public string name
         {
             get
