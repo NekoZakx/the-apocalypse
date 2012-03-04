@@ -152,7 +152,7 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-            //À faire
+            orientation();
         }
 
         public void Draw(SpriteBatch spriteBatch)
