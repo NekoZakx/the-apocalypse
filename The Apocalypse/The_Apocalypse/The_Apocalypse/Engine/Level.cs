@@ -42,7 +42,7 @@ namespace The_Apocalypse
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
 
-            //player.LoadContent(Content);
+            player.LoadContent(Content);
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)
@@ -60,12 +60,12 @@ namespace The_Apocalypse
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //player.Draw(spriteBatch);
+            player.Draw(spriteBatch);
         }
 
         public void Update(GameTime gameTime)
         {
-            //player.Update(gameTime);
+            player.Update(gameTime);
         }
 
         public void LoadPreferenceData()
