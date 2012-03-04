@@ -75,23 +75,27 @@ La formule global est donc de (2^m)*N, soit une formule exponentiel.
 La formule global résultante pour chaque variation de la pente doit être  d'ordre exponentiel pour que la ratio de vitesse de pente 0 soit équivalent à la pente N. Cependant on ne veut pas que la vitesse augmente exponentiellement comme dans la démonstration, nous voulons plutôt qu'elle se retrouve à perdre de la vitesse sur une fonction d'ordre logarithmique.
 
 <pre>
-Nouvelle formule Global: X = X ± (1/(|M| + 1))
+Nouvelle formule Global: X = X + (±1)*(1/(2^|M|))
+
+Le (±1) Décide de l'orientation du personnage.
+Négatif: regarde à gauche.
+Positif: regarde à droite.
 
 Pour X ayant une pente de -1 et X = 0,
-X = (1/(|-1| + 1))
+X = (1/(2^|-1|))
 X = 1/2
 
 Pour X ayant une pente de 0 et X = 0,
-X = (1/(|0| + 1))
+X = (1/(2^|0|))
 X = 1
 
 Pour X ayant une pente de 1 et X = 0,
-X = (1/(|1| + 1))
+X = (1/(2^|1|))
 X = 1/2
 
 Pour X ayant une pente de 2 et X = 0,
-X = (1/(|2| + 1))
-X = 1/3
+X = (1/(2^|2|))
+X = 1/4
 
 Une pente de 1 est 2 fois plus rapide qu'une pente de 0. (Démonstration)
 Donc elle doit être 2 fois moins vite pour égaler la pente de 0. ■(CQFD)
