@@ -12,6 +12,7 @@ namespace The_Apocalypse
         private int __damage = 1;
         private int __hp = 20;
         private Area __area; //À faire (Area::Near)
+        private SpriteSheet __spriteSheet;
 
         public Normal()
         {
@@ -38,6 +39,18 @@ namespace The_Apocalypse
             set
             {
                 __area = value;
+            }
+        }
+
+        public SpriteSheet _spriteSheet
+        {
+            get
+            {
+                return __spriteSheet;
+            }
+            set
+            {
+                __spriteSheet = value;
             }
         }
 

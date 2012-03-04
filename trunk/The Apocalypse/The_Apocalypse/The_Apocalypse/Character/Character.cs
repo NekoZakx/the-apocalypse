@@ -24,6 +24,11 @@ namespace The_Apocalypse
             get;
             set;
         }
+        SpriteSheet spriteSheet
+        {
+            get;
+            set;
+        }
 
         void move(float angle);
 
