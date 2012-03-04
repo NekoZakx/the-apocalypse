@@ -117,7 +117,13 @@ namespace The_Apocalypse
             {
                 if (options.closeProgram)
                     this.Exit();
-                options.update_buttons(gameTime);
+                if (options.mainMenu)
+                {
+                    isMainMenu = true;
+                    main.play = false;
+                    options.mainMenu = false;
+                }
+                options.Update(gameTime);
             }
             else
             {
@@ -127,7 +133,7 @@ namespace The_Apocalypse
                         this.Exit();
                     if (main.play)
                         this.isMainMenu = false;
-                    main.update_buttons(gameTime);
+                    main.Update(gameTime);
                 }
                 //Update du jeu.
             }
@@ -151,7 +157,15 @@ namespace The_Apocalypse
             }
             else
             {
-                //Draw du jeu. Dès que le play est appuyer on rentre ici.
+                if (main.play)
+                {
+                    //Draw du jeu. Dès que le play est appuyer on rentre ici.
+                }
+                
+                else
+                {
+                    //Draw des animations du menu. Extension des possibilités
+                }
             }
             if (isPaused)
             {

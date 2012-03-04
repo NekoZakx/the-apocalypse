@@ -23,13 +23,13 @@ namespace The_Apocalypse
 
         public void OpenWrite(string filename)
         {
-            if (textWriter == null)
+            if (textReader == null)
             {
                 textWriter = new XmlTextWriter(filename, null);
                 textWriter.WriteStartDocument();
             }
             else
-                throw new Exception("Impossible de lire lorsque le fichier est ouvert en écriture");
+                throw new Exception("Impossible d'écrire lorsque le fichier est ouvert en lecture");
             return;
         }
         public void OpenRead(string filename)
