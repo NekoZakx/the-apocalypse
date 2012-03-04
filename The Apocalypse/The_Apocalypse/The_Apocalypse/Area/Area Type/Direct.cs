@@ -12,7 +12,7 @@ namespace The_Apocalypse
         Position positionStart = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
 
-        public void Direct(int x1, int x2, int y1, int y2)
+        public Direct(int x1, int x2, int y1, int y2)
         {
 
             if (x2 - x1 < 0)
