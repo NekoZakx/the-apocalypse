@@ -118,6 +118,7 @@
     <Compile Include="Character\Player.cs" />
     <Compile Include="Engine\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ressource\GraphicButton.cs" />
     <Compile Include="Ressource\Program.cs" />
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Engine\SFXBank.cs" />
