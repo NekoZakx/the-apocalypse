@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
@@ -31,6 +32,6 @@ namespace The_Apocalypse
             set;
         }
 
-        void shoot();
+        void shoot(Position playerPosition, SpriteBatch spriteBatch);
     }
 }
