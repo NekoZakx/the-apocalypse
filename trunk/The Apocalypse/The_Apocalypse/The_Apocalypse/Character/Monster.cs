@@ -120,17 +120,14 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-            //À faire
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //À faire
         }
 
-        public void LoadContent(ContentManager contentManager)
+        public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
         {
-            //À faire
         }
     }
 }

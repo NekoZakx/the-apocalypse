@@ -11,16 +11,24 @@ namespace The_Apocalypse
     class Normal : Monster
     {
         private string __name = "Normal";
-        private int __damage = 1;
-        private int __hp = 20;
+        private int __hp = 10;
         private Area __area; //À faire (Area::Near)
+        private Position __position;
         private SpriteSheet __spriteSheet;
         private int __width = 50;
         private int __height = 50;
+        private int __damage = 1;
         private Vector2 __speed = new Vector2(150, 150);
 
         public Normal()
         {
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            int width = Int32.Parse(file.FindReadNode("width"));
+            int height = Int32.Parse(file.FindReadNode("height"));
+
+            file.ReadClose();
         }
 
         public int _damage
