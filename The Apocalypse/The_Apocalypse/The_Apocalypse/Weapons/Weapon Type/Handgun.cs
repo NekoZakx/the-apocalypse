@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
 
 namespace The_Apocalypse
 {
@@ -12,6 +13,7 @@ namespace The_Apocalypse
         private string _name = "Handgun";
         private int _damage = 5;
         private int _ammo = -1;
+        private List<Direct> bulletShooted;
 
         private float _speed = 2;
         private bool _touchZombie = true;
@@ -65,12 +67,34 @@ namespace The_Apocalypse
             }
         }
 
-        public Handgun(){}
+        public Handgun()
+        {
+            bulletShooted = new List<Direct>();
+        }
 
         public void shoot(Position playerPosition, SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
         {
             MouseState mousePosition = Mouse.GetState();
-            new Direct(playerPosition.X, mousePosition.X, playerPosition.Y, mousePosition.Y,spriteBatch,GraphicsDevice);
+            bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), spriteBatch, GraphicsDevice));
         }
+
+        public void Draw()
+        {
+            bool restart = false;
+            foreach (Direct bullet in bulletShooted)
+            {
+                bullet.Draw();
+                    
+                if (bullet.state)
+                {
+                    bulletShooted.Remove(bullet);
+                    restart = true;
+                    break;
+                }
+            }
+            if (restart) Draw();
+        }
+
     }
+
 }

@@ -4,22 +4,31 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Threading;
 
 namespace The_Apocalypse
 {
     class Direct : Area
     {
-        int M = 0, B = 0, Orientation = 0;
+        int B = 0, Orientation = 0;
+        double M = 0;
         Position positionNow = new Position(0, 0);
         Position positionStart = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
-
+        SpriteBatch spriteBatch;
         Texture2D blank;
+        int oldX = 0, oldY = 0;
+        public bool state = false;
 
-        public Direct(int x1, int x2, int y1, int y2,SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
+        public Direct(Position player,Position mouse,SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
         {
+            GetLimit();
+            positionStart.X = player.X;
+            positionStart.Y = player.Y;
+            oldX = positionStart.X;
+            oldY = positionStart.Y;
 
-            if (x2 - x1 < 0)
+            if (mouse.X - positionStart.X < 0)
             {
                 Orientation = -1;
             }
@@ -28,29 +37,44 @@ namespace The_Apocalypse
                 Orientation = 1;
             }
 
-            positionStart.X = x1;
-            positionStart.Y = y1;
-            positionEnd.X = x2;
-            positionEnd.Y = y2;
-
-            M = ((y2 - y1) / (x2 - x1));
-            B = y1 - (M * x1);
+            try
+            {
+                M = (((double)mouse.Y - (double)positionStart.Y) / ((double)mouse.X - (double)positionStart.X));
+            }
+            catch (Exception e) { M = 0; }
+            B = positionStart.Y - (int)(M * positionStart.X);
 
             blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             blank.SetData(new[] { Color.White });
 
-            UpdatePosition(spriteBatch);
+            positionNow.X = positionStart.X;
+            positionNow.Y = positionStart.Y;
+
+            this.spriteBatch = spriteBatch;
+            new Thread(new ThreadStart(UpdatePosition)).Start();
         }
 
-        void UpdatePosition(SpriteBatch spriteBatch)
+        void UpdatePosition()
         {
-            positionNow.X = (int)(positionNow.X + (Orientation) * (1 / (Math.Pow(2, Math.Abs(M)))));
-            positionNow.Y = (M * positionNow.X) + B;
-            if(positionNow.X <= positionEnd.X && positionNow.X >= 0 && positionNow.Y >= 0 && positionNow.Y <= positionEnd.Y)
-            {
-                this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(positionNow.X + (Orientation*50), (M*(positionNow.X + (Orientation*50))+B)), new Vector2(positionNow.X,positionNow.Y));
-                UpdatePosition(spriteBatch);
-            }
+            do{
+                Thread.Sleep(5);
+                oldX = positionNow.X + (Orientation * 50);
+                oldY = (int)(M * oldX) + B;
+                positionNow.X = (int)(positionNow.X + ((Orientation) * (1 / (Math.Pow(2, Math.Abs(M))))));
+                positionNow.Y = (int)(M * positionNow.X) + B;
+            }while(positionNow.X < positionEnd.X && positionNow.X > 0 && positionNow.Y > 0 && positionNow.Y < positionEnd.Y);
+            state = true;
+            return;
+        }
+
+        public Position GetPosition()
+        {
+            return positionNow;
+        }
+
+        public void Draw()
+        {
+            this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(oldX, oldY), new Vector2(positionNow.X, positionNow.Y));
         }
 
         public void GetLimit()
@@ -70,8 +94,8 @@ namespace The_Apocalypse
             float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
             float length = Vector2.Distance(point1, point2);
             batch.Draw(blank, point1, null, color,
-                       angle, Vector2.Zero, new Vector2(length, width),
-                       SpriteEffects.None, 0);
+                        angle, Vector2.Zero, new Vector2(length, width),
+                        SpriteEffects.None, 0);
         }
     }
 }
