@@ -5,17 +5,18 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
+using Microsoft.Xna.Framework.Content;
 
 namespace The_Apocalypse
 {
-    class Handgun : Weapon
+    class AssaultRiffle : Weapon
     {
-        private string _name = "Handgun";
-        private int _damage = 5;
-        private int _ammo = -1;
+        private string _name = "Assault Riffle";
+        private int _damage = 10;
+        private int _ammo = 120;
         private List<Direct> bulletShooted;
 
-        private float _speed = 15;
+        private float _speed = 3;
 
         public string name
         {
@@ -74,7 +75,7 @@ namespace The_Apocalypse
             bulletShooted = new List<Direct>();
         }
 
-        public Handgun()
+        public AssaultRiffle()
         {
             bulletShooted = new List<Direct>();
         }
@@ -82,7 +83,11 @@ namespace The_Apocalypse
         public void shoot(Position playerPosition,GraphicsDevice GraphicsDevice)
         {
             MouseState mousePosition = Mouse.GetState();
-            bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), GraphicsDevice,0));
+            if (_ammo > 0)
+            {
+                _ammo--;
+                bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, 0));
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)

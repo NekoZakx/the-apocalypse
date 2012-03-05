@@ -10,58 +10,59 @@ namespace The_Apocalypse
 {
     class Direct : Area
     {
-        int B = 0, Orientation = 0;
-        double M = 0;
+        int speed = 1;
         Position positionNow = new Position(0, 0);
         Position positionStart = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
 
         Texture2D blank;
-        int oldX = 0, oldY = 0;
+        double oldX = 0, oldY = 0;
         public bool state = false;
         Thread t1;
-        public Direct(Position player,Position mouse, GraphicsDevice GraphicsDevice)
+
+        public Direct(Position player, Position mouse, GraphicsDevice GraphicsDevice, int variation)
         {
             GetLimit();
             positionStart.X = player.X;
             positionStart.Y = player.Y;
+            positionNow.X = positionStart.X;
+            positionNow.Y = positionStart.Y;
             oldX = positionStart.X;
             oldY = positionStart.Y;
 
-            if (mouse.X - positionStart.X < 0)
+            int longeur = 150;
+            if (variation != 0)
             {
-                Orientation = -1;
-            }
-            else
-            {
-                Orientation = 1;
-            }
+                double ratio = Math.Sqrt(Math.Pow((mouse.X - player.X), 2) + Math.Pow((mouse.Y - player.Y), 2)) / longeur;
 
-            try
-            {
-                M = (((double)mouse.Y - (double)positionStart.Y) / ((double)mouse.X - (double)positionStart.X));
+
+                mouse.X += (variation * ratio);
+                mouse.Y += (variation * ratio);
             }
-            catch (Exception e) { M = 0; }
-            B = positionStart.Y - (int)(M * positionStart.X);
 
             blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             blank.SetData(new[] { Color.White });
 
-            positionNow.X = positionStart.X;
-            positionNow.Y = positionStart.Y;
+
+
+            angle = (float)Math.Atan2(mouse.Y - positionStart.Y, mouse.X - positionStart.X);
 
             t1 = new Thread(new ThreadStart(UpdatePosition));
             t1.Start();
         }
 
+        double angle;
         void UpdatePosition()
         {
             do{
                 Thread.Sleep(1);
-                oldX = positionNow.X + (Orientation * 50);
-                oldY = (int)(M * oldX) + B;
-                positionNow.X += (int)(Orientation * (1 / (Math.Pow(2, Math.Abs(M)))+1));
-                positionNow.Y = (int)(M * positionNow.X) + B;
+
+                oldX = (int)positionNow.X + (Math.Cos(angle) * 10);
+                oldY = (int)positionNow.Y + (Math.Sin(angle) * 10);
+
+                positionNow.X += (Math.Cos(angle)) * speed;
+                positionNow.Y += (Math.Sin(angle)) * speed;
+
             }while(positionNow.X < positionEnd.X && positionNow.X > 0 && positionNow.Y > 0 && positionNow.Y < positionEnd.Y);
             state = true;
             return;
@@ -76,15 +77,11 @@ namespace The_Apocalypse
         {
 
             if (pause)
-            {
-                if (t1.ThreadState != ThreadState.Stopped && t1.ThreadState != ThreadState.Suspended)
-                    t1.Suspend();
-            }
+                speed = 0;
             else
-                if (t1.ThreadState == ThreadState.Suspended)
-                    t1.Resume();
+                speed = 1;
 
-            this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow,  new Vector2(positionNow.X, positionNow.Y),new Vector2(oldX, oldY));
+            this.DrawLine(spriteBatch, this.blank, 2, Color.Yellow, new Vector2((int)positionNow.X, (int)positionNow.Y), new Vector2((int)oldX, (int)oldY));
         }
 
         public void ForceStop()
