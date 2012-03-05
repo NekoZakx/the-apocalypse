@@ -57,10 +57,9 @@ namespace The_Apocalypse
         void UpdatePosition()
         {
             do{
-                Thread.Sleep(5);
+                Thread.Sleep(1);
                 oldX = positionNow.X + (Orientation * 50);
                 oldY = (int)(M * oldX) + B;
-                //positionNow.X = (int)(positionNow.X + ((Orientation) * (1 / (Math.Pow(2, Math.Abs(M))))));
                 positionNow.X += (int)(Orientation * (1 / (Math.Pow(2, Math.Abs(M)))+1));
                 positionNow.Y = (int)(M * positionNow.X) + B;
             }while(positionNow.X < positionEnd.X && positionNow.X > 0 && positionNow.Y > 0 && positionNow.Y < positionEnd.Y);

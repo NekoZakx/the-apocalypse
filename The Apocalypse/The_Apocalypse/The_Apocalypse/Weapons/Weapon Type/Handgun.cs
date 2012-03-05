@@ -15,7 +15,7 @@ namespace The_Apocalypse
         private int _ammo = -1;
         private List<Direct> bulletShooted;
 
-        private float _speed = 2;
+        private float _speed = 20;
 
         public string name
         {
