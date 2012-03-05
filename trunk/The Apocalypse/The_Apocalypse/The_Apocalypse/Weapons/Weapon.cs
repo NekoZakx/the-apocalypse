@@ -32,6 +32,6 @@ namespace The_Apocalypse
             set;
         }
 
-        void shoot(Position playerPosition, SpriteBatch spriteBatch);
+        void shoot(Position playerPosition, SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice);
     }
 }

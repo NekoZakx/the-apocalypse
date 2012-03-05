@@ -16,7 +16,7 @@ namespace The_Apocalypse
 
         Texture2D blank;
 
-        public Direct(int x1, int x2, int y1, int y2,SpriteBatch spriteBatch)
+        public Direct(int x1, int x2, int y1, int y2,SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
         {
 
             if (x2 - x1 < 0)
@@ -35,6 +35,10 @@ namespace The_Apocalypse
 
             M = ((y2 - y1) / (x2 - x1));
             B = y1 - (M * x1);
+
+            blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            blank.SetData(new[] { Color.White });
+
             UpdatePosition(spriteBatch);
         }
 
@@ -44,9 +48,7 @@ namespace The_Apocalypse
             positionNow.Y = (M * positionNow.X) + B;
             if(positionNow.X <= positionEnd.X && positionNow.X >= 0 && positionNow.Y >= 0 && positionNow.Y <= positionEnd.Y)
             {
-                spriteBatch.Begin();
                 this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(positionNow.X + (Orientation*50), (M*(positionNow.X + (Orientation*50))+B)), new Vector2(positionNow.X,positionNow.Y));
-                spriteBatch.End();
                 UpdatePosition(spriteBatch);
             }
         }

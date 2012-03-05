@@ -55,6 +55,6 @@ namespace The_Apocalypse
 
         void Draw(SpriteBatch spriteBatch);
 
-        void LoadContent(ContentManager contentManager);
+        void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice);
     }
 }

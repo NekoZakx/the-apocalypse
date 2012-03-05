@@ -67,10 +67,10 @@ namespace The_Apocalypse
 
         public Handgun(){}
 
-        public void shoot(Position playerPosition,SpriteBatch spriteBatch)
+        public void shoot(Position playerPosition, SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
         {
             MouseState mousePosition = Mouse.GetState();
-            new Direct(playerPosition.X, mousePosition.X, playerPosition.Y, mousePosition.Y,spriteBatch);
+            new Direct(playerPosition.X, mousePosition.X, playerPosition.Y, mousePosition.Y,spriteBatch,GraphicsDevice);
         }
     }
 }
