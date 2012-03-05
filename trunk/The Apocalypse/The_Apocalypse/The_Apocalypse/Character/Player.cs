@@ -154,14 +154,16 @@ namespace The_Apocalypse
         DateTime wait = DateTime.Now;
         public void shootWeapon(SpriteBatch spriteBatch)
         {
+            ((Handgun)_weapon).Draw();
             MouseState mouse = Mouse.GetState();
             double test = (DateTime.Now - wait).TotalMilliseconds;
             if(mouse.LeftButton == ButtonState.Pressed)
-                /*if ((DateTime.Now - wait).TotalMilliseconds >= 1000 * _weapon.speed)
-                {*/
-                _weapon.shoot(position, spriteBatch, GraphicsDevice);
+                /*if ((DateTime.Now - wait).TotalMilliseconds >= 1000 * _weapon.speed)*/
+                {
                     wait = DateTime.Now;
-                /*}*/
+                    _weapon.shoot(position, spriteBatch, GraphicsDevice);
+                   
+                }
         }
 
         public void orientation()
@@ -261,10 +263,9 @@ namespace The_Apocalypse
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle(_position.X, _position.Y, _width, _height), Color.White);
             this.shootWeapon(spriteBatch);
-            spriteBatch.End();
+            
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)

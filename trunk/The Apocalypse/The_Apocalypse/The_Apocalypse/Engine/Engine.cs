@@ -166,7 +166,9 @@ namespace The_Apocalypse
             {
                 if (main.play)
                 {
+                    spriteBatch.Begin();
                     game.Draw(spriteBatch);
+                    spriteBatch.End();
                 }
                 
                 else
