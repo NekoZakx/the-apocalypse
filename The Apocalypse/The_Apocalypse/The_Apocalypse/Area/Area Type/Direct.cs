@@ -86,6 +86,13 @@ namespace The_Apocalypse
             this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(oldX, oldY), new Vector2(positionNow.X, positionNow.Y));
         }
 
+        public void ForceStop()
+        {
+            if (t1.ThreadState == ThreadState.Suspended)
+                t1.Resume();
+            t1.Abort();
+        }
+
         public void GetLimit()
         {
             XmlReaderWriter file = new XmlReaderWriter();

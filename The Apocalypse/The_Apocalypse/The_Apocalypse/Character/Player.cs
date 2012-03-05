@@ -53,6 +53,7 @@ namespace The_Apocalypse
             limit = new Vector2(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
 
             _position = new Position((int)limit.X / 2, (int)limit.Y / 2);
+            _weapon.reset();
 
             file.ReadClose();
         }
