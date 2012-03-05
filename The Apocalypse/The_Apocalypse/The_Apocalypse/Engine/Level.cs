@@ -63,9 +63,9 @@ namespace The_Apocalypse
             GraphicsDevice.BlendState = BlendState.Opaque;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch,bool pause)
         {
-            player.Draw(spriteBatch);
+            player.Draw(spriteBatch, pause);
         }
 
         public void Update(GameTime gameTime)

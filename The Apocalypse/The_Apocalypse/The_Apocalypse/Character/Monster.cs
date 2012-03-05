@@ -128,7 +128,7 @@ namespace The_Apocalypse
         {
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch,bool pause)
         {
         }
 
