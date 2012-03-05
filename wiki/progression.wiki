@@ -56,50 +56,8 @@ Position_souris_X - Position_joueur_X est vrai quand le résultat est < 0
 Le joueur regarde à droite si la première condition est fausse.
 </pre>
 
-Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat.
-
-<pre>
-Démonstration:
-Pour X ayant une pente de 0, 
-la vitesse du parcours de la droite sera de N
-
-Pour X ayant une pente de 1,
-la vitesse du parcours de la droite sera de 2N
-
-Pour X ayant une pente de 2,
-la vitesse du parcours de la droite sera de 4N
-
-La formule global est donc de (2^m)*N, soit une formule exponentiel.
-</pre>
-
-La formule global résultante pour chaque variation de la pente doit être  d'ordre exponentiel pour que la ratio de vitesse de pente 0 soit équivalent à la pente N. Cependant on ne veut pas que la vitesse augmente exponentiellement comme dans la démonstration, nous voulons plutôt qu'elle se retrouve à perdre de la vitesse sur une fonction d'ordre logarithmique.
-
-<pre>
-Nouvelle formule Global: X = X + (±1)*(1/(2^|M|))
-
-Le (±1) Décide de l'orientation du personnage.
-Négatif: regarde à gauche.
-Positif: regarde à droite.
-
-Pour X ayant une pente de -1 et X = 0,
-X = (1/(2^|-1|))
-X = 1/2
-
-Pour X ayant une pente de 0 et X = 0,
-X = (1/(2^|0|))
-X = 1
-
-Pour X ayant une pente de 1 et X = 0,
-X = (1/(2^|1|))
-X = 1/2
-
-Pour X ayant une pente de 2 et X = 0,
-X = (1/(2^|2|))
-X = 1/4
-
-Une pente de 1 est 2 fois plus rapide qu'une pente de 0. (Démonstration)
-Donc elle doit être 2 fois moins vite pour égaler la pente de 0. ■(CQFD)
-</pre>
+Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat. Il va de soit pour couvrir la totalité d'un cercle il faut utilisé la trigonométrie. Si l'on connait l'angle en radian de notre droite. Il ne suffit que de faire le COS et le SIN de celui-ci pour obtenir ses coordonnées cartésienne.
+Le calcul de l'angle se fait à la tangante de la division entre 2 points de la droite.
 
 = Animation du texte =
 
