@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
@@ -14,7 +16,6 @@ namespace The_Apocalypse
         private float _speed = 2;
         private bool _touchZombie = true;
         private bool _melee = false;
-        private Area _area; //À faire (Area::Direct)
 
         public string name
         {
@@ -64,47 +65,12 @@ namespace The_Apocalypse
             }
         }
 
-        public bool touchZombie
-        {
-            get
-            {
-                return _touchZombie;
-            }
-            set
-            {
-                _touchZombie = value;
-            }
-        }
-
-        public bool melee
-        {
-            get
-            {
-                return _melee;
-            }
-            set
-            {
-                _melee = value;
-            }
-        }
-
-        public Area area
-        {
-            get
-            {
-                return _area;
-            }
-            set
-            {
-                _area = value;
-            }
-        }
-
         public Handgun(){}
 
-        public void shoot()
+        public void shoot(Position playerPosition,SpriteBatch spriteBatch)
         {
-            //À faire
+            MouseState mousePosition = Mouse.GetState();
+            new Direct(playerPosition.X, mousePosition.X, playerPosition.Y, mousePosition.Y,spriteBatch);
         }
     }
 }
