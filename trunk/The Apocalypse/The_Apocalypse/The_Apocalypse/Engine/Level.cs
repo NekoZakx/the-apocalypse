@@ -17,6 +17,7 @@ namespace The_Apocalypse
         BlendState contrastBlend;
         Texture2D whiteTexture;
         Player player;
+        Monster monster;
 
         public void initialize(int WIDTH, int HEIGHT)
         {
@@ -33,12 +34,14 @@ namespace The_Apocalypse
             contrastBlend.ColorDestinationBlend = contrastBlend.AlphaDestinationBlend = Blend.SourceColor;
 
             player = new Player();
+            monster = new Normal();
             
         }
 
         public void resetData()
         {
             player.reset();
+            monster.reset();
         }
 
         public void LoadContent(GraphicsDevice GraphicsDevice,ContentManager Content)
@@ -71,6 +74,8 @@ namespace The_Apocalypse
         public void Update(GameTime gameTime)
         {
             player.Update(gameTime);
+            ((Normal)monster).playerPosition = player.position;
+            ((Normal)monster).Update(gameTime);
         }
 
         public void LoadPreferenceData()
