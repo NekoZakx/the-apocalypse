@@ -60,7 +60,8 @@ namespace The_Apocalypse
                 Thread.Sleep(5);
                 oldX = positionNow.X + (Orientation * 50);
                 oldY = (int)(M * oldX) + B;
-                positionNow.X = (int)(positionNow.X + ((Orientation) * (1 / (Math.Pow(2, Math.Abs(M))))));
+                //positionNow.X = (int)(positionNow.X + ((Orientation) * (1 / (Math.Pow(2, Math.Abs(M))))));
+                positionNow.X += (int)(Orientation * (1 / (Math.Pow(2, Math.Abs(M)))+1));
                 positionNow.Y = (int)(M * positionNow.X) + B;
             }while(positionNow.X < positionEnd.X && positionNow.X > 0 && positionNow.Y > 0 && positionNow.Y < positionEnd.Y);
             state = true;
@@ -83,7 +84,8 @@ namespace The_Apocalypse
             else
                 if (t1.ThreadState == ThreadState.Suspended)
                     t1.Resume();
-            this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(oldX, oldY), new Vector2(positionNow.X, positionNow.Y));
+
+            this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow,  new Vector2(positionNow.X, positionNow.Y),new Vector2(oldX, oldY));
         }
 
         public void ForceStop()
