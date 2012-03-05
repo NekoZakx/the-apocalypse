@@ -59,6 +59,8 @@ Le joueur regarde à droite si la première condition est fausse.
 Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat. Il va de soit pour couvrir la totalité d'un cercle il faut utilisé la trigonométrie. Si l'on connait l'angle en radian de notre droite. Il ne suffit que de faire le COS et le SIN de celui-ci pour obtenir ses coordonnées cartésienne.
 Le calcul de l'angle se fait à la tangante de la division entre 2 points de la droite.
 
+<img src="http://dl.dropbox.com/u/15342998/trigo.png" />
+
 = Animation du texte =
 
 L'animation d'un texte avec XNA est fort simple. Tout d'abord vous avez besoin de deux variables. Une qui gardera le texte souhaité et l'une qui contiendra la string à affiché.
