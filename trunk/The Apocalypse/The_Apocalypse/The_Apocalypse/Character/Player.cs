@@ -158,7 +158,7 @@ namespace The_Apocalypse
             MouseState mouse = Mouse.GetState();
             double test = (DateTime.Now - wait).TotalMilliseconds;
             if(mouse.LeftButton == ButtonState.Pressed)
-                /*if ((DateTime.Now - wait).TotalMilliseconds >= 1000 * _weapon.speed)*/
+                if ((DateTime.Now - wait).TotalMilliseconds >= 20 * _weapon.speed)
                 {
                     wait = DateTime.Now;
                     _weapon.shoot(position,this.GraphicsDevice);
