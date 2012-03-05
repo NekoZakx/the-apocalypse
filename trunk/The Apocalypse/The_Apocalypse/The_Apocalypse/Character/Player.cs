@@ -18,6 +18,7 @@ namespace The_Apocalypse
         private int _width = 50;
         private int _height = 50;
         private Vector2 _speed = new Vector2(150, 150);
+        private Vector2 limit;
 
         private Weapon _weapon;
 
@@ -26,7 +27,9 @@ namespace The_Apocalypse
             XmlReaderWriter file = new XmlReaderWriter();
             file.OpenRead("Preference.xml");
 
-            _position = new Position(Int32.Parse(file.FindReadNode("width"))/2, Int32.Parse(file.FindReadNode("height"))/2);
+            limit = new Vector2(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
+
+            _position = new Position((int)limit.X/2, (int)limit.Y/2);
 
             file.ReadClose();
         }
@@ -37,7 +40,9 @@ namespace The_Apocalypse
             XmlReaderWriter file = new XmlReaderWriter();
             file.OpenRead("Preference.xml");
 
-            _position = new Position(Int32.Parse(file.FindReadNode("width")) / 2, Int32.Parse(file.FindReadNode("height")) / 2);
+            limit = new Vector2(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
+
+            _position = new Position((int)limit.X / 2, (int)limit.Y / 2);
 
             file.ReadClose();
         }
@@ -181,7 +186,9 @@ namespace The_Apocalypse
                 //orientation = SpriteEffects.FlipHorizontally;
                 float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 int deplacementX = (int)(_speed.X * elapsedTime);
-                _position.X += deplacementX;
+
+                if ((_position.X + deplacementX) < limit.X - _width)
+                    _position.X += deplacementX;
                 //dst.X = (int)_position.X;
             }
             /*else if (newState.IsKeyUp(Keys.D) && oldState.IsKeyDown(Keys.D))
@@ -193,7 +200,9 @@ namespace The_Apocalypse
                 //orientation = SpriteEffects.None;
                 float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 int deplacementX = (int)(_speed.X * elapsedTime);
-                _position.X -= deplacementX;
+
+                if ((_position.X - deplacementX) > 0)
+                    _position.X -= deplacementX;
                 //dst.X = (int)_position.X;
             }
             /*else if (newState.IsKeyUp(Keys.A) && oldState.IsKeyDown(Keys.A))
@@ -204,7 +213,9 @@ namespace The_Apocalypse
             {
                 float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 int deplacementY = (int)(_speed.Y * elapsedTime);
-                _position.Y -= deplacementY;
+
+                if ((_position.Y - deplacementY) > 0)
+                    _position.Y -= deplacementY;
                 //dst.Y = (int)_position.Y;
             }
             else if (newState.IsKeyUp(Keys.W) && oldState.IsKeyDown(Keys.W))
@@ -214,7 +225,8 @@ namespace The_Apocalypse
             {
                 float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 int deplacementY = (int)(_speed.Y * elapsedTime);
-                _position.Y += deplacementY;
+                if ((_position.Y + deplacementY) < limit.Y - _height)
+                    _position.Y += deplacementY;
                 //dst.Y = (int)_position.Y;
             }
             /*else if (newState.IsKeyUp(Keys.S) && oldState.IsKeyDown(Keys.S))
