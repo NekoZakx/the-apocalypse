@@ -30,6 +30,12 @@ namespace The_Apocalypse
             set;
         }
 
+        Position playerPosition
+        {
+            get;
+            set;
+        }
+
         public string name
         {
             get
@@ -114,11 +120,11 @@ namespace The_Apocalypse
             }
         }
 
-        public void move(GameTime gameTime)
-        {
-        }
+        public void reset() { }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime) { }
+
+        public void move(GameTime gameTime)
         {
         }
 
