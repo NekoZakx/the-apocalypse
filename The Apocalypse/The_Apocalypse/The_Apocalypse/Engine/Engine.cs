@@ -125,6 +125,7 @@ namespace The_Apocalypse
                     main.play = false;
                     isPaused = false;
                     options.mainMenu = false;
+                    game.LoadPreferenceData();
                 }
                 options.Update(gameTime);
             }
@@ -135,7 +136,10 @@ namespace The_Apocalypse
                     if (main.closeProgram)
                         this.Exit();
                     if (main.play)
+                    {
                         this.isMainMenu = false;
+                        game.resetData();
+                    }
                     main.Update(gameTime);
                 }
                 game.Update(gameTime);

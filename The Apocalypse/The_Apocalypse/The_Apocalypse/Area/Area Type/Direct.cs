@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace The_Apocalypse
 {
@@ -12,7 +14,9 @@ namespace The_Apocalypse
         Position positionStart = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
 
-        public Direct(int x1, int x2, int y1, int y2)
+        Texture2D blank;
+
+        public Direct(int x1, int x2, int y1, int y2,SpriteBatch spriteBatch)
         {
 
             if (x2 - x1 < 0)
@@ -31,16 +35,19 @@ namespace The_Apocalypse
 
             M = ((y2 - y1) / (x2 - x1));
             B = y1 - (M * x1);
-
+            UpdatePosition(spriteBatch);
         }
 
-        public void UpdatePosition()
+        void UpdatePosition(SpriteBatch spriteBatch)
         {
             positionNow.X = (int)(positionNow.X + (Orientation) * (1 / (Math.Pow(2, Math.Abs(M)))));
             positionNow.Y = (M * positionNow.X) + B;
             if(positionNow.X <= positionEnd.X && positionNow.X >= 0 && positionNow.Y >= 0 && positionNow.Y <= positionEnd.Y)
             {
-                UpdatePosition();
+                spriteBatch.Begin();
+                this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(positionNow.X + (Orientation*50), (M*(positionNow.X + (Orientation*50))+B)), new Vector2(positionNow.X,positionNow.Y));
+                spriteBatch.End();
+                UpdatePosition(spriteBatch);
             }
         }
 
@@ -53,6 +60,16 @@ namespace The_Apocalypse
             positionEnd.Y = Int32.Parse(file.FindReadNode("height"));
 
             file.ReadClose();
+        }
+
+        void DrawLine(SpriteBatch batch, Texture2D blank,
+              float width, Color color, Vector2 point1, Vector2 point2)
+        {
+            float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+            float length = Vector2.Distance(point1, point2);
+            batch.Draw(blank, point1, null, color,
+                       angle, Vector2.Zero, new Vector2(length, width),
+                       SpriteEffects.None, 0);
         }
     }
 }

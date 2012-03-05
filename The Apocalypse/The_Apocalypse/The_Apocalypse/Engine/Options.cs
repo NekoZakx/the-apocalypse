@@ -407,13 +407,15 @@ namespace The_Apocalypse
 
             file.WriteCategory("Preference");
 
-            file.WriteNextTextNode("username", "Player");
+            file.WriteNextTextNode("username", buttons[TEXTBOX_INDEX].Text);
             file.WriteNextTextNode("brightness", "255");
             file.WriteNextTextNode("contrast", "128");
             file.WriteNextTextNode("volume", "1");
             file.WriteNextTextNode("pitch", "0");
             file.WriteNextTextNode("pan", "0");
-            file.WriteNextTextNode("fullscreen", "False");
+            file.WriteNextTextNode("fullscreen", graphics.IsFullScreen.ToString());
+            file.WriteNextTextNode("width", this.graphics.PreferredBackBufferWidth.ToString());
+            file.WriteNextTextNode("height", this.graphics.PreferredBackBufferHeight.ToString());
 
             file.WriteEndCategory();
 

@@ -70,7 +70,7 @@ namespace The_Apocalypse
             textReader = new XmlTextReader(textReader.BaseURI);
             while ((textReader.NodeType != XmlNodeType.Element || textReader.Name != NodeName) && textReader.Read());
             if (!textReader.Read())
-                throw new Exception("L'élément recherché est introuvable");
+                throw new Exception("L'élément \""+NodeName+"\" est introuvable");
 
             return textReader.Value.ToString();
         }

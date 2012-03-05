@@ -36,6 +36,11 @@ namespace The_Apocalypse
             
         }
 
+        public void resetData()
+        {
+            player.reset();
+        }
+
         public void LoadContent(GraphicsDevice GraphicsDevice,ContentManager Content)
         {
             this.GraphicsDevice = GraphicsDevice;

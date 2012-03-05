@@ -31,24 +31,6 @@ namespace The_Apocalypse
             set;
         }
 
-        bool touchZombie
-        {
-            get;
-            set;
-        }
-
-        bool melee
-        {
-            get;
-            set;
-        }
-
-        Area area
-        {
-            get;
-            set;
-        }
-
         void shoot();
     }
 }
