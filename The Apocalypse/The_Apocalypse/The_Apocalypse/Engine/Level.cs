@@ -47,7 +47,7 @@ namespace The_Apocalypse
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
 
-            player.LoadContent(Content);
+            player.LoadContent(Content, GraphicsDevice);
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)

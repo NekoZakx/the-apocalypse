@@ -19,7 +19,7 @@ namespace The_Apocalypse
         private int _height = 50;
         private Vector2 _speed = new Vector2(150, 150);
         private Vector2 limit;
-
+        private GraphicsDevice GraphicsDevice;
         private Weapon _weapon;
 
         public Player()
@@ -32,6 +32,16 @@ namespace The_Apocalypse
             _position = new Position((int)limit.X/2, (int)limit.Y/2);
 
             file.ReadClose();
+
+            /********************************************************************
+             * **************************************************************** *
+             *******************************************************************/
+
+            _weapon = new Handgun();
+
+            /********************************************************************
+             * **************************************************************** *
+             *******************************************************************/
         }
 
         public void reset()
@@ -141,9 +151,17 @@ namespace The_Apocalypse
             _weapon = weapon;
         }
 
-        public void shootWeapon()
+        DateTime wait = DateTime.Now;
+        public void shootWeapon(SpriteBatch spriteBatch)
         {
-            _weapon.shoot();
+            MouseState mouse = Mouse.GetState();
+            double test = (DateTime.Now - wait).TotalMilliseconds;
+            if(mouse.LeftButton == ButtonState.Pressed)
+                /*if ((DateTime.Now - wait).TotalMilliseconds >= 1000 * _weapon.speed)
+                {*/
+                _weapon.shoot(position, spriteBatch, GraphicsDevice);
+                    wait = DateTime.Now;
+                /*}*/
         }
 
         public void orientation()
@@ -245,11 +263,13 @@ namespace The_Apocalypse
         {
             spriteBatch.Begin();
             spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle(_position.X, _position.Y, _width, _height), Color.White);
+            this.shootWeapon(spriteBatch);
             spriteBatch.End();
         }
 
-        public void LoadContent(ContentManager contentManager)
+        public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
         {
+            this.GraphicsDevice = GraphicsDevice;
             _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/arrow", contentManager);
         }
 
