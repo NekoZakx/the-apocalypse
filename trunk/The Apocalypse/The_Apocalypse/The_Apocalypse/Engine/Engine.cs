@@ -118,7 +118,11 @@ namespace The_Apocalypse
             if (isPaused)
             {
                 if (options.closeProgram)
+                {
+
                     this.Exit();
+                }
+                    
                 if (options.mainMenu)
                 {
                     isMainMenu = true;
