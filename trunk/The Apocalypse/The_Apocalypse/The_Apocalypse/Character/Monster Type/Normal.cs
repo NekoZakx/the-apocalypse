@@ -200,7 +200,7 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-            orientation(playerPosition.X, playerPosition.Y);
+            orientation((int)playerPosition.X, (int)playerPosition.Y);
             move(gameTime);
         }
 

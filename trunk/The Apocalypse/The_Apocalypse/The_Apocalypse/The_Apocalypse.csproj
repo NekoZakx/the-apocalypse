@@ -125,6 +125,9 @@
     <Compile Include="Engine\SFXBank.cs" />
     <Compile Include="Engine\SpriteSheet.cs" />
     <Compile Include="Ressource\XmlReaderWriter.cs" />
+    <Compile Include="Weapons\Weapon Type\AssaultRiffle.cs" />
+    <Compile Include="Weapons\Weapon Type\Gatling.cs" />
+    <Compile Include="Weapons\Weapon Type\Shotgun.cs" />
     <Compile Include="Weapons\Weapon Type\Handgun.cs" />
     <Compile Include="Weapons\Weapon.cs" />
   </ItemGroup>

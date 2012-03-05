@@ -7,21 +7,21 @@ namespace The_Apocalypse
 {
     class Position
     {
-        private int x;
-        private int y;
+        private double x;
+        private double y;
 
         public Position(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
-        public int X
+        public double X
         {
             get{return x;}
             set{x = value;}
         }
 
-        public int Y
+        public double Y
         {
             get{return y;}
             set{y = value;}

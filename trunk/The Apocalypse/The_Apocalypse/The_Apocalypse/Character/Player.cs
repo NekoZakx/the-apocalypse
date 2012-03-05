@@ -21,6 +21,7 @@ namespace The_Apocalypse
         private Vector2 limit;
         private GraphicsDevice GraphicsDevice;
         private Weapon _weapon;
+        private SpriteFont font;
 
         public Player()
         {
@@ -166,6 +167,28 @@ namespace The_Apocalypse
                 }
         }
 
+        public void ChangeWeapon()
+        {
+            KeyboardState newState = Keyboard.GetState();
+
+            if (newState.IsKeyDown(Keys.D1))
+            {
+                _weapon = new Handgun();
+            }else
+            if (newState.IsKeyDown(Keys.D2))
+            {
+                _weapon = new AssaultRiffle();
+            }else
+            if (newState.IsKeyDown(Keys.D3))
+            {
+                _weapon = new Shotgun();
+            }else
+            if (newState.IsKeyDown(Keys.D4))
+            {
+                _weapon = new Gatling();
+            }
+        }
+
         public void orientation()
         {
             MouseState state = Mouse.GetState();
@@ -260,19 +283,26 @@ namespace The_Apocalypse
             orientation();
             move(gameTime);
             shootWeapon();
+            ChangeWeapon();
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
-            spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle(_position.X, _position.Y, _width, _height), Color.White);
-            ((Handgun)_weapon).Draw(spriteBatch,pause);
-            
+            spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle((int)_position.X, (int)_position.Y, _width, _height), Color.White);
+            _weapon.Draw(spriteBatch,pause);
+            if(_weapon.ammo == 0)
+                spriteBatch.DrawString(font, _weapon.ammo+" Ammo", new Vector2(0,0), Color.Red);
+            else if(_weapon.ammo == -1)
+                spriteBatch.DrawString(font, "INFINITE Ammo", new Vector2(0, 0), Color.White);
+            else
+                spriteBatch.DrawString(font, _weapon.ammo + " Ammo", new Vector2(0, 0), Color.Yellow);
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
         {
             this.GraphicsDevice = GraphicsDevice;
             _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/arrow", contentManager);
+            font = contentManager.Load<SpriteFont>(@"Fonts/TextFont");
         }
 
         //Fonction pour calculer l'angle entre deux points

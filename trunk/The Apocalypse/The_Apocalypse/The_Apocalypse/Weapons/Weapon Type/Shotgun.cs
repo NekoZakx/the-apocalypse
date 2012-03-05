@@ -8,14 +8,14 @@ using System.Threading;
 
 namespace The_Apocalypse
 {
-    class Handgun : Weapon
+    class Shotgun : Weapon
     {
-        private string _name = "Handgun";
-        private int _damage = 5;
-        private int _ammo = -1;
+        private string _name = "Shotgun";
+        private int _damage = 20;
+        private int _ammo = 20;
         private List<Direct> bulletShooted;
 
-        private float _speed = 15;
+        private float _speed = 60;
 
         public string name
         {
@@ -74,7 +74,7 @@ namespace The_Apocalypse
             bulletShooted = new List<Direct>();
         }
 
-        public Handgun()
+        public Shotgun()
         {
             bulletShooted = new List<Direct>();
         }
@@ -82,7 +82,17 @@ namespace The_Apocalypse
         public void shoot(Position playerPosition,GraphicsDevice GraphicsDevice)
         {
             MouseState mousePosition = Mouse.GetState();
-            bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), GraphicsDevice,0));
+            if (_ammo > 0)
+            {
+                _ammo--;
+                bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, -45));
+                bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, -27));
+                bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, 0));
+                bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, 27));
+                bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, 45));
+            }
+            
+            
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
