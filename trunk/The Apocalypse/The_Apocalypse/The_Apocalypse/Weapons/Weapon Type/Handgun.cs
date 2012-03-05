@@ -65,6 +65,15 @@ namespace The_Apocalypse
             }
         }
 
+        public void reset()
+        {
+            foreach (Direct bullet in bulletShooted)
+            {
+                bullet.ForceStop();
+            }
+            bulletShooted = new List<Direct>();
+        }
+
         public Handgun()
         {
             bulletShooted = new List<Direct>();

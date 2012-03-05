@@ -33,5 +33,7 @@ namespace The_Apocalypse
         }
 
         void shoot(Position playerPosition, GraphicsDevice GraphicsDevice);
+
+        void reset();
     }
 }
