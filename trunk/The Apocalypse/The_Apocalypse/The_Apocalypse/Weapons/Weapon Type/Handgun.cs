@@ -16,8 +16,6 @@ namespace The_Apocalypse
         private List<Direct> bulletShooted;
 
         private float _speed = 2;
-        private bool _touchZombie = true;
-        private bool _melee = false;
 
         public string name
         {
@@ -72,18 +70,18 @@ namespace The_Apocalypse
             bulletShooted = new List<Direct>();
         }
 
-        public void shoot(Position playerPosition, SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
+        public void shoot(Position playerPosition,GraphicsDevice GraphicsDevice)
         {
             MouseState mousePosition = Mouse.GetState();
-            bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), spriteBatch, GraphicsDevice));
+            bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), GraphicsDevice));
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch,bool pause)
         {
             bool restart = false;
             foreach (Direct bullet in bulletShooted)
             {
-                bullet.Draw();
+                bullet.Draw(spriteBatch,pause);
                     
                 if (bullet.state)
                 {
@@ -92,7 +90,7 @@ namespace The_Apocalypse
                     break;
                 }
             }
-            if (restart) Draw();
+            if (restart) Draw(spriteBatch,pause);
         }
 
     }

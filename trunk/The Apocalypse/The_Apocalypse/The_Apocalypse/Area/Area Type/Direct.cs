@@ -15,12 +15,12 @@ namespace The_Apocalypse
         Position positionNow = new Position(0, 0);
         Position positionStart = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
-        SpriteBatch spriteBatch;
+
         Texture2D blank;
         int oldX = 0, oldY = 0;
         public bool state = false;
-
-        public Direct(Position player,Position mouse,SpriteBatch spriteBatch, GraphicsDevice GraphicsDevice)
+        Thread t1;
+        public Direct(Position player,Position mouse, GraphicsDevice GraphicsDevice)
         {
             GetLimit();
             positionStart.X = player.X;
@@ -50,8 +50,8 @@ namespace The_Apocalypse
             positionNow.X = positionStart.X;
             positionNow.Y = positionStart.Y;
 
-            this.spriteBatch = spriteBatch;
-            new Thread(new ThreadStart(UpdatePosition)).Start();
+            t1 = new Thread(new ThreadStart(UpdatePosition));
+            t1.Start();
         }
 
         void UpdatePosition()
@@ -72,8 +72,17 @@ namespace The_Apocalypse
             return positionNow;
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch,bool pause)
         {
+
+            if (pause)
+            {
+                if (t1.ThreadState != ThreadState.Stopped && t1.ThreadState != ThreadState.Suspended)
+                    t1.Suspend();
+            }
+            else
+                if (t1.ThreadState == ThreadState.Suspended)
+                    t1.Resume();
             this.DrawLine(spriteBatch, this.blank, 1, Color.Yellow, new Vector2(oldX, oldY), new Vector2(positionNow.X, positionNow.Y));
         }
 
