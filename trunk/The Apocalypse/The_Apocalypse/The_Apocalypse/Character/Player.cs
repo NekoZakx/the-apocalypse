@@ -12,7 +12,7 @@ namespace The_Apocalypse
     class Player : Character
     {
         private string _name;
-        private int _hp = 100;
+        private int _hp = 100, _kill = 0;
         private Position _position;
         private SpriteSheet _spriteSheet;
         private int _width = 50;
@@ -45,16 +45,22 @@ namespace The_Apocalypse
              *******************************************************************/
         }
 
+        public void Delete()
+        {
+            _weapon.Delete();
+        }
+
         public void reset()
         {
             _hp = 100;
+            _kill = 0;
             XmlReaderWriter file = new XmlReaderWriter();
             file.OpenRead("Preference.xml");
 
             limit = new Vector2(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
 
             _position = new Position((int)limit.X / 2, (int)limit.Y / 2);
-            _weapon.reset();
+            _weapon = new Handgun();
 
             file.ReadClose();
         }
@@ -80,6 +86,18 @@ namespace The_Apocalypse
             set
             {
                 _hp = value;
+            }
+        }
+
+        public int kill
+        {
+            get
+            {
+                return _kill;
+            }
+            set
+            {
+                _kill = value;
             }
         }
 
@@ -286,6 +304,11 @@ namespace The_Apocalypse
             ChangeWeapon();
         }
 
+        public int touchDamage(Position point1, Position point2)
+        {
+            return _weapon.hit(point1,point2);
+        }
+
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
             spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle((int)_position.X, (int)_position.Y, _width, _height), Color.White);
@@ -296,6 +319,8 @@ namespace The_Apocalypse
                 spriteBatch.DrawString(font, "INFINITE Ammo", new Vector2(0, 0), Color.White);
             else
                 spriteBatch.DrawString(font, _weapon.ammo + " Ammo", new Vector2(0, 0), Color.Yellow);
+
+            spriteBatch.DrawString(font, _kill + " KILL", new Vector2(0, 40), Color.Green);
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)

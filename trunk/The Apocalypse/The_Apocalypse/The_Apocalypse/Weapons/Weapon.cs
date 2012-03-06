@@ -36,6 +36,11 @@ namespace The_Apocalypse
 
         void reset();
 
+        void Delete();
+
         void Draw(SpriteBatch spriteBatch, bool pause);
+
+        int hit(Position point1, Position point2);
+
     }
 }
