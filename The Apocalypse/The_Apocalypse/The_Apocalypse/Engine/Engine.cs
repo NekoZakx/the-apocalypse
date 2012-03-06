@@ -193,5 +193,13 @@ namespace The_Apocalypse
             
             base.Draw(gameTime);
         }
+
+
+        protected override void OnExiting(Object sender, EventArgs args)
+        {
+            base.OnExiting(sender, args);
+
+            game.ForceClose();
+        }
     }
 }

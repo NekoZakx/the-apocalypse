@@ -75,6 +75,15 @@ namespace The_Apocalypse
             bulletShooted = new List<Direct>();
         }
 
+        public void Delete()
+        {
+            foreach (Direct bullet in bulletShooted)
+            {
+                bullet.ForceStop();
+            }
+            bulletShooted = null;
+        }
+
         public Gatling()
         {
             bulletShooted = new List<Direct>();
@@ -107,6 +116,16 @@ namespace The_Apocalypse
                 }
             }
             if (restart) Draw(spriteBatch,pause);
+        }
+
+        public int hit(Position point1, Position point2)
+        {
+            foreach (Direct bullet in bulletShooted)
+            {
+                if (bullet.CompareAreatoLine(point1,point2))
+                    return _damage;
+            }
+            return 0;
         }
 
     }
