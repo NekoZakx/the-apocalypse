@@ -93,35 +93,86 @@
 </tr>
 
 <tr>
-   <td></td>
-   <td></td>
-   <td></td>
-   <td></td>
-   <td></td>
-</tr>
-
-<tr>
-   <td></td>
-   <td></td>
-   <td></td>
-   <td></td>
+   <td>Semaine du 5 au 11 Mars</td>
+   <td>Programmation des zones de jeux et de collisions.</td>
+   <td>3 - Programmation des états de collisions et des limites de jeu.</td>
+   <td>8</td>
    <td></td>
 </tr>
 
 <tr>
-   <td></td>
-   <td></td>
-   <td></td>
-   <td></td>
+   <td>Semaine du 12 au 18 Mars</td>
+   <td>Programmation des collisions d’animation et génération des sons avec les animations.</td>
+    <td>
+       <table>
+            <tr><td>3 - Programmation</td></tr>
+            <tr><td>1 - Effet Sonore</td></tr>
+       </table>
+   </td>
+   <td>8</td>
    <td></td>
 </tr>
 
 <tr>
+   <td>Semaine du 19 au 25 Mars</td>
+   <td>Programmation des interfaces graphiques et des paramètres de jeu.</td>
+   <td>
+       <table>
+            <tr><td>1 - Interface</td></tr>
+            <tr><td>1 - Interface & Paramètres</td></tr>
+            <tr><td>1 - Paramètres</td></tr>
+       </table>
+   </td>
+   <td>8</td>
    <td></td>
+</tr>
+
+<tr>
+   <td>Semaine du 26 au 1 Avril</td>
+   <td>Correction de bugs (interface, sonore, jouablité)</td>
+   <td>3 - Correction</td>
+   <td>8</td>
    <td></td>
+</tr>
+
+<tr>
+   <td>Semaine du 2 au 8 Avril</td>
+   <td>Création d’un mode multijoueur (Création d’une liaison Ethernet)</td>
+   <td>3 - Programmation Réseau</td>
+   <td>8</td>
    <td></td>
+</tr>
+
+<tr>
+   <td>Semaine du 9 au 15 Avril</td>
+   <td>Stabilisation de la connexion réseau pour le transfert plus rapide des données.</td>
+   <td>3 - Programmation Réseau</td>
+   <td>8</td>
    <td></td>
+</tr>
+
+<tr>
+   <td>Semaine du 16 au 22 Avril</td>
+   <td>Transfert des données de jeu.</td>
+   <td>3 - Programmation Réseau</td>
+   <td>8</td>
    <td></td>
+</tr>
+
+<tr>
+   <td>Semaine du 23 au 29</td>
+   <td>Présentation finale!</td>
+   <td>3 - Préparation et Prestation de la présentation</td>
+   <td>8</td>
+   <td>50%, varie selon le temps de travail.</td>
+</tr>
+
+<tr>
+   <td>TOTAL:</td>
+   <td>14 étapes</td>
+   <td>3 personnes</td>
+   <td>128 heures/personne</td>
+   <td>100% de la note finale</td>
 </tr>
 
 </table>
