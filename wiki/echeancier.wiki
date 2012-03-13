@@ -95,7 +95,11 @@
 <tr>
    <td>Semaine du 5 au 11 Mars</td>
    <td>Programmation des zones de jeux et de collisions.</td>
-   <td>3 - Programmation des états de collisions et des limites de jeu.</td>
+   <td>
+       <table>
+            <tr><td>3 - Programmation des états de collisions et des limites de jeu.</td></tr>
+       </table>
+   </td>
    <td>8</td>
    <td></td>
 </tr>
@@ -130,7 +134,11 @@
 <tr>
    <td>Semaine du 26 au 1 Avril</td>
    <td>Correction de bugs (interface, sonore, jouablité)</td>
-   <td>3 - Correction</td>
+   <td>
+       <table>
+            <tr><td>3 - Correction</td></tr>
+       </table>
+   </td>
    <td>8</td>
    <td></td>
 </tr>
@@ -138,7 +146,11 @@
 <tr>
    <td>Semaine du 2 au 8 Avril</td>
    <td>Création d’un mode multijoueur (Création d’une liaison Ethernet)</td>
-   <td>3 - Programmation Réseau</td>
+   <td>
+       <table>
+            <tr><td>3 - Programmation Réseau</td></tr>
+       </table>
+   </td>
    <td>8</td>
    <td></td>
 </tr>
@@ -146,7 +158,11 @@
 <tr>
    <td>Semaine du 9 au 15 Avril</td>
    <td>Stabilisation de la connexion réseau pour le transfert plus rapide des données.</td>
-   <td>3 - Programmation Réseau</td>
+   <td>
+       <table>
+            <tr><td>3 - Programmation Réseau</td></tr>
+       </table>
+   </td>
    <td>8</td>
    <td></td>
 </tr>
@@ -154,7 +170,11 @@
 <tr>
    <td>Semaine du 16 au 22 Avril</td>
    <td>Transfert des données de jeu.</td>
-   <td>3 - Programmation Réseau</td>
+   <td>
+       <table>
+            <tr><td>3 - Programmation Réseau</td></tr>
+       </table>
+   </td>
    <td>8</td>
    <td></td>
 </tr>
@@ -162,7 +182,11 @@
 <tr>
    <td>Semaine du 23 au 29</td>
    <td>Présentation finale!</td>
-   <td>3 - Préparation et Prestation de la présentation</td>
+   <td>
+       <table>
+            <tr><td>3 - Préparation et Prestation de la présentation</td></tr>
+       </table>
+   </td>
    <td>8</td>
    <td>50%, varie selon le temps de travail.</td>
 </tr>
