@@ -117,7 +117,7 @@ Ajustement au niveau du diagramme de classe et du wiki. Introduction à l'intell
 
 <tr>
    <td>Semaine du 12 au 18 Mars</td>
-   <td><s>Programmation des collisions d’animation et génération des sons avec les animations.</s>Mise en application de l'intelligence artificiel et création des sons relié aux évènements</td>
+   <td><s>Programmation des collisions d’animation et génération des sons avec les animations.</s><br/>Mise en application de l'intelligence artificiel et création des sons relié aux évènements</td>
     <td>
        <table>
             <tr><td>3 - Programmation</td></tr>
