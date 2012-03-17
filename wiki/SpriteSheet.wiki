@@ -1,5 +1,3 @@
-#Définition de l'élément SpriteSheet
-
 = Définition =
 
 Une SpriteSheet est une feuille contenant plusieurs Sprites. Le but est de permettre de faire une succession entre plusieurs images, ainsi formant une animation tel qu'un gif animé. Cependant, il est possible de contrôler l'ordre d'affichage des images, la vitesse de défilement entre les images, d'arrêter l'animation et de choisir une image parmi une banque d'image. Très utile lors d'un référencement rapide à un groupe d'images.
