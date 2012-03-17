@@ -97,7 +97,7 @@ Ajustement de la collision lors des mouvements du monstre, gestion des spriteshe
        </table>
    </td>
    <td>8</td>
-   <td>50%, varie selon le temps de travail.</td>
+   <td>50%, varie selon le temps de travail.<br/><b>Note obtenue: 97%</b></td>
 </tr>
 
 <tr>
