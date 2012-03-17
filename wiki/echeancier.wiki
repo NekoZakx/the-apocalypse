@@ -11,11 +11,12 @@
 
 <tr>
    <td>Semaine du 23 au 29 Janvier</td>
-   <td>Rédactions des divers analyses constituant la base du projet et formation à Team Foundation Server (TFS)
+   <td><s>Rédactions des divers analyses constituant la base du projet et formation à Team Foundation Server (TFS)</s><br/>
+   Recherche de solution pour programmé le jeu vidéo.
    </td>
    <td>
        <table>
-            <tr><td>3 - Analyses</td></tr>
+            <tr><td>3 - Recherche</td></tr>
        </table>
    </td>
    <td>12</td>
@@ -24,7 +25,9 @@
 
 <tr>
    <td>Semaine du 30 au 5 Février</td>
-   <td>Suite de la rédaction des analyses et développement de module critique du projet</td>
+   <td><s>Suite de la rédaction des analyses et développement de module critique du projet</s><br/>
+   Rédaction des analyses et création de test d'application avec XNA Game Studio.
+   </td>
    <td>
        <table>
             <tr><td>1 - Analyses</td></tr>
@@ -38,7 +41,8 @@
 
 <tr>
    <td>Semaine du 6 au 12 Février</td>
-   <td>Développement de la base du projet et test des divers modules préconçus.
+   <td><s>Développement de la base du projet et test des divers modules préconçus.</s><br/>
+Création des options et du menu démarrer.
    </td>
    <td>
       <table>
@@ -52,7 +56,8 @@
 
 <tr>
    <td>Semaine du 13 au 19 Février</td>
-   <td>Importation des modules conçus et préparation de la présentation du projet pour notre professeur</td>
+   <td><s>Importation des modules conçus et préparation de la présentation du projet pour notre professeur</s><br/>
+Création d'un joueur, la trajectoire d'une balle, divers fusils et des documents nécessaire pour la présentation.</td>
    <td>
        <table>
             <tr><td>1 - Importation</td></tr>
@@ -66,7 +71,8 @@
 
 <tr>
    <td>Semaine du 20 au 26 Février</td>
-   <td>Retour sur l’état actuel du projet et ajustements.Programmation des personnages.</td>
+   <td><s>Retour sur l’état actuel du projet et ajustements.Programmation des personnages.</s><br/>
+Création de monstre, faire la gestion des collisions</td>
    <td>
        <table>
             <tr><td>3 - Réunion Retour</td></tr>
@@ -81,7 +87,9 @@
 
 <tr>
    <td>Semaine du 27 au 4 Mars</td>
-   <td>Programmation des monstres.Programmation des animations pour les personnages et les monstres.</td>
+   <td><s>Programmation des monstres.Programmation des animations pour les personnages et les monstres.</s><br/>
+Ajustement de la collision lors des mouvements du monstre, gestion des spritesheet améliorer pour faire une animation d'images.
+   </td>
    <td>
        <table>
             <tr><td>3 - Programmation Monstres</td></tr>
@@ -94,10 +102,13 @@
 
 <tr>
    <td>Semaine du 5 au 11 Mars</td>
-   <td>Programmation des zones de jeux et de collisions.</td>
+   <td><s>Programmation des zones de jeux et de collisions.</s><br/>
+Ajustement au niveau du diagramme de classe et du wiki. Introduction à l'intelligence artificiel.
+   </td>
    <td>
        <table>
-            <tr><td>3 - Programmation des états de collisions et des limites de jeu.</td></tr>
+            <tr><td>1 - Mise à jour Diagramme et Wiki</td></tr>
+            <tr><td>2 - Recherche et développement intelligence artificiel</td></tr>
        </table>
    </td>
    <td>8</td>
@@ -106,11 +117,11 @@
 
 <tr>
    <td>Semaine du 12 au 18 Mars</td>
-   <td>Programmation des collisions d’animation et génération des sons avec les animations.</td>
+   <td><s>Programmation des collisions d’animation et génération des sons avec les animations.</s>Mise en application de l'intelligence artificiel et création des sons relié aux évènements</td>
     <td>
        <table>
             <tr><td>3 - Programmation</td></tr>
-            <tr><td>1 - Effet Sonore</td></tr>
+            <tr><td>3 - Effet Sonore</td></tr>
        </table>
    </td>
    <td>8</td>
