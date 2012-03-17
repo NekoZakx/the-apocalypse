@@ -63,4 +63,22 @@ Le calcul de l'angle se fait à la tangante de la division entre 2 points de la 
 
 = Animation du texte =
 
-L'animation d'un texte avec XNA est fort simple. Tout d'abord vous avez besoin de deux variables. Une qui gardera le texte souhaité et l'une qui contiendra la string à affiché.
+L'animation d'un texte avec XNA est fort simple. Tout d'abord vous avez besoin de deux variables. L'une composé du texte souhaité et l'une contenant la chaîne de caractère à affiché. Le but est d'affiché les lettres une par une tant que la phrase souhaité n'est pas complètement affiché. Nous allons donc se servir des 2 chaînes de caractère et transférer à un interval régulier chacun des caractères de la variable contenant la phrase complète vers celle qui sera affiché.
+
+= Les paramètres =
+
+Les paramètres sont l'endroit oû toutes les variables pouvant être modifiées sont regroupées. Cette fonctionnalité doit être disponible à tout moment et sert par la même occasion de menu pause. Le jeu est complètement interrompu lorsque cette fenêtre est activé. Les paramètres retrouvés sont:
+  * Le nom du joueur(15 caractère maximum)
+  * Le volume du jeu(0% à 100%)
+  * La balance(-100% à 100%)
+  * Le pitch(-100% à 100%) Ce paramètre est un supplément facultatif et amusant.
+  * La contraste (0 à 255)
+  * La luminosité (50 à 255)
+  * Activer/Désactiver le mode plein écran
+
+= Intelligence Artificiel =
+
+Cette étape est sous développement et recherche, elle ne peut donc être documenté pour le moment. Recherche au niveau du patron de conception: Observateur.
+<br/>
+Pour comprendre l'observateur voici un lien l'expliquant:
+<a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">Observateur (Anglais)</a>
