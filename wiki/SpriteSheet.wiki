@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Définition de l'élément SpriteSheet
 
 = Définition =
 
