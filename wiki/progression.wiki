@@ -78,7 +78,8 @@ Les paramètres sont l'endroit oû toutes les variables pouvant être modifiées
 
 = Intelligence Artificiel =
 
-Cette étape est sous développement et recherche, elle ne peut donc être documenté pour le moment. Recherche au niveau du patron de conception: Observateur.
+Cette étape est crucial au projet, c'est grâce à elle que le jeu base son univers de jeu de survie. L'intelligence artificiel est ce qui rend les mort-vivants intelligents. Par intelligent, on sous-entend faire ce qu'un mort-vivant doit faire, soit courir après un être vivants doté d'un cerveau fonctionnel, il est clair qu'un mort-vivant n'a rien dans le crâne.<br/>
+... Suite a venir dans la soiré ...
 <br/>
 Pour comprendre l'observateur voici un lien l'expliquant:
 <a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">Observateur (Anglais)</a>
