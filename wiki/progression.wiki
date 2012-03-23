@@ -78,8 +78,19 @@ Les paramètres sont l'endroit oû toutes les variables pouvant être modifiées
 
 = Intelligence Artificiel =
 
-Cette étape est crucial au projet, c'est grâce à elle que le jeu base son univers de jeu de survie. L'intelligence artificiel est ce qui rend les mort-vivants intelligents. Par intelligent, on sous-entend faire ce qu'un mort-vivant doit faire, soit courir après un être vivants doté d'un cerveau fonctionnel, il est clair qu'un mort-vivant n'a rien dans le crâne.<br/>
-... Suite a venir dans la soiré ...
+Cette étape est crucial au projet, c'est grâce à elle que le jeu base son univers de jeu de survie. L'intelligence artificiel est ce qui rend les mort-vivants intelligents. Par intelligent, on sous-entend faire ce qu'un mort-vivant doit faire, soit courir après un être vivants doté d'un cerveau fonctionnel, il est clair qu'un mort-vivant n'a rien dans le crâne. Le but du patron de conception Observateur est justement de faire en sorte que le mort-vivant entreprenne son seul et unique travail, c'est-à-dire poursuivre le joueur jusqu'à sa mort.
+<br/>
+===Comment est-ce que le patron de conception fonctionne?===
+Très simple, il suffit d'avoir un sujet et un observateur. Où le sujet dans notre cas est le joueur et l'observateur le zombie. Dès qu'une action qui doit faire réagir les morts-vivants est entreprise par le joueur, ceux-ci doivent réagir à cette action. Dans le cas présent, dès que le joueur bouge, ne serait-ce que d'un nanomètre, le mort-vivant doit en être informé pour se redirigé vers ca cible. Cette information est transmise via une fonction appelé Notify pour Notification qui elle se charge d'appelé une fonction dans chacun des morts-vivants pour mettre à jour les données de positionnement du joueur.
+
+===Comment le joueur peut parler directement aux mort-vivants?===
+Bonne question, c'est grâce à la fonction Attach(Observer) qui en d'autre terme signifie, attaché un observateur. Le joueur à une liste de monstre dans sa classe. La fonction Detach(Observer), retire de la liste l'observateur souhaité. Cependant, ce n'est pas l'objet lui même qui est transférer et stocké dans le joueur. Ce n'est qu'un référencement pour appeler des méthodes sans aucune variable. Le monstre à lui aussi un joueur pour savoir le positionnement.
+
+===Concrètement, que se passe-t-il?===
+Si le joueur, ne bouge pas la fonction Notify ne sera pas appelé et les morts-vivants ne changeront pas leur cible, qui est au coordonné déjà enregistré. Cependant, dès que le joueur bougera, la fonction Notify va être appelé et celle-ci va faire appel à tous les morts-vivants pour leurs dirent, en quelque sorte, de changer de trajectoire puisqu'elle n'est plus valide.
+
+===Pourquoi ne pas juste transférer les valeurs par le niveau?===
+Les ressources! Si l'on fait cela, on ne sait jamais quand le joueur va bouger sauf si l'on garde des coordonnés en variable dans la classe. Si nous suivons un principe OO (Orienté Objet), ce n'est pas à la classe Niveau de prendre le positionnement du joueur en variable. De plus faire cela, reviendrais à dupliquer les valeurs et prendre davantage d'espace mémoire. Avec le principe d'Observateur, le programme fait seulement les calculs lorsque s'en est vraiment nécessaire. Ainsi, nous gagnons en puissance et plus de monstres peuvent être généré pour la cause.
 <br/>
 Pour comprendre l'observateur voici un lien l'expliquant:
 <a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">Observateur (Anglais)</a>
