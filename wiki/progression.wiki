@@ -25,38 +25,10 @@ Le diagramme de classe est disponible à l'adresse suivante: <a href="http://dl.
 
 = L'envoie de projectile (Principe) =
 
-Le principe d'envoyer un projectile dans tout jeux vidéo est exprimé selon des formules mathématiques. Puisque la balle est vu comme étant un point sur un plan cartésien où le X et le Y sont strictement positive. Soit la balle dessine une formule de degrée 1 (Une Droite de forme Y = MX + B).
+Le principe d'envoyer un projectile dans tout jeux vidéo est exprimé selon des formules mathématiques. Puisque la balle est vu comme étant un point sur un plan cartésien où le X et le Y sont strictement positif. Soit la balle dessine une formule de degrée 1 (Une Droite de forme Y = MX + B). Cependant, nous ne la traiterons pas dans cette optique de degrée 1. Nous allons plutôt faire de la trigonométrie et une rapport d'angle pour calculer le tout.
 
+Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat. Il va de soit pour couvrir la totalité d'un cercle il faut utilisé la trigonométrie. Si l'on connait l'angle en radian de notre droite. Il ne suffit que de faire le COS et le SIN de celui-ci pour obtenir ses coordonnées cartésienne. l'incrémentation du X et du Y se fera selon un ratio établit grâce à l'angle calculer.
 
-Soit M la pente que la balle parcourera dans l'espace du jeu.
-Soit X la position sur laquel la balle se déplacera.
-Il est important de prendre note qu'une droite n'ayant aucune pente doit avoir la même vitesse qu'une pente incliné ou complètement vertical.
-Soit B la valeur de Y lors que X = 0.
-
-La variable M se calcul très simplement par la formule du taux de variation qui va comme suit:
-
-<pre>
-     △Y    Position_souris_Y - Position_joueur_Y
-M = ---- = --------------------------------------
-     △X    Position_souris_X - Position_joueur_X
-</pre>
-
-Maintenant que la pente est trouvé, il est possible de trouvé la valeur de B:
-
-<pre>
-B = Position_joueur_Y - (M * Position_joueur_X)
-</pre>
-
-Maintenant que M et B sont trouvé, la trajectoire de la balle est connus. Il faut trouvé de quel côté la balle doit parcourir cette trajectoire:
-
-
-<pre>
-Le joueur regarde à gauche si:
-Position_souris_X - Position_joueur_X est vrai quand le résultat est < 0
-Le joueur regarde à droite si la première condition est fausse.
-</pre>
-
-Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat. Il va de soit pour couvrir la totalité d'un cercle il faut utilisé la trigonométrie. Si l'on connait l'angle en radian de notre droite. Il ne suffit que de faire le COS et le SIN de celui-ci pour obtenir ses coordonnées cartésienne.
 Le calcul de l'angle se fait à la tangante de la division entre 2 points de la droite.
 
 <img src="http://dl.dropbox.com/u/15342998/trigo.png" />
