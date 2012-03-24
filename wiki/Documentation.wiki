@@ -1,0 +1,154 @@
+#summary Documentation du projet
+
+= Introduction =
+
+Ce projet est réalisé par des étudiants pour une majeur en conception de jeux vidéos à l'Université du Québec À Chicoutimi (UQAC).<br>
+La date d'échéance de ce projet est avant le *25 avril 2012*.
+
+
+= Description du Projet =
+
+Comme projet, nous avons pensé à réaliser un jeu vidéo de tir multidirectionnel où le joueur doit  survivre à une invasion de morts-vivants. Le but du jeu est d’éliminer tous les morts-vivants dans un niveau fixe. Plus le joueur réussit de niveaux, plus le niveau de difficulté augmente. Par exemple, lors de la progression, il y a de nouveaux morts-vivants avec des pouvoirs différents et il y en a davantage par niveau. Le joueur peut acquérir de nouvelles armes pour augmenter ses chances de survie dans chaque niveau. De plus, nous avons pensé à intégrer la possibilité de jouer en coopération avec des amis dans notre jeu en réseau, cependant le jeu étant d’une grande ampleur, il est possible que cette fonctionnalité ne soit pas réalisé.
+
+= Hello World... Tout à un commencement = 
+
+Puisque nous commençons dans l'univers du jeu vidéo, il va de soit que des tests seront effectués. Tout d'abord, nos premiers tests constituent un élément de familiarisation avec XNA Game Studio.
+<br/>
+Voici les tests qui ont été effectué:
+  * Faire afficher une chaîne de caractère à l'écran et l'animé pour que ce ne soit pas que du texte brute;
+  * Faire affichier des sprites et les faire bouger sur la fenêtre de jeu;
+  * Prochaine étape: Animé les sprites à l'aide de SpriteSheet.
+
+= La structure du programme = 
+
+Pour le bon fonctionnement du programme, une bonne analyse doit être faite. Avec le peu de développement que nous avons effectués, nous avons réalisé le diagramme de classe. Ce diagramme à été conçu avec le peu d'expérience dans XNA que l'équipe dispose. Cependant, les données à conservé au niveau des objets est du pareil au même peu importe le langage de programmation.
+<br />
+Le diagramme de classe est disponible à l'adresse suivante: <a href="http://dl.dropbox.com/u/15342998/The_Apocalypse.vsd">lien</a>
+
+= L'envoie de projectile =
+
+Le principe d'envoyer un projectile dans tout jeux vidéo est exprimé selon des formules mathématiques. Puisque la balle est vu comme étant un point sur un plan cartésien où le X et le Y sont strictement positif. Soit la balle dessine une formule de degrée 1 (Une Droite de forme Y = MX + B). Cependant, nous ne la traiterons pas dans cette optique de degrée 1. Nous allons plutôt faire de la trigonométrie et une rapport d'angle pour calculer le tout.
+
+Simplement faire incrémenter le X pour faire avancé la balle ne donnera pas de bon résultat. Il va de soit pour couvrir la totalité d'un cercle il faut utilisé la trigonométrie. Si l'on connait l'angle en radian de notre droite. Il ne suffit que de faire le COS et le SIN de celui-ci pour obtenir ses coordonnées cartésienne. l'incrémentation du X et du Y se fera selon un ratio établit grâce à l'angle calculer.
+
+Le calcul de l'angle se fait à la tangante de la division entre 2 points de la droite.
+
+<img src="http://dl.dropbox.com/u/15342998/trigo.png" />
+
+= Animation du texte =
+
+L'animation d'un texte avec XNA est fort simple. Tout d'abord vous avez besoin de deux variables. L'une composé du texte souhaité et l'une contenant la chaîne de caractère à affiché. Le but est d'affiché les lettres une par une tant que la phrase souhaité n'est pas complètement affiché. Nous allons donc se servir des 2 chaînes de caractère et transférer à un interval régulier chacun des caractères de la variable contenant la phrase complète vers celle qui sera affiché.
+
+= Les paramètres =
+
+Les paramètres sont l'endroit oû toutes les variables pouvant être modifiées sont regroupées. Cette fonctionnalité doit être disponible à tout moment et sert par la même occasion de menu pause. Le jeu est complètement interrompu lorsque cette fenêtre est activé. Les paramètres retrouvés sont:
+  * Le nom du joueur(15 caractère maximum)
+  * Le volume du jeu(0% à 100%)
+  * La balance(-100% à 100%)
+  * Le pitch(-100% à 100%) Ce paramètre est un supplément facultatif et amusant.
+  * La contraste (0 à 255)
+  * La luminosité (50 à 255)
+  * Activer/Désactiver le mode plein écran
+
+= Intelligence Artificiel =
+
+Cette étape est crucial au projet, c'est grâce à elle que le jeu base son univers de jeu de survie. L'intelligence artificiel est ce qui rend les mort-vivants intelligents. Par intelligent, on sous-entend faire ce qu'un mort-vivant doit faire, soit courir après un être vivants doté d'un cerveau fonctionnel, il est clair qu'un mort-vivant n'a rien dans le crâne. Le but du patron de conception Observateur est justement de faire en sorte que le mort-vivant entreprenne son seul et unique travail, c'est-à-dire poursuivre le joueur jusqu'à sa mort.
+<br/>
+===Comment est-ce que le patron de conception fonctionne?===
+Très simple, il suffit d'avoir un sujet et un observateur. Où le sujet dans notre cas est le joueur et l'observateur le zombie. Dès qu'une action qui doit faire réagir les morts-vivants est entreprise par le joueur, ceux-ci doivent réagir à cette action. Dans le cas présent, dès que le joueur bouge, ne serait-ce que d'un nanomètre, le mort-vivant doit en être informé pour se redirigé vers ca cible. Cette information est transmise via une fonction appelé Notify pour Notification qui elle se charge d'appelé une fonction dans chacun des morts-vivants pour mettre à jour les données de positionnement du joueur.
+
+===Comment le joueur peut parler directement aux mort-vivants?===
+Bonne question, c'est grâce à la fonction Attach(Observer) qui en d'autre terme signifie, attaché un observateur. Le joueur à une liste de monstre dans sa classe. La fonction Detach(Observer), retire de la liste l'observateur souhaité. Cependant, ce n'est pas l'objet lui même qui est transférer et stocké dans le joueur. Ce n'est qu'un référencement pour appeler des méthodes sans aucune variable. Le monstre à lui aussi un joueur pour savoir le positionnement.
+
+===Concrètement, que se passe-t-il?===
+Si le joueur, ne bouge pas la fonction Notify ne sera pas appelé et les morts-vivants ne changeront pas leur cible, qui est au coordonné déjà enregistré. Cependant, dès que le joueur bougera, la fonction Notify va être appelé et celle-ci va faire appel à tous les morts-vivants pour leurs dirent, en quelque sorte, de changer de trajectoire puisqu'elle n'est plus valide.
+
+===Pourquoi ne pas juste transférer les valeurs par le niveau?===
+Les ressources! Si l'on fait cela, on ne sait jamais quand le joueur va bouger sauf si l'on garde des coordonnés en variable dans la classe. Si nous suivons un principe OO (Orienté Objet), ce n'est pas à la classe Niveau de prendre le positionnement du joueur en variable. De plus faire cela, reviendrais à dupliquer les valeurs et prendre davantage d'espace mémoire. Avec le principe d'Observateur, le programme fait seulement les calculs lorsque s'en est vraiment nécessaire. Ainsi, nous gagnons en puissance et plus de monstres peuvent être généré pour la cause.
+<br/>
+Pour comprendre l'observateur voici un lien l'expliquant:
+<a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">Observateur (Anglais)</a>
+
+=Attaque au corps à corps=
+
+Le corps à corps est un peu complexe. Dans la situation que ce n'est qu'un fragment du cercle trigonométrique orienté dans la direction du joueur. Le cercle sera divisé en 2 pour cette partie. L'attaque se fera donc sur 180 degrée ou Pi en radian. Le plus compliquer n'est pas de définir la zone d'attaque, mais plutôt d'y faire les gestions de collision. Si un monstre entre dans cette zone, il sera automatique touché par l'attaque au nombre de seconde qu'elle fait ses dommages.
+
+Il y a 3 étapes à la résolution de ce problème:
+  * Étape 1: Calculer si le point est dans le cercle
+  * Étape 2: Calculer la pente perpendiculaire à celle du joueur et de la souris
+  * Étape 3: Définir si le point est au-dessus ou en-dessous de cette droite
+
+=== Étape 1 : Le cercle ===
+La formule du cercle est (x-h)² + (y+k)² = r² , où (h,k) est la position en x et y du joueur, r la zone d'attaque et (x,y) le point a vérifier. Lors d'une vérification à l'intérieur d'un cercle il va de soit que ce n'est pas une égalité, mais plutôt une innégalité. La formule de vient donc (x-h)² + (y+k)² <= r² . Maintenant que la condition peut être évaluer, on passe à l'étape suivante.
+
+=== Étape 2 : La droite perpendiculaire ===
+La droite perpendiculaire est celle qui découpera notre cercle en 2. Le personnage ne peut pas attaquer sur 360 degrée lorsqu'il regarde dans une seul et unique direction. Puisque le champ de vision d'une personne n'exède pas les 180 degrée et que les bras on une certaine limite d'atteinte, le maximum sera donc la taille d'un demi-cercle. Pour couper le cercle de l'étape 1 en 2, il faut que se soit perpendiculaire à la direction qu'il regarde. Grâce au point de la souris et du joueur, nous sommes en mesure de trouver la pente initial à laquel nous trouverons sa perpendiculaire au point du joueur.
+
+Pour trouver la perpendiculaire, il faut tout d'abord trouver la pente de la droite première.
+<pre>
+∆y    Position Y Souris - Position Y Joueur
+-- = ---------------------------------------
+∆x    Position X Souris - Position X Joueur
+</pre>
+
+Nul besoin de trouver le B de la formule Y = MX+B, puisque l'on veut sa perpendiculaire le B est inutile pour l'instant. Maintenant que la pente est trouvé, il faut tourné la pente dans l'autre sens, soit en lui appliquant la formule suivante:
+
+<pre>
+M┴ =    1
+    -( --- )
+        M
+</pre>
+
+Maintenant que M┴(M perpendiculaire) est calculé, il faut lui appliqué la formule Y = MX + B, donc il faut isoler B avec la position X et Y du joueur.
+
+<pre>
+Y = M┴X + B
+
+  Y
+----- = B
+ M┴X
+</pre>
+
+Une fois que le B est isoler, il ne reste qu'à réunir tous les bouts pour avoir notre formule de droite perpendiculaire.
+
+Y = M┴X + B
+
+=== Étape 3 : La validation ===
+
+Cette étape est la finale, dans le cas que la première étape à été validé. Maintenant que nous avons la droite qui coupe notre cercle en 2 et que notre point est dans notre cercle, il nous reste juste à savoir si elle est dans la bonne demi. Pour se faire nous devons savoir dans quel position, au dessus ou en dessous de la droite, la bonne demi se trouve. Généralement, la bonne demi est là où la souris était orienté. Il suffit de regarder si le point de la souris est en dessous ou au dessus de la droite. Ensuite nous comparons avec le point à vérifier s'il est dans la bonne demi que l'on vient de trouvé. S'il est en dessous ou au dessus tout comme le point de la souris, c'est qu'il est valide!
+
+===Comment vérifier si un point est en dessous ou au dessus d'une droite?===
+En fait la notion de au-dessus et en-dessous n'existe pas vraiment dans notre contexte, c'est plutôt de regarder de quel côté est situé notre par rapport à la droite.
+
+Nous avons, Y = MX+B et un point dans le plan cartésien.
+
+Grâce à ses 2 éléments, nous sommes en mesure de dire si elle est au-dessus ou en dessous:
+
+Y reste tel quel, nous allons trouver la valeur du Y pour le X de notre point sur la droite. Donc, voici ce que vous devriez avoir:
+
+<pre>
+Y = M┴(Coordonné X du point à évaluer) + B┴
+</pre>
+
+Si le Y du point à évaluer est plus petit que le Y trouvé, ce point est donc en dessous de la droite. Le contraire est aussi vrai, c'est-à-dire que s'il est plus grand, il est situé au-dessus de la droite.
+
+Ce n'est pas tout! Puisque notre jeu accepte les droites de type Y=X. Dans ce cas, il faut savoir si elle est à droite ou à gauche. Le même principe est utilisé. Il ne suffit que d'isoler le X.
+
+<pre>
+X =    Y
+    ( --- ) + B┴
+       M┴
+</pre>
+
+Il ne reste donc qu'à savoir si le X est plus petit ou plus grand. Dans le cas du plus petit, c'est que le point est situé à gauche de la droite et dans l'autre cas, il est situé à droite.
+
+=== Mise en garde ===
+Dans une approche où le monstre veux utiliser les attaques au corps à corps il suffit de remplacer la position de souris par celle du joueur et celle du joueur par celle du monstre. De plus, si le point de la souris est le même que celle du joueur... Impossible de calculer la pente, elle sera nulle. Faire un nombre aléatoire pour définir une fause position de souris serait absurde dans ce cas. Il faut donc, créer un faux point dans la direction que le joueur regardait précédemment. À noter que les positions fictive sont les suivantes:
+  * Nord : (x_joueur, y_joueur-1)
+  * Sud  : (x_joueur, y_joueur+1)
+  * Est  : (X_joueur+1, y_joueur)
+  * Ouest: (X_joueur-1, y_joueur)
+  * Nord-Est: (X_joueur+1, y_joueur-1)
+  * Nord-Ouest: (X_joueur-1, y_joueur-1)
+  * Sud-Est: (X_joueur+1, y_joueur+1)
+  * Sud-Ouest: (X_joueur-1, y_joueur+1)
