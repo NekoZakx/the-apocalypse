@@ -17,6 +17,7 @@ namespace The_Apocalypse
         BlendState contrastBlend;
         Texture2D whiteTexture;
         Player player;
+        List<Monster> monster;
 
         public void initialize(int WIDTH, int HEIGHT)
         {
@@ -33,6 +34,7 @@ namespace The_Apocalypse
             contrastBlend.ColorDestinationBlend = contrastBlend.AlphaDestinationBlend = Blend.SourceColor;
 
             player = new Player();
+            monster = new List<Monster>();
             
         }
 
@@ -54,11 +56,15 @@ namespace The_Apocalypse
 
             player.LoadContent(Content, GraphicsDevice);
             Random rand = new Random();
-            for (int i = 0; i < enemy.Length; i++)
+            for (int i = 0; i < 15; i++)
             {
-                enemy[i] = new Normal();
-                enemy[i].hp = 100;
-                enemy[i].position = new Position(rand.Next(0, 910), rand.Next(0, 550));
+                Monster enemy = new Normal();
+                enemy.hp = 100;
+                enemy.position = new Position(rand.Next(0, 910), rand.Next(0, 550));
+                enemy.Initialize();
+                enemy.LoadContent(Content, GraphicsDevice);
+                monster.Add(enemy);
+                player.Attach(enemy);
             }
         }
 
@@ -73,7 +79,7 @@ namespace The_Apocalypse
             spriteBatch.End();
 
             /******* For testing Collision *******/
-            for (int i = 0; i < enemy.Length; i++)
+            /*for (int i = 0; i < enemy.Length; i++)
             {
                 if (enemy[i].hp > 0)
                 {
@@ -81,7 +87,7 @@ namespace The_Apocalypse
                     spriteBatch.Draw(whiteTexture, new Rectangle((int)enemy[i].position.X, (int)enemy[i].position.Y, 50, 50), new Color(50, 50, 50, 255));
                     spriteBatch.End();
                 }
-            }
+            }*/
 
             GraphicsDevice.BlendState = BlendState.Opaque;
         }
@@ -89,10 +95,14 @@ namespace The_Apocalypse
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
             player.Draw(spriteBatch, pause);
+
+            foreach(Monster m in monster)
+            {
+                m.Draw(spriteBatch, pause);
+            }
             
         }
 
-        Monster[] enemy = new Monster[15];
         public void Update(GameTime gameTime)
         {
             
@@ -100,7 +110,7 @@ namespace The_Apocalypse
             player.Update(gameTime);
             
             /****** TESTING FOR COLLISION ************/
-            for (int i = 0; i < enemy.Length; i++)
+            /*for (int i = 0; i < enemy.Length; i++)
             {
                 if (enemy[i].position.X > 910)
                     enemy[i].position.X = 0;
@@ -117,7 +127,7 @@ namespace The_Apocalypse
                     enemy[i].hp = -1;
                     player.kill++;
                 }
-            }
+            }*/
             /*****************************************/
         }
 

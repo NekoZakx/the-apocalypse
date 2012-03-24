@@ -17,6 +17,9 @@ namespace The_Apocalypse
         private int _width = 50;
         private int _height = 50;
         private Vector2 _speed;
+        private Position _playerPosition;
+        BlendState brightnessBlend;
+        Texture2D whiteTexture;
         
         int damage
         {
@@ -30,7 +33,7 @@ namespace The_Apocalypse
             set;
         }
 
-        Position playerPosition
+        Position PlayerPosition
         {
             get;
             set;
@@ -124,16 +127,31 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime) { }
 
+        public void Update(Character Player)
+        {
+            _playerPosition = Player.position;
+        }
+
         public void move(GameTime gameTime)
         {
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
+            spriteBatch.Draw(whiteTexture, new Rectangle((int)position.X, (int)position.Y, 50, 50), new Color(50, 50, 50, 255));
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
         {
+            whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
+            whiteTexture.SetData<Color>(new Color[] { Color.White });
+        }
+
+        public void Initialize()
+        {
+            brightnessBlend = new BlendState();
+            brightnessBlend.ColorSourceBlend = brightnessBlend.AlphaSourceBlend = Blend.Zero;
+            brightnessBlend.ColorDestinationBlend = brightnessBlend.AlphaDestinationBlend = Blend.SourceColor;
         }
     }
 }
