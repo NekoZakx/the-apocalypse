@@ -22,6 +22,7 @@ namespace The_Apocalypse
         private GraphicsDevice GraphicsDevice;
         private Weapon _weapon;
         private SpriteFont font;
+        private List<Monster> observers = new List<Monster>();
 
         public Player()
         {
@@ -365,6 +366,24 @@ namespace The_Apocalypse
             // Convert to degrees
             angle = angle * 180 / System.Math.PI; return angle;
 
+        }
+
+        public void Attach(Monster Observer)
+        {
+            observers.Add(Observer);
+        }
+
+        public void Detach(Monster Observer)
+        {
+            observers.Remove(Observer);
+        }
+
+        public void Notify()
+        {
+            foreach (Monster m in observers)
+            {
+                m.Update(this);
+            }
         }
     }
 }
