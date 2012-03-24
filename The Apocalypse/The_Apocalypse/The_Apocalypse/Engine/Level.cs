@@ -38,6 +38,18 @@ namespace The_Apocalypse
             
         }
 
+        public bool saveData()
+        {
+            //À faire
+            return true;
+        }
+
+        public bool loadData()
+        {
+            //À faire
+            return true;
+        }
+
         public void ForceClose()
         {
             player.Delete();
