@@ -66,3 +66,55 @@ Les ressources! Si l'on fait cela, on ne sait jamais quand le joueur va bouger s
 <br/>
 Pour comprendre l'observateur voici un lien l'expliquant:
 <a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">Observateur (Anglais)</a>
+
+=Attaque au corps à corps=
+
+Le corps à corps est un peu complexe. Dans la situation que ce n'est qu'un fragment du cercle trigonométrique orienté dans la direction du joueur. Le cercle sera divisé en 2 pour cette partie. L'attaque se fera donc sur 180 degrée ou Pi en radian. Le plus compliquer n'est pas de définir la zone d'attaque, mais plutôt d'y faire les gestions de collision. Si un monstre entre dans cette zone, il sera automatique touché par l'attaque au nombre de seconde qu'elle fait ses dommages.
+
+Il y a 3 étapes à la résolution de ce problème:
+  * Étape 1: Calculer si le point est dans le cercle
+  * Étape 2: Calculer la pente perpendiculaire à celle du joueur et de la souris
+  * Étape 3: Définir si le point est au-dessus ou en-dessous de cette droite
+
+=== Étape 1 : Le cercle ===
+La formule du cercle est (x-h)² + (y+k)² = r² , où (h,k) est la position en x et y du joueur, r la zone d'attaque et (x,y) le point a vérifier. Lors d'une vérification à l'intérieur d'un cercle il va de soit que ce n'est pas une égalité, mais plutôt une innégalité. La formule de vient donc (x-h)² + (y+k)² <= r² . Maintenant que la condition peut être évaluer, on passe à l'étape suivante.
+
+=== Étape 2 : La droite perpendiculaire ===
+La droite perpendiculaire est celle qui découpera notre cercle en 2. Le personnage ne peut pas attaquer sur 360 degrée lorsqu'il regarde dans une seul et unique direction. Puisque le champ de vision d'une personne n'exède pas les 180 degrée et que les bras on une certaine limite d'atteinte, le maximum sera donc la taille d'un demi-cercle. Pour couper le cercle de l'étape 1 en 2, il faut que se soit perpendiculaire à la direction qu'il regarde. Grâce au point de la souris et du joueur, nous sommes en mesure de trouver la pente initial à laquel nous trouverons sa perpendiculaire au point du joueur.
+
+Pour trouver la perpendiculaire, il faut tout d'abord trouver la pente de la droite première.
+<pre>
+∆y    Position Y Souris - Position Y Joueur
+-- = ---------------------------------------
+∆x    Position X Souris - Position X Joueur
+</pre>
+
+Nul besoin de trouver le B de la formule Y = MX+B, puisque l'on veut sa perpendiculaire le B est inutile pour l'instant. Maintenant que la pente est trouvé, il faut tourné la pente dans l'autre sens, soit en lui appliquant la formule suivante:
+
+<pre>
+M┴ =    1
+    -( --- )
+        M
+</pre>
+
+Maintenant que M┴(M perpendiculaire) est calculé, il faut lui appliqué la formule Y = MX + B, donc il faut isoler B avec la position X et Y du joueur.
+
+<pre>
+Y = M┴X + B
+
+  Y
+----- = B
+ M┴X
+</pre>
+
+Une fois que le B est isoler, il ne reste qu'à réunir tous les bouts pour avoir notre formule de droite perpendiculaire.
+
+Y = M┴X + B
+
+=== Étape 3 : La validation ===
+
+Cette étape est la finale, dans le cas que la première étape à été validé. Maintenant que nous avons la droite qui coupe notre cercle en 2 et que notre point est dans notre cercle, il nous reste juste à savoir si elle est dans la bonne demi. Pour se faire nous devons savoir dans quel position, au dessus ou en dessous de la droite, la bonne demi se trouve. Généralement, la bonne demi est là où la souris était orienté. Il suffit de regarder si le point de la souris est en dessous ou au dessus de la droite. Ensuite nous comparons avec le point à vérifier s'il est dans la bonne demi que l'on vient de trouvé. S'il est en dessous ou au dessus tout comme le point de la souris, c'est qu'il est valide!
+
+Comme vérifier si un point est en dessous ou au dessus d'une droite?
+
+À venir...
