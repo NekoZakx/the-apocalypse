@@ -129,6 +129,17 @@ namespace The_Apocalypse
             }
         }
 
+        public void attack()
+        {
+            //À faire
+        }
+
+        public int getDamage()
+        {
+            //À faire
+            return 0;
+        }
+
         public void reset() { }
 
         public void Update(GameTime gameTime) 
