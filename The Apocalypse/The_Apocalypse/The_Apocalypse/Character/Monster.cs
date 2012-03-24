@@ -35,8 +35,14 @@ namespace The_Apocalypse
 
         Position PlayerPosition
         {
-            get;
-            set;
+            get
+            {
+                return _playerPosition;
+            }
+            set
+            {
+                _playerPosition = value;
+            }
         }
 
         public string name
@@ -125,7 +131,10 @@ namespace The_Apocalypse
 
         public void reset() { }
 
-        public void Update(GameTime gameTime) { }
+        public void Update(GameTime gameTime) 
+        {
+            move(gameTime);
+        }
 
         public void Update(Character Player)
         {
@@ -134,6 +143,23 @@ namespace The_Apocalypse
 
         public void move(GameTime gameTime)
         {
+            if (position.X - PlayerPosition.X < 0)
+            {
+                position.X += 1;
+            }
+            else if (position.X - PlayerPosition.X > 0)
+            {
+                position.X -= 1;
+            }
+
+            if (position.Y - PlayerPosition.Y < 0)
+            {
+                position.Y += 1;
+            }
+            else if (position.Y - PlayerPosition.Y > 0)
+            {
+                position.Y -= 1;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
@@ -149,6 +175,7 @@ namespace The_Apocalypse
 
         public void Initialize()
         {
+            PlayerPosition = new Position(0, 0);
             brightnessBlend = new BlendState();
             brightnessBlend.ColorSourceBlend = brightnessBlend.AlphaSourceBlend = Blend.Zero;
             brightnessBlend.ColorDestinationBlend = brightnessBlend.AlphaDestinationBlend = Blend.SourceColor;
