@@ -23,7 +23,7 @@ Pour le bon fonctionnement du programme, une bonne analyse doit être faite. Ave
 <br />
 Le diagramme de classe est disponible à l'adresse suivante: <a href="http://dl.dropbox.com/u/15342998/The_Apocalypse.vsd">lien</a>
 
-= L'envoie de projectile (Principe) =
+= L'envoie de projectile =
 
 Le principe d'envoyer un projectile dans tout jeux vidéo est exprimé selon des formules mathématiques. Puisque la balle est vu comme étant un point sur un plan cartésien où le X et le Y sont strictement positif. Soit la balle dessine une formule de degrée 1 (Une Droite de forme Y = MX + B). Cependant, nous ne la traiterons pas dans cette optique de degrée 1. Nous allons plutôt faire de la trigonométrie et une rapport d'angle pour calculer le tout.
 
