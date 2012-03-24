@@ -69,6 +69,26 @@ Les ressources! Si l'on fait cela, on ne sait jamais quand le joueur va bouger s
 Pour comprendre l'observateur voici un lien l'expliquant:
 <a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">Observateur (Anglais)</a>
 
+== Le Pathfinding == 
+
+Plutôt que de gèrer la collision entre chacun des monstres, les monstres assigneront chacun leur position à une grille de taille égal au nombre de pixel du jeu. La grille aura comme état à chacun de ses carrés, un booléen indiquant la possibilité de passé ou non. Implémenter le pathfinding à ce moment est l'occassion parfaite de pofiner notre intelligence artificiel. Avec le principe de pathfinding, il sera inutile de geré les colisions puisque les monstres ne pouront passé par dessus les uns des autres.
+
+=== Qu'es-ce qu'un pathfinding? ===
+Un pathfinding est un chemin tracé entre un point A et un point B en contournant les diverses obstacles mit sur le chemin de l'élément en mouvement, pour se rendre à destination.
+
+=== Comment faire pour élaborer un chemin? ===
+C'est une étape de calcul très complexe. Tout d'abord, prennons un point A qui est situé dans l'une des cases de notre grille. Le type de chemin que nous allons créer est de type étoile. C'est-à-dire que nous allons vérifier chacune des cases autour de notre personnage et vérifier autour des cases que nous avons vérifier excluant celle déjà vérifier. Cela pourrait vous semblez être un algorithme récursif, et bien vous avez raison! Une fois la cible atteinte, la recherche récursive ayant été la plus rapide sera remonté, ainsi révèllant le chemin à parcourir le plus simple pour se rendre à la cible.
+
+=== Qu'es-ce qui arrive si la cible est hors d'atteinte? ===
+La recherche récursive retournera aucun résultat et le monstres resteras sur place. C'est pourquoi dans ce cas le zombie se promènera aléatoirement sur la carte cherchant une cible. Notamment cette situation sera rare, puisque les monstres vont mourir peu à peu et que le personnage se déplace.
+
+=== Le personnage peut se déplacer au travers des zombies? ===
+Évidemment que c'est pas possible, il doit se frayer un chemin à travers les positions non prise par la grille du pathfinding.
+
+=== Le pathfinding est alors accessible à tous les personnages? ===
+Certainement, il sera initializer lors de la création du niveau, en tant que singleton et sera redistribuer à chacun des membres parcourant le plateau de jeu!
+
+
 =Attaque au corps à corps=
 
 Le corps à corps est un peu complexe. Dans la situation que ce n'est qu'un fragment du cercle trigonométrique orienté dans la direction du joueur. Le cercle sera divisé en 2 pour cette partie. L'attaque se fera donc sur 180 degrée ou Pi en radian. Le plus compliquer n'est pas de définir la zone d'attaque, mais plutôt d'y faire les gestions de collision. Si un monstre entre dans cette zone, il sera automatique touché par l'attaque au nombre de seconde qu'elle fait ses dommages.
