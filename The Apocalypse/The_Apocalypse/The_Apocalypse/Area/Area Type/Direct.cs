@@ -133,10 +133,7 @@ namespace The_Apocalypse
 
         public bool ComparePointtoLine(Position point)
         {
-            if (point.X < positionNow.X && point.X  > positionNow.X)
-                if (point.Y < positionNow.Y && point.Y  > positionNow.Y)
-                    return true;
-            return false;
+            return ((point.X < positionNow.X && point.X > positionNow.X) && (point.Y < positionNow.Y && point.Y > positionNow.Y));
         }
 
         public bool CompareAreatoLine(Position point1, Position point2)
