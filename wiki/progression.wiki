@@ -115,6 +115,38 @@ Y = M┴X + B
 
 Cette étape est la finale, dans le cas que la première étape à été validé. Maintenant que nous avons la droite qui coupe notre cercle en 2 et que notre point est dans notre cercle, il nous reste juste à savoir si elle est dans la bonne demi. Pour se faire nous devons savoir dans quel position, au dessus ou en dessous de la droite, la bonne demi se trouve. Généralement, la bonne demi est là où la souris était orienté. Il suffit de regarder si le point de la souris est en dessous ou au dessus de la droite. Ensuite nous comparons avec le point à vérifier s'il est dans la bonne demi que l'on vient de trouvé. S'il est en dessous ou au dessus tout comme le point de la souris, c'est qu'il est valide!
 
-Comme vérifier si un point est en dessous ou au dessus d'une droite?
+===Comment vérifier si un point est en dessous ou au dessus d'une droite?===
+En fait la notion de au-dessus et en-dessous n'existe pas vraiment dans notre contexte, c'est plutôt de regarder de quel côté est situé notre par rapport à la droite.
 
-À venir...
+Nous avons, Y = MX+B et un point dans le plan cartésien.
+
+Grâce à ses 2 éléments, nous sommes en mesure de dire si elle est au-dessus ou en dessous:
+
+Y reste tel quel, nous allons trouver la valeur du Y pour le X de notre point sur la droite. Donc, voici ce que vous devriez avoir:
+
+<pre>
+Y = M┴(Coordonné X du point à évaluer) + B┴
+</pre>
+
+Si le Y du point à évaluer est plus petit que le Y trouvé, ce point est donc en dessous de la droite. Le contraire est aussi vrai, c'est-à-dire que s'il est plus grand, il est situé au-dessus de la droite.
+
+Ce n'est pas tout! Puisque notre jeu accepte les droites de type Y=X. Dans ce cas, il faut savoir si elle est à droite ou à gauche. Le même principe est utilisé. Il ne suffit que d'isoler le X.
+
+<pre>
+X =    Y
+    ( --- ) + B┴
+       M┴
+</pre>
+
+Il ne reste donc qu'à savoir si le X est plus petit ou plus grand. Dans le cas du plus petit, c'est que le point est situé à gauche de la droite et dans l'autre cas, il est situé à droite.
+
+=== Mise en garde ===
+Dans une approche où le monstre veux utiliser les attaques au corps à corps il suffit de remplacer la position de souris par celle du joueur et celle du joueur par celle du monstre. De plus, si le point de la souris est le même que celle du joueur... Impossible de calculer la pente, elle sera nulle. Faire un nombre aléatoire pour définir une fause position de souris serait absurde dans ce cas. Il faut donc, créer un faux point dans la direction que le joueur regardait précédemment. À noter que les positions fictive sont les suivantes:
+  * Nord : (x_joueur, y_joueur-1)
+  * Sud  : (x_joueur, y_joueur+1)
+  * Est  : (X_joueur+1, y_joueur)
+  * Ouest: (X_joueur-1, y_joueur)
+  * Nord-Est: (X_joueur+1, y_joueur-1)
+  * Nord-Ouest: (X_joueur-1, y_joueur-1)
+  * Sud-Est: (X_joueur+1, y_joueur+1)
+  * Sud-Ouest: (X_joueur-1, y_joueur+1)
