@@ -13,7 +13,7 @@ namespace The_Apocalypse
         private string _name = "Handgun";
         private int _damage = 5;
         private int _ammo = -1;
-        private List<Direct> bulletShooted;
+        private List<Direct> bulletShot;
 
         private float _speed = 15;
 
@@ -65,45 +65,45 @@ namespace The_Apocalypse
             }
         }
 
+        public Handgun()
+        {
+            bulletShot = new List<Direct>();
+        }
+
         public void reset()
         {
-            foreach (Direct bullet in bulletShooted)
+            foreach (Direct bullet in bulletShot)
             {
                 bullet.ForceStop();
             }
-            bulletShooted = new List<Direct>();
+            bulletShot = new List<Direct>();
         }
 
         public void Delete()
         {
-            foreach (Direct bullet in bulletShooted)
+            foreach (Direct bullet in bulletShot)
             {
                 bullet.ForceStop();
             }
-            bulletShooted = null;
-        }
-
-        public Handgun()
-        {
-            bulletShooted = new List<Direct>();
+            bulletShot = null;
         }
 
         public void shoot(Position playerPosition,GraphicsDevice GraphicsDevice)
         {
             MouseState mousePosition = Mouse.GetState();
-            bulletShooted.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), GraphicsDevice,0));
+            bulletShot.Add(new Direct(playerPosition, new Position(mousePosition.X,mousePosition.Y), GraphicsDevice,0));
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
             bool restart = false;
-            foreach (Direct bullet in bulletShooted)
+            foreach (Direct bullet in bulletShot)
             {
                 bullet.Draw(spriteBatch,pause);
                     
                 if (bullet.state)
                 {
-                    bulletShooted.Remove(bullet);
+                    bulletShot.Remove(bullet);
                     restart = true;
                     break;
                 }
@@ -112,7 +112,7 @@ namespace The_Apocalypse
         }
         public int hit(Position point1, Position point2)
         {
-            foreach (Direct bullet in bulletShooted)
+            foreach (Direct bullet in bulletShot)
             {
                 if (bullet.CompareAreatoLine(point1,point2))
                     return _damage;
