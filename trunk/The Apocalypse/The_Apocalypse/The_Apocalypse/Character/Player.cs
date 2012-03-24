@@ -242,7 +242,7 @@ namespace The_Apocalypse
         public void move(GameTime gameTime)
         {
             KeyboardState newState = Keyboard.GetState();
-
+            
             if (newState.IsKeyDown(Keys.D))
             {
                 //orientation = SpriteEffects.FlipHorizontally;
@@ -252,6 +252,7 @@ namespace The_Apocalypse
                 if ((_position.X + deplacementX) < limit.X - _width)
                     _position.X += deplacementX;
                 //dst.X = (int)_position.X;
+                Notify();
             }
             /*else if (newState.IsKeyUp(Keys.D) && oldState.IsKeyDown(Keys.D))
             {
@@ -266,6 +267,7 @@ namespace The_Apocalypse
                 if ((_position.X - deplacementX) > 0)
                     _position.X -= deplacementX;
                 //dst.X = (int)_position.X;
+                Notify();
             }
             /*else if (newState.IsKeyUp(Keys.A) && oldState.IsKeyDown(Keys.A))
             {
@@ -279,6 +281,7 @@ namespace The_Apocalypse
                 if ((_position.Y - deplacementY) > 0)
                     _position.Y -= deplacementY;
                 //dst.Y = (int)_position.Y;
+                Notify();
             }
             else if (newState.IsKeyUp(Keys.W) && oldState.IsKeyDown(Keys.W))
             {
@@ -290,6 +293,7 @@ namespace The_Apocalypse
                 if ((_position.Y + deplacementY) < limit.Y - _height)
                     _position.Y += deplacementY;
                 //dst.Y = (int)_position.Y;
+                Notify();
             }
             /*else if (newState.IsKeyUp(Keys.S) && oldState.IsKeyDown(Keys.S))
             {

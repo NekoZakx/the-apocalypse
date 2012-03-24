@@ -105,10 +105,13 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-            
-            
+
+           
             player.Update(gameTime);
-            
+            foreach (Monster m in monster)
+            {
+                m.Update(gameTime);
+            }
             /****** TESTING FOR COLLISION ************/
             /*for (int i = 0; i < enemy.Length; i++)
             {
