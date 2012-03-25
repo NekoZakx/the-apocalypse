@@ -191,8 +191,6 @@ namespace The_Apocalypse
             //À faire
         }
 
-        
-
         public void Update(GameTime gameTime)
         {
             orientation((int)_playerPosition.X, (int)_playerPosition.Y);

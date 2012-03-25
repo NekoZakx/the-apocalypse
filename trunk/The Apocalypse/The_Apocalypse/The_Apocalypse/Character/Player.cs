@@ -23,7 +23,8 @@ namespace The_Apocalypse
         private Weapon _weapon;
         private SpriteFont font;
         private List<Monster> observers = new List<Monster>();
-        private int score;
+        private int _score;
+        private int _life = 3;
 
         public Player()
         {
@@ -184,7 +185,6 @@ namespace The_Apocalypse
                 {
                     wait = DateTime.Now;
                     _weapon.shoot(position,this.GraphicsDevice);
-                   
                 }
         }
 
@@ -310,6 +310,7 @@ namespace The_Apocalypse
             shootWeapon();
             ChangeWeapon();
             bulletState();
+            noMoreHp();
         }
 
         void bulletState()
@@ -336,7 +337,11 @@ namespace The_Apocalypse
 
             spriteBatch.DrawString(font, _kill + " KILL", new Vector2(0, 40), Color.Green);
             spriteBatch.DrawString(font, observers.Count + " ACTIVE ZOMBIES", new Vector2(0, 60), Color.White);
-            spriteBatch.DrawString(font, "Score: " + score, new Vector2(0, 80), Color.White);
+            spriteBatch.DrawString(font, "Score: " + _score, new Vector2(0, 80), Color.White);
+            if(_life == 0)
+                spriteBatch.DrawString(font, "Dead: " + _life, new Vector2(0, 100), Color.White);
+            else
+                spriteBatch.DrawString(font, "Life: " + _life, new Vector2(0, 100), Color.White);
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
@@ -396,6 +401,8 @@ namespace The_Apocalypse
             //ici player score augmente
 
             scores += normalScore.scores;
+
+            checkScore();
         }
 
         public void Notify()
@@ -410,12 +417,48 @@ namespace The_Apocalypse
         {
             get
             {
-                return score;
+                return _score;
             }
             set
             {
-                score = value;
+                _score = value;
             }
+        }
+
+        public int lifes
+        {
+            get
+            {
+                return _life;
+            }
+            set
+            {
+                _life = value;
+            }
+        }
+
+        public int noMoreHp()
+        {
+            if (_hp == 0)
+            {
+                if (_life != 0)
+                {
+                    _life--;
+                    _hp = 100;
+                }
+            }
+
+            return _life;
+        }
+
+        public int checkScore()
+        {
+            if (_score % 5000 == 0 && _score != 0)
+            {
+                _life++;
+            }
+
+            return _life;
         }
     }
 }
