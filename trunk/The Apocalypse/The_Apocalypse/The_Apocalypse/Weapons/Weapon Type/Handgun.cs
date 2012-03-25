@@ -114,8 +114,11 @@ namespace The_Apocalypse
         {
             foreach (Direct bullet in bulletShot)
             {
-                if (bullet.CompareAreatoLine(point1,point2))
+                if (bullet.CompareAreatoLine(point1, point2))
+                {
                     return _damage;
+                }
+                    
             }
             return 0;
         }
