@@ -2,25 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
     interface Area
     {
-        Position positionStart;
-        Position positionEnd;
-        int orientation;
-        Position positionNow;
-
-        public Position getPosition()
-        {
-            //À faire
-            return positionNow;
-        }
-
-        public void UpdatePosition()
-        {
-            //À faire
-        }
+        void UpdatePosition();
+        Position GetPosition();
+        void Draw(SpriteBatch spriteBatch, bool pause);
+        void ForceStop();
+        void GetLimit();
     }
 }

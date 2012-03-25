@@ -307,11 +307,18 @@ namespace The_Apocalypse
             move(gameTime);
             shootWeapon();
             ChangeWeapon();
+            bulletState();
         }
 
-        public int touchDamage(Position point1, Position point2)
+        void bulletState()
         {
-            return _weapon.hit(point1,point2);
+            foreach (Monster o in observers)
+            {
+                o.hp -= _weapon.hit(o.position, new Position((int)o.position.X + 50, (int)o.position.Y + 50));
+                if (o.hp <= 0)
+                    kill++;
+            }
+            return ;
         }
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
@@ -326,6 +333,7 @@ namespace The_Apocalypse
                 spriteBatch.DrawString(font, _weapon.ammo + " Ammo", new Vector2(0, 0), Color.Yellow);
 
             spriteBatch.DrawString(font, _kill + " KILL", new Vector2(0, 40), Color.Green);
+            spriteBatch.DrawString(font, observers.Count + " ACTIVE ZOMBIES", new Vector2(0, 60), Color.White);
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
@@ -375,6 +383,7 @@ namespace The_Apocalypse
         public void Attach(Monster Observer)
         {
             observers.Add(Observer);
+            Notify();
         }
 
         public void Detach(Monster Observer)

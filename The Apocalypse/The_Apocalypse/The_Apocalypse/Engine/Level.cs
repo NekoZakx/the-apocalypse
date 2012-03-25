@@ -16,6 +16,7 @@ namespace The_Apocalypse
         BlendState brightnessBlend;
         BlendState contrastBlend;
         Texture2D whiteTexture;
+        ContentManager Content;
         Player player;
         List<Monster> monster;
 
@@ -62,13 +63,14 @@ namespace The_Apocalypse
 
         public void LoadContent(GraphicsDevice GraphicsDevice,ContentManager Content)
         {
+            this.Content = Content;
             this.GraphicsDevice = GraphicsDevice;
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
 
             player.LoadContent(Content, GraphicsDevice);
             Random rand = new Random();
-            for (int i = 0; i < 15; i++)
+            /*for (int i = 0; i < 15; i++)
             {
                 Monster enemy = new Normal();
                 enemy.hp = 100;
@@ -77,7 +79,7 @@ namespace The_Apocalypse
                 enemy.LoadContent(Content, GraphicsDevice);
                 monster.Add(enemy);
                 player.Attach(enemy);
-            }
+            }*/
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)
@@ -117,8 +119,43 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-
-           
+            Random rand = new Random();
+            if(monster.Count < 3)
+            {
+                Monster enemy = new Normal();
+                enemy.hp = 100;
+                int randomX = rand.Next(-200, 1110);
+                int randomY = rand.Next(-200, 750);
+                if(randomX <= 960 && randomX >=-50)
+                {
+                    if (randomY > 550 || randomY < -50)
+                        enemy.position = new Position(randomX, randomY);
+                    else
+                        enemy.position = new Position(randomX, -200);
+                }
+                else
+                    enemy.position = new Position(randomX, randomY);
+                enemy.Initialize();
+                enemy.LoadContent(Content, GraphicsDevice);
+                monster.Add(enemy);
+                player.Attach(enemy);
+                }
+            bool restart = true;
+            while(restart)
+            {
+                restart = false;
+                foreach (Monster m in monster)
+                {
+                    if (m.hp <= 0)
+                    {
+                        Console.WriteLine("MONSTER ENERGY: " + m.hp);
+                        player.Detach(m);
+                        monster.Remove(m);
+                        restart = true;
+                        break;
+                    }
+                }
+            }
             player.Update(gameTime);
             foreach (Monster m in monster)
             {

@@ -55,7 +55,7 @@ namespace The_Apocalypse
             t1.Start();
         }
         
-        void UpdatePosition()
+        public void UpdatePosition()
         {
             DateTime init = DateTime.Now;
             
@@ -139,34 +139,24 @@ namespace The_Apocalypse
         public bool CompareAreatoLine(Position point1, Position point2)
         {
             if(!hit || multikill)
-                if(positionNow.X < point1.X && positionNow.X > point2.X)
+                if(positionNow.X > point1.X && positionNow.X < point2.X)
                 {
-                    if (positionNow.Y < point1.Y && positionNow.Y > point2.Y)
-                    {
-                        hit = true;
-                        return true;
-                    }
                     if (positionNow.Y > point1.Y && positionNow.Y < point2.Y)
                     {
                         hit = true;
-                        return true;
                     }
                 }
+            if (!state && hit)
+            {
+                if (multikill)
+                    hit = false;
                 else
-                    if (positionNow.X > point1.X && positionNow.X < point2.X)
-                    {
-                        if (positionNow.Y < point1.Y && positionNow.Y > point2.Y)
-                        {
-                            hit = true;
-                            return true;
-                        }
-                        if (positionNow.Y > point1.Y && positionNow.Y < point2.Y)
-                        {
-                            hit = true;
-                            return true;
-                        }
-                    }
-
+                {
+                    ForceStop();
+                    state = true;
+                }
+                return true;
+            }
             return false;
         }
     }
