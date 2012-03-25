@@ -8,19 +8,57 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace The_Apocalypse
 {
-    class Monster : Character
+    interface Monster : Character
     {
-        private string _name;
-        protected int _hp;
-        private Position _position;
-        protected SpriteSheet _spriteSheet;
-        protected int _width = 50;
-        protected int _height = 50;
-        private Vector2 _speed;
-        private Position _playerPosition;
-        BlendState brightnessBlend;
-        Texture2D whiteTexture;
-        
+
+        string name
+        {
+            get;
+            set;
+        }
+
+        int hp
+        {
+            get;
+            set;
+        }
+
+        Position position
+        {
+            get;
+            set;
+        }
+
+        SpriteSheet spriteSheet
+        {
+            get;
+            set;
+        }
+
+        int width
+        {
+            get;
+            set;
+        }
+
+        int height
+        {
+            get;
+            set;
+        }
+
+        Vector2 speed
+        {
+            get;
+            set;
+        }
+
+        Position PlayerPosition
+        {
+            get;
+            set;
+        }
+
         int damage
         {
             get;
@@ -33,103 +71,7 @@ namespace The_Apocalypse
             set;
         }
 
-        Position PlayerPosition
-        {
-            get
-            {
-                return _playerPosition;
-            }
-            set
-            {
-                _playerPosition = value;
-            }
-        }
-
-        public string name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
-
-        public int hp
-        {
-            get
-            {
-                return _hp;
-            }
-            set
-            {
-                _hp = value;
-            }
-        }
-
-        public Position position
-        {
-            get
-            {
-                return _position;
-            }
-            set
-            {
-                _position = value;
-            }
-        }
-
-        public SpriteSheet spriteSheet
-        {
-            get
-            {
-                return _spriteSheet;
-            }
-            set
-            {
-                _spriteSheet = value;
-            }
-        }
-
-        public int width
-        {
-            get
-            {
-                return _width;
-            }
-            set
-            {
-                _width = value;
-            }
-        }
-
-        public int height
-        {
-            get
-            {
-                return _height;
-            }
-            set
-            {
-                _height = value;
-            }
-        }
-
-        public Vector2 speed
-        {
-            get
-            {
-                return _speed;
-            }
-            set
-            {
-                _speed = value;
-            }
-        }
-
-        public void attack()
+        /*public void attack()
         {
             //À faire
         }
@@ -190,6 +132,22 @@ namespace The_Apocalypse
             brightnessBlend = new BlendState();
             brightnessBlend.ColorSourceBlend = brightnessBlend.AlphaSourceBlend = Blend.Zero;
             brightnessBlend.ColorDestinationBlend = brightnessBlend.AlphaDestinationBlend = Blend.SourceColor;
-        }
+        }*/
+
+        void attack();
+        
+        int getDamage();
+
+        void Update(GameTime gameTime);
+        
+        void Update(Character Player);
+
+        void move(GameTime gameTime);
+
+        void Draw(SpriteBatch spriteBatch, bool pause);
+
+        void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice);
+
+        void Initialize();
     }
 }

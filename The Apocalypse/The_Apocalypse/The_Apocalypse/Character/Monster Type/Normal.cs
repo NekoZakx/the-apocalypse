@@ -12,13 +12,138 @@ namespace The_Apocalypse
     class Normal : Monster
     {
         private string _name = "Normal";
+        private int _hp;
         private Area _area; //À faire (Area::Near)
         private Position _position;
         private int _damage = 1;
         private Vector2 _speed = new Vector2(150, 150);
         private GraphicsDevice GraphicsDevice;
         private Vector2 limit;
-        private Position _playerPosition;
+        private Position _playerPosition = new Position(0, 0);
+        private SpriteSheet _spriteSheet;
+        private int _width = 50;
+        private int _height = 50;
+        
+
+        public Position PlayerPosition
+        {
+            get
+            {
+                return _playerPosition;
+            }
+            set
+            {
+                _playerPosition = value;
+            }
+        }
+
+        public int damage
+        {
+            get
+            {
+                return _damage;
+            }
+            set
+            {
+                _damage = value;
+            }
+        }
+
+        public Area area
+        {
+            get
+            {
+                return _area;
+            }
+            set
+            {
+                _area = value;
+            }
+        }
+
+        public string name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+
+        public int hp
+        {
+            get
+            {
+                return _hp;
+            }
+            set
+            {
+                _hp = value;
+            }
+        }
+
+        public Position position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+            }
+        }
+
+        public SpriteSheet spriteSheet
+        {
+            get
+            {
+                return _spriteSheet;
+            }
+            set
+            {
+                _spriteSheet = value;
+            }
+        }
+
+        public int width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+
+        public int height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
+
+        public Vector2 speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
 
         public Normal()
         {
@@ -91,6 +216,23 @@ namespace The_Apocalypse
 
         public void move(GameTime gameTime)
         {
+            if (position.X - PlayerPosition.X < 0)
+            {
+                position.X += 1;
+            }
+            else if (position.X - PlayerPosition.X > 0)
+            {
+                position.X -= 1;
+            }
+
+            if (position.Y - PlayerPosition.Y < 0)
+            {
+                position.Y += 1;
+            }
+            else if (position.Y - PlayerPosition.Y > 0)
+            {
+                position.Y -= 1;
+            }
         }
 
         //Pour générer un nombre aléatoire.
@@ -171,6 +313,25 @@ namespace The_Apocalypse
             // Convert to degrees
             angle = angle * 180 / System.Math.PI; return angle;
 
+        }
+
+        public void Update(Character Player)
+        {
+            _playerPosition = Player.position;
+        }
+
+        public void Draw(SpriteBatch spriteBatch, bool pause)
+        {
+            spriteBatch.Draw(_spriteSheet.Frame(), new Rectangle((int)_position.X, (int)_position.Y, _width, _height), Color.White);
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public int getDamage()
+        {
+            return 0;
         }
     }
 }
