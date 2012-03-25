@@ -112,6 +112,7 @@
     <Compile Include="Area\Area.cs" />
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Monster Type\Normal.cs" />
+    <Compile Include="Engine\diceroller.cs" />
     <Compile Include="Engine\Level.cs" />
     <Compile Include="Character\Monster.cs" />
     <Compile Include="Engine\MainMenu.cs" />
