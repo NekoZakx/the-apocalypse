@@ -23,6 +23,7 @@ namespace The_Apocalypse
         private Weapon _weapon;
         private SpriteFont font;
         private List<Monster> observers = new List<Monster>();
+        private int score;
 
         public Player()
         {
@@ -335,6 +336,7 @@ namespace The_Apocalypse
 
             spriteBatch.DrawString(font, _kill + " KILL", new Vector2(0, 40), Color.Green);
             spriteBatch.DrawString(font, observers.Count + " ACTIVE ZOMBIES", new Vector2(0, 60), Color.White);
+            spriteBatch.DrawString(font, "Score: " + score, new Vector2(0, 80), Color.White);
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
@@ -389,7 +391,11 @@ namespace The_Apocalypse
 
         public void Detach(Monster Observer)
         {
+            Normal normalScore = new Normal();
             observers.Remove(Observer);
+            //ici player score augmente
+
+            scores += normalScore.scores;
         }
 
         public void Notify()
@@ -397,6 +403,18 @@ namespace The_Apocalypse
             foreach (Monster m in observers)
             {
                 m.Update(this);
+            }
+        }
+
+        public int scores
+        {
+            get
+            {
+                return score;
+            }
+            set
+            {
+                score = value;
             }
         }
     }

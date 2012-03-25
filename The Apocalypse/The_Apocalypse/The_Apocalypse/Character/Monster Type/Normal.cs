@@ -23,7 +23,7 @@ namespace The_Apocalypse
         private SpriteSheet _spriteSheet;
         private int _width = 50;
         private int _height = 50;
-        
+        private int score = 100;
 
         public Position PlayerPosition
         {
@@ -142,6 +142,18 @@ namespace The_Apocalypse
             set
             {
                 _speed = value;
+            }
+        }
+
+        public int scores
+        {
+            get
+            {
+                return score;
+            }
+            set
+            {
+                score = value;
             }
         }
 
