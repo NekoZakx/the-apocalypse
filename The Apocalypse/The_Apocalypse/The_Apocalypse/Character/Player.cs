@@ -53,6 +53,7 @@ namespace The_Apocalypse
 
         public void reset()
         {
+            observers = new List<Monster>();
             _hp = 100;
             _kill = 0;
             XmlReaderWriter file = new XmlReaderWriter();

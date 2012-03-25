@@ -59,6 +59,7 @@ namespace The_Apocalypse
         public void resetData()
         {
             player.reset();
+            monster = new List<Monster>();
         }
 
         public void LoadContent(GraphicsDevice GraphicsDevice,ContentManager Content)
@@ -108,38 +109,23 @@ namespace The_Apocalypse
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
-            player.Draw(spriteBatch, pause);
-
             foreach(Monster m in monster)
             {
                 m.Draw(spriteBatch, pause);
             }
-            
+            player.Draw(spriteBatch, pause);
         }
 
         public void Update(GameTime gameTime)
         {
-            Random rand = new Random();
-            if(monster.Count < 3)
+            if (monster.Count < 10)
             {
                 Monster enemy = new Normal();
-                enemy.hp = 100;
-                int randomX = rand.Next(-200, 1110);
-                int randomY = rand.Next(-200, 750);
-                if(randomX <= 960 && randomX >=-50)
-                {
-                    if (randomY > 550 || randomY < -50)
-                        enemy.position = new Position(randomX, randomY);
-                    else
-                        enemy.position = new Position(randomX, -200);
-                }
-                else
-                    enemy.position = new Position(randomX, randomY);
                 enemy.Initialize();
                 enemy.LoadContent(Content, GraphicsDevice);
                 monster.Add(enemy);
                 player.Attach(enemy);
-                }
+            }
             bool restart = true;
             while(restart)
             {
@@ -148,7 +134,6 @@ namespace The_Apocalypse
                 {
                     if (m.hp <= 0)
                     {
-                        Console.WriteLine("MONSTER ENERGY: " + m.hp);
                         player.Detach(m);
                         monster.Remove(m);
                         restart = true;
