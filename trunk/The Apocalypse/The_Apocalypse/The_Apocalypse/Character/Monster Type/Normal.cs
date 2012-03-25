@@ -11,184 +11,42 @@ namespace The_Apocalypse
 {
     class Normal : Monster
     {
-        private string __name = "Normal";
-        private int __hp = 10;
-        private Area __area; //À faire (Area::Near)
-        private Position __position;
-        private SpriteSheet __spriteSheet;
-        private int __width = 50;
-        private int __height = 50;
-        private int __damage = 1;
-        private Vector2 __speed = new Vector2(150, 150);
+        private string _name = "Normal";
+        private Area _area; //À faire (Area::Near)
+        private Position _position;
+        private int _damage = 1;
+        private Vector2 _speed = new Vector2(150, 150);
         private GraphicsDevice GraphicsDevice;
         private Vector2 limit;
         private Position _playerPosition;
 
         public Normal()
         {
+            _hp = 10;
+
+            Random rand = new Random();
+            int randomX = rand.Next(-200, 1110);
+            int randomY = rand.Next(-200, 750);
+            if (randomX <= 960 && randomX >= -50)
+            {
+                if (randomY > 550 || randomY < -50)
+                    position = new Position(randomX, randomY);
+                else
+                    position = new Position(randomX, -200);
+            }
+            else
+                position = new Position(randomX, randomY);
+
             XmlReaderWriter file = new XmlReaderWriter();
             file.OpenRead("Preference.xml");
 
             int width = Int32.Parse(file.FindReadNode("width"));
             int height = Int32.Parse(file.FindReadNode("height"));
 
-            file.ReadClose();
-
-            int randomPosMode = getRandomNumber(4);
-            int posX, posY;
-
-            switch (randomPosMode)
-            {
-                case 0:
-                    posX = -__width;
-                    posY = getRandomNumber((byte)(height - __height - 1));
-                    break;
-                case 1:
-                    posX = __width + width;
-                    posY = getRandomNumber((byte)(height - __height - 1));
-                    break;
-                case 2:
-                    posX = getRandomNumber((byte)(width - __width - 1));
-                    posY = -__height;
-                    break;
-                case 3:
-                    posX = getRandomNumber((byte)(width - __width - 1));
-                    posY = height + __height;
-                    break;
-                default:
-                    posX = -__width;
-                    posY = -__height;
-                    break;
-            }
-
-            __position = new Position(posX, posY);
-
-            limit = new Vector2(width + __width, height + __height);
-        }
-
-        public void reset()
-        {
-            __hp = 10;
-            XmlReaderWriter file = new XmlReaderWriter();
-            file.OpenRead("Preference.xml");
-
-            int width = Int32.Parse(file.FindReadNode("width"));
-            int height = Int32.Parse(file.FindReadNode("height"));
 
             file.ReadClose();
 
-            int randomPosMode = getRandomNumber(4);
-            int posX, posY;
-
-            switch (randomPosMode)
-            {
-                case 0:
-                    posX = -__width;
-                    posY = getRandomNumber((byte)(height - __height - 1));
-                    break;
-                case 1:
-                    posX = __width + width;
-                    posY = getRandomNumber((byte)(height - __height - 1));
-                    break;
-                case 2:
-                    posX = getRandomNumber((byte)(width - __width - 1));
-                    posY = -__height;
-                    break;
-                case 3:
-                    posX = getRandomNumber((byte)(width - __width - 1));
-                    posY = height + __height;
-                    break;
-                default:
-                    posX = -__width;
-                    posY = -__height;
-                    break;
-            }
-
-            __position = new Position(posX, posY);
-        }
-
-        public int _damage
-        {
-            get
-            {
-                return __damage;
-            }
-            set
-            {
-                __damage = value;
-            }
-        }
-
-        public Area _area
-        {
-            get
-            {
-                return __area;
-            }
-            set
-            {
-                __area = value;
-            }
-        }
-
-        public SpriteSheet _spriteSheet
-        {
-            get
-            {
-                return __spriteSheet;
-            }
-            set
-            {
-                __spriteSheet = value;
-            }
-        }
-
-        public int _width
-        {
-            get
-            {
-                return __width;
-            }
-            set
-            {
-                __width = value;
-            }
-        }
-
-        public int _height
-        {
-            get
-            {
-                return __height;
-            }
-            set
-            {
-                __height = value;
-            }
-        }
-
-        public Vector2 _speed
-        {
-            get
-            {
-                return __speed;
-            }
-            set
-            {
-                __speed = value;
-            }
-        }
-
-        public Position playerPosition
-        {
-            get
-            {
-                return _playerPosition;
-            }
-            set
-            {
-                _playerPosition = value;
-            }
+            limit = new Vector2(width + _width, height + _height);
         }
 
         public void attack()
@@ -200,13 +58,13 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-            orientation((int)playerPosition.X, (int)playerPosition.Y);
+            orientation((int)_playerPosition.X, (int)_playerPosition.Y);
             move(gameTime);
         }
 
         public void orientation(int pX, int pY)
         {
-            double angle = Angle(__position.X, -__position.Y, pX, -pY);
+            double angle = Angle(_position.X, -_position.Y, pX, -pY);
 
             // 22.5 + 45 + 22.5 + 22.5 +45 +22.5 +22.5 +45 +22.5 +22.5 +45 +22.5 = 360
 

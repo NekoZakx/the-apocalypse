@@ -11,11 +11,11 @@ namespace The_Apocalypse
     class Monster : Character
     {
         private string _name;
-        private int _hp;
+        protected int _hp;
         private Position _position;
-        private SpriteSheet _spriteSheet;
-        private int _width = 50;
-        private int _height = 50;
+        protected SpriteSheet _spriteSheet;
+        protected int _width = 50;
+        protected int _height = 50;
         private Vector2 _speed;
         private Position _playerPosition;
         BlendState brightnessBlend;
@@ -186,7 +186,7 @@ namespace The_Apocalypse
 
         public void Initialize()
         {
-            PlayerPosition = new Position(0, 0);
+            
             brightnessBlend = new BlendState();
             brightnessBlend.ColorSourceBlend = brightnessBlend.AlphaSourceBlend = Blend.Zero;
             brightnessBlend.ColorDestinationBlend = brightnessBlend.AlphaDestinationBlend = Blend.SourceColor;

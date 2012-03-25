@@ -145,8 +145,8 @@ namespace The_Apocalypse
                         game.resetData();
                     }
                     main.Update(gameTime);
-                }
-                game.Update(gameTime);
+                }else
+                    game.Update(gameTime);
             }
 
             oldState = newState;
