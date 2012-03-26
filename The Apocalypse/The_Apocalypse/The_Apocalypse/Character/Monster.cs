@@ -135,7 +135,9 @@ namespace The_Apocalypse
         }*/
 
         void attack();
-        
+
+        void addPathData(PathFinder pathData);
+
         int getDamage();
 
         void Update(GameTime gameTime);

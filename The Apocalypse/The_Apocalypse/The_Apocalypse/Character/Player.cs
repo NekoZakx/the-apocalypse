@@ -23,6 +23,7 @@ namespace The_Apocalypse
         private Weapon _weapon;
         private SpriteFont font;
         private List<Monster> observers = new List<Monster>();
+        private PathFinder pathData;
         private int _score;
         private int _life = 3;
 
@@ -243,6 +244,8 @@ namespace The_Apocalypse
 
         public void move(GameTime gameTime)
         {
+            pathData.removeData(_position, _width, _height);
+            
             KeyboardState newState = Keyboard.GetState();
             
             if (newState.IsKeyDown(Keys.D))
@@ -301,6 +304,8 @@ namespace The_Apocalypse
             {
             }*/
             oldState = newState;
+
+            pathData.addData(_position, _width,_height, SquareContent.Hero);
         }
 
         public void Update(GameTime gameTime)
@@ -411,6 +416,11 @@ namespace The_Apocalypse
             {
                 m.Update(this);
             }
+        }
+
+        public void addPathData(PathFinder pathData)
+        {
+            this.pathData = pathData;
         }
 
         public int scores

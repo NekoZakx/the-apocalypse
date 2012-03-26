@@ -23,6 +23,7 @@ namespace The_Apocalypse
         private SpriteSheet _spriteSheet;
         private int _width = 50;
         private int _height = 50;
+        private PathFinder pathData;
         private int score = 100;
 
         public Position PlayerPosition
@@ -223,10 +224,9 @@ namespace The_Apocalypse
                 _spriteSheet.setCurrentFrame(7);
 
         }
-
         public void move(GameTime gameTime)
         {
-            if (position.X - PlayerPosition.X < 0)
+            /*if (position.X - PlayerPosition.X < 0)
             {
                 position.X += 1;
             }
@@ -242,6 +242,25 @@ namespace The_Apocalypse
             else if (position.Y - PlayerPosition.Y > 0)
             {
                 position.Y -= 1;
+            }*/
+            if (_position.X < 0 || _position.X > 960 || _position.Y < 0 || _position.Y > 550)
+            {
+                if (_position.X < 1)
+                    _position.X++;
+                else if (_position.X > 960)
+                    _position.X--;
+
+                if (_position.Y < 1)
+                    _position.Y++;
+                else if (_position.Y > 550)
+                    _position.Y--;
+            }
+            else
+            {
+                
+                pathData.removeData(_position, _width, _height);
+                _position = pathData.nextMove(_position,width,height, _playerPosition);
+                pathData.addData(_position, _width,_height, SquareContent.Monster);
             }
         }
 
@@ -342,6 +361,11 @@ namespace The_Apocalypse
         public int getDamage()
         {
             return 0;
+        }
+
+        public void addPathData(PathFinder pathData)
+        {
+            this.pathData = pathData;
         }
     }
 }

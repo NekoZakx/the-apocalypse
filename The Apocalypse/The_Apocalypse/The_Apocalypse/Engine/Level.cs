@@ -19,6 +19,7 @@ namespace The_Apocalypse
         ContentManager Content;
         Player player;
         List<Monster> monster;
+        PathFinder pathData;
 
         public void initialize(int WIDTH, int HEIGHT)
         {
@@ -36,6 +37,8 @@ namespace The_Apocalypse
 
             player = new Player();
             monster = new List<Monster>();
+            pathData = new PathFinder(width, height);
+            player.addPathData(pathData);
             
         }
 
@@ -123,8 +126,10 @@ namespace The_Apocalypse
                 Monster enemy = new Normal();
                 enemy.Initialize();
                 enemy.LoadContent(Content, GraphicsDevice);
+                enemy.addPathData(pathData);
                 monster.Add(enemy);
                 player.Attach(enemy);
+
             }
             bool restart = true;
             while(restart)

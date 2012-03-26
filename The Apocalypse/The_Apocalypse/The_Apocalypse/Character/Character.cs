@@ -49,6 +49,8 @@ namespace The_Apocalypse
             set;
         }
 
+        void addPathData(PathFinder pathData);
+
         void move(GameTime gameTime);
 
         void Update(GameTime gameTime);
