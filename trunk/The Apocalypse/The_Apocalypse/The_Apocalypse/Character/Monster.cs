@@ -136,6 +136,8 @@ namespace The_Apocalypse
 
         void attack();
 
+        void delete();
+
         void addPathData(PathFinder pathData);
 
         int getDamage();

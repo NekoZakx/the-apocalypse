@@ -187,6 +187,11 @@ namespace The_Apocalypse
             limit = new Vector2(width + _width, height + _height);
         }
 
+        public void delete()
+        {
+            pathData.removeData(_position, _width, _height);
+        }
+
         public void attack()
         {
             //À faire
