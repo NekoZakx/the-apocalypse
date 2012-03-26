@@ -2,7 +2,6 @@
 
 namespace The_Apocalypse
 {
-    
         public class DiceRoller : IDisposable
         {
 
