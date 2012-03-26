@@ -139,6 +139,7 @@ namespace The_Apocalypse
                 {
                     if (m.hp <= 0)
                     {
+                        m.delete();
                         player.Detach(m);
                         monster.Remove(m);
                         restart = true;
