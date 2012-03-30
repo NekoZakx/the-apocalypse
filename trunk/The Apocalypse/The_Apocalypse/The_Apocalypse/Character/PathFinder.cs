@@ -94,14 +94,16 @@ namespace The_Apocalypse
          **************************/
         Point[] _movements = new Point[]
 	    {
-	        new Point(-1, -1),
-	        new Point(0, -1),
+	        new Point(1, 0), // Right
+            new Point(-1, 0), // Left
+            new Point(0, 1), // Down
+            new Point(0, -1), // Up
+            
+            new Point(-1, -1),
 	        new Point(1, -1),
-	        new Point(1, 0),
 	        new Point(1, 1),
-	        new Point(0, 1),
-	        new Point(-1, 1),
-	        new Point(-1, 0)
+	        new Point(-1, 1)
+	        
 	    };
 
 
@@ -164,10 +166,44 @@ namespace The_Apocalypse
 
 
 
-
+            bool stuck = true;
+            if (ValidCoordinates(x, y) && ValidCoordinates(x + width, y + height))
+            {
+                if (_squares[x, y] == SquareContent.Hero || _squares[x + width, y] == SquareContent.Hero || _squares[x, y + height] == SquareContent.Hero || _squares[x + width, y + height] == SquareContent.Hero)
+                    return evaluate;
+                else
+                    if (_squares[x, y] != SquareContent.Empty || _squares[x + width, y] != SquareContent.Empty || _squares[x, y + height] != SquareContent.Empty || _squares[x + width, y + height] != SquareContent.Empty)
+                    {
+                        foreach (Point position in _movements)
+                        {
+                            if (ValidCoordinates((int)evaluate.X + width + position.X, (int)evaluate.Y + height + position.Y) && ValidCoordinates((int)evaluate.X + position.X, (int)evaluate.Y + position.Y))
+                            {
+                                if (_squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] != SquareContent.Monster && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] != SquareContent.Monster && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] != SquareContent.Monster && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] != SquareContent.Monster)
+                                {
+                                    //ADDITION / CHANGES
+                                    if ((changeY && ((additionY && position.Y >= 0) || (!additionY && position.Y <= 0))) || (changeX && ((additionX && position.X >= 0) || (!additionX && position.X <= 0))))
+                                    {
+                                        x = position.X + (int)evaluate.X;
+                                        y = position.Y + (int)evaluate.Y;
+                                    }
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (stuck)
+                            return evaluate;
+                        else
+                            return new Position(x, y);
+                    }
+                    else
+                        return new Position(x, y);
+            }
+            else
+                return evaluate;
 
             //N'ESSAIE PAS D'ALLER JUSQU'AU JOUEUR!
-            bool stuck = true;
+            /*bool stuck = true;
             if (ValidCoordinates(x + width, y + height))
             {
                 if (_squares[x, y] == SquareContent.Hero || _squares[x + width, y] == SquareContent.Hero || _squares[x, y + height] == SquareContent.Hero || _squares[x + width, y + height] == SquareContent.Hero)
@@ -180,12 +216,85 @@ namespace The_Apocalypse
                     {
                         if (ValidCoordinates((int)position.X + (int)evaluate.X, (int)position.Y + (int)evaluate.Y) && ValidCoordinates((int)position.X + (int)evaluate.X + width, (int)position.Y + (int)evaluate.Y + height))
                         {
-                            if (_squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] == SquareContent.Empty)
+                            if (position.X == -1 && position.Y == -1)
                             {
-                                x = position.X + (int)evaluate.X;
-                                y = position.Y + (int)evaluate.Y;
-                                stuck = false;
-                                break;
+                                if (_squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == 1 && position.Y == 1)
+                            {
+                                if (_squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == -1 && position.Y == 1)
+                            {
+                                if (_squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == 1 && position.Y == -1)
+                            {
+                                if (_squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == 0 && position.Y == 1)
+                            {
+                                if (_squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == 0 && position.Y == -1)
+                            {
+                                if (_squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == 1 && position.Y == 0)
+                            {
+                                if (_squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X + width, position.Y + (int)evaluate.Y + height] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
+                            }
+                            if (position.X == -1 && position.Y == 0)
+                            {
+                                if (_squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y] == SquareContent.Empty && _squares[position.X + (int)evaluate.X, position.Y + (int)evaluate.Y + height] == SquareContent.Empty)
+                                {
+                                    x = position.X + (int)evaluate.X;
+                                    y = position.Y + (int)evaluate.Y;
+                                    stuck = false;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -197,7 +306,7 @@ namespace The_Apocalypse
             return new Position(x, y);
 
 
-
+            */
 
 
 
