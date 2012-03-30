@@ -248,16 +248,16 @@ namespace The_Apocalypse
             {
                 position.Y -= 1;
             }*/
-            if (_position.X < 0 || _position.X > 960 || _position.Y < 0 || _position.Y > 550)
+            if (_position.X < 0 || _position.X + _width > 960 || _position.Y < 0 || _position.Y + _height > 600)
             {
                 if (_position.X < 1)
                     _position.X++;
-                else if (_position.X > 960)
+                else if (_position.X + width > 960)
                     _position.X--;
 
                 if (_position.Y < 1)
                     _position.Y++;
-                else if (_position.Y > 550)
+                else if (_position.Y + _height >= 600)
                     _position.Y--;
             }
             else
