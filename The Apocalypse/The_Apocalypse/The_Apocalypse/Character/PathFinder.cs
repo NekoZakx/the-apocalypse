@@ -14,6 +14,7 @@ namespace The_Apocalypse
         Wall,
         Active
     };
+    
     class PathFinder
     {
         
@@ -58,7 +59,7 @@ namespace The_Apocalypse
             }
         }
 
-        public void addData(Position newDataSet, int width, int height, SquareContent type)
+        public void ChangeData(Position newDataSet, int width, int height, SquareContent type)
         {
             for (int i = (int)newDataSet.X; i < newDataSet.X + width; i++)
             {
@@ -70,41 +71,69 @@ namespace The_Apocalypse
             }
         }
 
-        public List<Position> travellingData()
-        {
-            return path;
-        }
-
-        /*public Position nextMove()
-        {
-            if (path.Count == 0)
-                return new Position(-1, -1);
-            else
-                return path[path.Count - 1];
-        }*/
-
-        private List<Position> path = new List<Position>();
-        bool findPath = false;
-
         /**************************
           POSSIBLE MOVE AUTHORIZED
           [-1, -1] [0, -1] [1, -1]
           [-1,  0] [0,  0] [1,  0]
           [-1,  1] [0,  1] [1,  1] 
          **************************/
-        Point[] _movements = new Point[]
-	    {
-	        new Point(1, 0), // Right
-            new Point(-1, 0), // Left
-            new Point(0, 1), // Down
-            new Point(0, -1), // Up
+        enum direction
+        {
+            UP = 0,
+            DOWN = 1,
+            RIGHT = 2,
+            LEFT = 3,
+            RIGHT_UP = 2,
+            RIGHT_DOWN = 1,
+            LEFT_UP = 0,
+            LEFT_DOWN = 3,
+            RANDOM = 4
+        }
+
+        Point[][] _moveByDirection = 
+        {
+            new Point[]
+	        {
+	            new Point(1, 0), // Right
+                new Point(0, -1), // Up
+	            new Point(1, -1)
+	        }
+        ,
+            new Point[]
+	        {
+                new Point(-1, 0), // Left
+                new Point(0, 1), // Down
+	            new Point(-1, 1)
+	        }
+        ,
+            new Point[]
+	        {
+                new Point(0, 1), // Down
+                new Point(1, 0), // Right
+	            new Point(1, 1),
+	        }
+        ,
+            new Point[]
+	        {
+                new Point(0, -1), // Up
+                new Point(-1, 0), // Left
+                new Point(-1, -1)
+	        }
+        ,
+            new Point[]
+	        {
+	            new Point(0, -1), // Up
+                new Point(1, 0), // Right
+                new Point(0, 1), // Down
+                new Point(-1, 0), // Left
             
-            new Point(-1, -1),
-	        new Point(1, -1),
-	        new Point(1, 1),
-	        new Point(-1, 1)
+                new Point(-1, -1),
+	            new Point(1, -1),
+	            new Point(1, 1),
+	            new Point(-1, 1)
 	        
-	    };
+	        }
+        };
 
 
         private bool ValidCoordinates(int x, int y)
@@ -131,7 +160,110 @@ namespace The_Apocalypse
 
         public Position nextMove(Position evaluate,int width, int height, Position target)
         {
+            /* DEBUG SI L'OBJET EST A L'INTERIEUR D'UN AUTRE OBJET, TRES INSTABLE... A AMÉLIORER
+             if (ValidCoordinates((int)evaluate.X, (int)evaluate.Y) && ValidCoordinates((int)evaluate.X + width, (int)evaluate.Y) && ValidCoordinates((int)evaluate.X, (int)evaluate.Y + height) && ValidCoordinates((int)evaluate.X + width, (int)evaluate.Y + height))
+                if (_squares[(int)evaluate.X, (int)evaluate.Y] != SquareContent.Empty || _squares[(int)evaluate.X + width, (int)evaluate.Y] != SquareContent.Empty || _squares[(int)evaluate.X, (int)evaluate.Y + height] != SquareContent.Empty || _squares[(int)evaluate.X + width, (int)evaluate.Y + height] != SquareContent.Empty)
+                {
+                    DiceRoller rand = new DiceRoller();
+                    int randNb = rand.Roll(8) - 1;
+                    return new Position((int)evaluate.X + _moveByDirection[4][randNb].X, (int)evaluate.Y + _moveByDirection[4][randNb].Y);
+                }*/
+            
+            bool findPath = false;
+            //temporairement bouger normalement vers le joueur
+            //Modification du X
+            bool[] d = { false, false, false, false };
+            Point[] _movements = {};
             int x, y;
+            if (evaluate.X < target.X)      { x = (int)evaluate.X + 1; d[0] = true; }
+            else if (evaluate.X > target.X) { x = (int)evaluate.X - 1; d[1] = true; }
+            else                              x = (int)evaluate.X;
+
+            //Modification du Y
+            if (evaluate.Y < target.Y)      { y = (int)evaluate.Y + 1; d[2] = true; }
+            else if (evaluate.Y > target.Y) { y = (int)evaluate.Y - 1; d[3] = true; }
+            else                              y = (int)evaluate.Y;
+
+            if (d[0] && !d[1] && !d[2] && !d[3])
+                _movements = _moveByDirection[(int)direction.RIGHT];
+            else if (!d[0] && d[1] && !d[2] && !d[3])
+                _movements = _moveByDirection[(int)direction.LEFT];
+            else if (!d[0] && !d[1] && d[2] && !d[3])
+                _movements = _moveByDirection[(int)direction.DOWN];
+            else if (!d[0] && !d[1] && !d[2] && d[3])
+                _movements = _moveByDirection[(int)direction.UP];
+            else if (d[0] && !d[1] && d[2] && !d[3])
+                _movements = _moveByDirection[(int)direction.RIGHT_DOWN];
+            else if (d[0] && !d[1] && !d[2] && d[3])
+                _movements = _moveByDirection[(int)direction.RIGHT_UP];
+            else if (!d[0] && d[1] && d[2] && !d[3])
+                _movements = _moveByDirection[(int)direction.LEFT_DOWN];
+            else if (!d[0] && d[1] && !d[2] && d[3])
+                _movements = _moveByDirection[(int)direction.LEFT_UP];
+
+            //Vérifier si cette case est occupé, si oui essayé de contourner
+            if (_squares[x, y] == SquareContent.Hero || _squares[x + width, y] == SquareContent.Hero || _squares[x, y + height] == SquareContent.Hero || _squares[x + width, y + height] == SquareContent.Hero)
+            {
+                return evaluate;
+            }
+            else if (ValidCoordinates(x, y) && ValidCoordinates(x + width, y) && ValidCoordinates(x, y + height) && ValidCoordinates(x + width, y + height))
+                foreach (Point a in _movements)
+                {
+                    if (_squares[x, y] == SquareContent.Empty && _squares[x + width, y] == SquareContent.Empty && _squares[x, y + height] == SquareContent.Empty && _squares[x + width, y + height] == SquareContent.Empty)
+                    {
+                        findPath = true;
+                        break;
+                    }
+                    if (ValidCoordinates((int)evaluate.X + a.X, (int)evaluate.Y + a.Y) && ValidCoordinates((int)evaluate.X + a.X + width, (int)evaluate.Y + a.Y) && ValidCoordinates((int)evaluate.X + a.X, (int)evaluate.Y + a.Y + height) && ValidCoordinates((int)evaluate.X + a.X + width, (int)evaluate.Y + a.Y + height))
+                    {
+                        x = (int)evaluate.X + a.X;
+                        y = (int)evaluate.Y + a.Y;
+                    }
+                }
+            if (!findPath)
+            {
+                return evaluate;
+            }
+            else
+            {
+                findPath = false;
+                return new Position(x, y);
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            /*int x, y;
             bool additionX = false;
             bool additionY = false;
             bool changeX = false;
@@ -200,7 +332,7 @@ namespace The_Apocalypse
                         return new Position(x, y);
             }
             else
-                return evaluate;
+                return evaluate;*/
 
             //N'ESSAIE PAS D'ALLER JUSQU'AU JOUEUR!
             /*bool stuck = true;

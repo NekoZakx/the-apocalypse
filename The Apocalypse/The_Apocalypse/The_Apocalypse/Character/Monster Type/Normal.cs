@@ -264,8 +264,8 @@ namespace The_Apocalypse
             {
                 
                 pathData.removeData(_position, _width, _height);
-                _position = pathData.nextMove(_position,width,height, _playerPosition);
-                pathData.addData(_position, _width,_height, SquareContent.Monster);
+                _position = pathData.nextMove(_position,_width,_height, _playerPosition);
+                pathData.ChangeData(_position, _width,_height, SquareContent.Monster);
             }
         }
 
