@@ -305,7 +305,7 @@ namespace The_Apocalypse
             }*/
             oldState = newState;
 
-            pathData.addData(_position, _width,_height, SquareContent.Hero);
+            pathData.ChangeData(_position, _width,_height, SquareContent.Hero);
         }
 
         public void Update(GameTime gameTime)
