@@ -48,7 +48,13 @@
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Music\Excision &amp; Skism - sEXisM.mp3">
+      <Name>bgmusic</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Button\pan+.png">
       <Name>pan+</Name>
@@ -71,12 +77,12 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Button\volume+.png">
-      <Name>volume+</Name>
+      <Name>svolume+</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Button\volume-.png">
-      <Name>volume-</Name>
+      <Name>svolume-</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -116,13 +122,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Button\contrass+.png">
-      <Name>contrass+</Name>
+    <Compile Include="Button\contrast+.png">
+      <Name>contrast+</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Button\contrass-.png">
-      <Name>contrass-</Name>
+    <Compile Include="Button\contrast-.png">
+      <Name>contrast-</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -247,6 +253,39 @@
     </Compile>
     <Compile Include="SpriteSheet\ArrowTest\Monster\W.png">
       <Name>arrowM4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SoundFX\fullshotgun.wav">
+      <Name>shotgunshoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SoundFX\assaultrifle.wav">
+      <Name>assaultrifleshoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SoundFX\gatlinggun.wav">
+      <Name>gatlingshoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Button\mvolume+.png">
+      <Name>mvolume+</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Button\mvolume-.png">
+      <Name>mvolume-</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

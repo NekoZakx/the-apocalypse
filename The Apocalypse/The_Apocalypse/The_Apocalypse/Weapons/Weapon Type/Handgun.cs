@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
+using Microsoft.Xna.Framework.Audio;
 
 namespace The_Apocalypse
 {
@@ -14,6 +15,7 @@ namespace The_Apocalypse
         private int _damage = 5;
         private int _ammo = -1;
         private List<Direct> bulletShot;
+        private SoundEffect _shootSound;
 
         private float _speed = 15;
 
@@ -62,6 +64,18 @@ namespace The_Apocalypse
             set
             {
                 _speed = value;
+            }
+        }
+
+        public SoundEffect shootSound
+        {
+            get
+            {
+                return _shootSound;
+            }
+            set
+            {
+                _shootSound = value;
             }
         }
 
