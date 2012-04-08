@@ -14,6 +14,7 @@ namespace The_Apocalypse
         private string _name;
         private int _hp = 100, _kill = 0;
         private Position _position;
+        private Position _NormalPosition = new Position(0,0);
         private SpriteSheet _spriteSheet;
         private int _width = 50;
         private int _height = 50;
@@ -26,6 +27,7 @@ namespace The_Apocalypse
         private PathFinder pathData;
         private int _score;
         private int _life = 3;
+        private int _cpt = 0;
 
         public Player()
         {
@@ -163,6 +165,18 @@ namespace The_Apocalypse
             set
             {
                 _speed = value;
+            }
+        }
+
+        public Position NormalPosition
+        {
+            get
+            {
+                return _NormalPosition;
+            }
+            set
+            {
+                _NormalPosition = value;
             }
         }
 
@@ -316,6 +330,12 @@ namespace The_Apocalypse
             ChangeWeapon();
             bulletState();
             noMoreHp();
+            _cpt++;
+            if(_cpt == 5)
+            {
+                looseHp(isInCircle());
+                _cpt = 0;
+            }
         }
 
         void bulletState()
@@ -470,5 +490,29 @@ namespace The_Apocalypse
 
             return _life;
         }
+
+        public int looseHp(bool isInCircle)
+        {
+            if(isInCircle)
+            {
+                _hp--;
+            }
+
+            return _hp;
+        }
+
+        public bool isInCircle()
+        {
+            if (Math.Pow((_NormalPosition.X - position.X), 2) + Math.Pow((_NormalPosition.Y + position.Y), 2) != 100)//Si le point se trouve dans le cercle on retourne vraie
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        
     }
 }
