@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace The_Apocalypse
 {
@@ -27,6 +28,12 @@ namespace The_Apocalypse
         }
 
         float speed
+        {
+            get;
+            set;
+        }
+
+        SoundEffect shootSound
         {
             get;
             set;

@@ -20,24 +20,26 @@ namespace The_Apocalypse
             JUST_RELEASED,
             DOWN
         }
-        const int NUMBER_OF_BUTTONS = 16,
+        const int NUMBER_OF_BUTTONS = 18,
 
-            VOLUMEPLUS_BUTTON_INDEX = 0,
-            VOLUMEMINUS_BUTTON_INDEX = 1,
+            SVOLUMEPLUS_BUTTON_INDEX = 0,
+            SVOLUMEMINUS_BUTTON_INDEX = 1,
             PITCHPLUS_BUTTON_INDEX = 2,
             PITCHMINUS_BUTTON_INDEX = 3,
             PANPLUS_BUTTON_INDEX = 4,
             PANMINUS_BUTTON_INDEX = 5,
-            BRIGHTNESSPLUS_BUTTON_INDEX = 6,
-            BRIGHTNESSMINUS_BUTTON_INDEX = 7,
-            CONTRASSPLUS_BUTTON_INDEX = 8,
-            CONTRASSMINUS_BUTTON_INDEX = 9,
-            DEFAULT_BUTTON_INDEX = 10,
-            APPLY_BUTTON_INDEX = 11,
-            TEXTBOX_INDEX = 12,
-            FULLSCREEN_BUTTON_INDEX = 13,
-            EXIT_BUTTON_INDEX = 14,
-            MAINMENU_BUTTON_INDEX = 15,
+            MVOLUMEPLUS_BUTTON_INDEX = 6,
+            MVOLUMEMINUS_BUTTON_INDEX = 7,
+            BRIGHTNESSPLUS_BUTTON_INDEX = 8,
+            BRIGHTNESSMINUS_BUTTON_INDEX = 9,
+            CONTRASTPLUS_BUTTON_INDEX = 10,
+            CONTRASTMINUS_BUTTON_INDEX = 11,
+            DEFAULT_BUTTON_INDEX = 12,
+            APPLY_BUTTON_INDEX = 13,
+            TEXTBOX_INDEX = 14,
+            FULLSCREEN_BUTTON_INDEX = 15,
+            EXIT_BUTTON_INDEX = 16,
+            MAINMENU_BUTTON_INDEX = 17,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
 
@@ -56,6 +58,7 @@ namespace The_Apocalypse
         BlendState contrastBlend;
 
         SoundEffectInstance Sound_Preview;
+        //SoundEffectInstance BGM;
         GraphicsDevice GraphicsDevice;
         GraphicsDeviceManager graphics;
 
@@ -153,25 +156,29 @@ namespace The_Apocalypse
             //Ligne du mode Plein Écran
             buttons[FULLSCREEN_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/fullscreen"));
 
-            //Ligne du Volume
-            buttons[VOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/volume-"));
-            buttons[VOLUMEPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/volume+"));
+            //Ligne du Volume des effets sonores
+            buttons[SVOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/svolume-"));
+            buttons[SVOLUMEPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/svolume+"));
 
-            //Ligne du Pitch
+            //Ligne du Pitch des effets sonores
             buttons[PITCHMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/pitch-"));
             buttons[PITCHPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/pitch+"));
 
-            //Ligne de la Balance
+            //Ligne de la Balance des effets sonores
             buttons[PANMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>( @"Button/pan-"));
             buttons[PANPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/pan+"));
+
+            //Ligne du Volume de la musique de fond
+            buttons[MVOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/mvolume-"));
+            buttons[MVOLUMEPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/mvolume+"));
 
             //Ligne du Brightness
             buttons[BRIGHTNESSMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/bright-"));
             buttons[BRIGHTNESSPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/bright+"));
 
             //Ligne de la Contraste
-            buttons[CONTRASSMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/contrass-"));
-            buttons[CONTRASSPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/contrass+"));
+            buttons[CONTRASTMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/contrast-"));
+            buttons[CONTRASTPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/contrast+"));
 
             //Ligne de validation des paramètres ou remise à zéro
             buttons[APPLY_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/apply"));
@@ -231,11 +238,15 @@ namespace The_Apocalypse
                 {
                     spriteBatch.DrawString(font, ((int)(Sound_Preview.Pan * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
-                else if (i == 7)
+                /*if (i == 7)
+                {
+                    spriteBatch.DrawString(font, ((int)(BGM.Volume * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
+                }*/
+                else if (i == 9)
                 {
                     spriteBatch.DrawString(font, brightness.ToString(), new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
-                else if (i == 9)
+                else if (i == 11)
                 {
                     spriteBatch.DrawString(font, contrast.ToString(), new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
@@ -267,14 +278,14 @@ namespace The_Apocalypse
             //take action corresponding to which button was clicked
             switch (i)
             {
-                case VOLUMEPLUS_BUTTON_INDEX:
+                case SVOLUMEPLUS_BUTTON_INDEX:
                     Sound_Preview.Play();
                     if (Sound_Preview.Volume + (float)0.01 <= 1)
                         Sound_Preview.Volume += (float)0.01;
                     else if (Sound_Preview.Volume + (float)0.01 >= 1)
                         Sound_Preview.Volume = 1;
                     break;
-                case VOLUMEMINUS_BUTTON_INDEX:
+                case SVOLUMEMINUS_BUTTON_INDEX:
                     Sound_Preview.Play();
                     if (Sound_Preview.Volume - (float)0.01 >= 0)
                         Sound_Preview.Volume -= (float)0.01;
@@ -309,6 +320,18 @@ namespace The_Apocalypse
                     else if (Sound_Preview.Pan - (float)0.01 <= -1)
                         Sound_Preview.Pan = -1;
                     break;
+                /*case MVOLUMEPLUS_BUTTON_INDEX:
+                    if (BGM.Volume + (float)0.01 <= 1)
+                        BGM.Volume += (float)0.01;
+                    else if (BGM.Volume + (float)0.01 >= 1)
+                        BGM.Volume = 1;
+                    break;
+                case MVOLUMEMINUS_BUTTON_INDEX:
+                    if (BGM.Volume - (float)0.01 >= 0)
+                        BGM.Volume -= (float)0.01;
+                    else if (BGM.Volume - (float)0.01 < 0)
+                        BGM.Volume = 0;
+                    break;*/
                 case BRIGHTNESSPLUS_BUTTON_INDEX:
                     if(brightness < 255)
                         brightness++;
@@ -317,11 +340,11 @@ namespace The_Apocalypse
                     if (brightness > 50)
                         brightness--;
                     break;
-                case CONTRASSPLUS_BUTTON_INDEX:
+                case CONTRASTPLUS_BUTTON_INDEX:
                     if (contrast < 255)
                         contrast++;
                     break;
-                case CONTRASSMINUS_BUTTON_INDEX:
+                case CONTRASTMINUS_BUTTON_INDEX:
                     if (contrast > 0)
                         contrast--;
                     break;

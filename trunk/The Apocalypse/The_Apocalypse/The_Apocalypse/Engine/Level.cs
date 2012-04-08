@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
@@ -20,6 +21,8 @@ namespace The_Apocalypse
         Player player;
         List<Monster> monster;
         PathFinder pathData;
+        SoundEffectInstance bgm;
+
 
         public void initialize(int WIDTH, int HEIGHT)
         {
@@ -61,6 +64,7 @@ namespace The_Apocalypse
 
         public void resetData()
         {
+            bgm.Play();
             player.reset();
             monster = new List<Monster>();
         }
@@ -74,6 +78,10 @@ namespace The_Apocalypse
 
             player.LoadContent(Content, GraphicsDevice);
             Random rand = new Random();
+            bgm = (Content.Load<SoundEffect>(@"Music/bgmusic")).CreateInstance();
+            bgm.IsLooped = true;
+            bgm.Volume = (float)0.25;
+
             /*for (int i = 0; i < 15; i++)
             {
                 Monster enemy = new Normal();
@@ -183,6 +191,11 @@ namespace The_Apocalypse
             contrast = Int32.Parse(file.FindReadNode("contrast"));
 
             file.ReadClose();
+        }
+
+        public SoundEffectInstance getBGM()
+        {
+            return this.bgm;
         }
     }
 }
