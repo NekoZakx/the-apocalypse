@@ -94,7 +94,8 @@ namespace The_Apocalypse.Weapons.Weapon_Type
 
         public void shoot(Position playerPosition, GraphicsDevice GraphicsDevice)
         {
-
+            MouseState mousePosition = Mouse.GetState();
+            near.Add(new Proximity(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice));
         }
 
         public void reset()
