@@ -19,24 +19,27 @@ namespace The_Apocalypse
 
         Position positionNow = new Position(0, 0);
         Position positionStart = new Position(0, 0);
+        Position positionStartMouse = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
 
         Thread t1;
 
-        public Proximity(Position player, Position mouse)
+        public Proximity(Position player, Position mouse, GraphicsDevice GraphicsDevice)
         {
             positionStart.X = player.X;
             positionStart.Y = player.Y;
+            positionStartMouse.X = mouse.X;
+            positionStartMouse.Y = mouse.Y;
             positionNow.X = positionStart.X;
             positionNow.Y = positionStart.Y;
         }
 
-        public bool proximity(Position player, Position normal, Position mouse, GraphicsDevice GraphicsDevice)
+        public bool proximity(Position normalPosition)
         {
-            if (Math.Pow((normal.X - player.X), 2) + Math.Pow((normal.Y + player.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
+            if (Math.Pow((normalPosition.X - positionStart.X), 2) + Math.Pow((normalPosition.Y + positionStart.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
             {
-                deltaX = mouse.X - player.X;
-                deltaY = mouse.Y - player.Y;
+                deltaX = positionStartMouse.X - positionStart.X;
+                deltaY = positionStartMouse.Y - positionStart.Y;
 
                 slope = deltaY / deltaX;//On calcule la pente de la première droite
 
@@ -51,16 +54,16 @@ namespace The_Apocalypse
 
                 if (Mper == 0)
                 {
-                    Bper = player.Y;
+                    Bper = positionStart.Y;
                 }
                 else
                 {
-                    Bper = player.Y / (Mper * player.X);//On calcule le B de la droite perpendiculaire
+                    Bper = positionStart.Y / (Mper * positionStart.X);//On calcule le B de la droite perpendiculaire
                 }
 
-                Yper = (Mper * player.X) + Bper;//On calcule la formule de la droite perpendiculaire
+                Yper = (Mper * positionStart.X) + Bper;//On calcule la formule de la droite perpendiculaire
 
-                Y = (Mper * normal.X) + Bper;//On trouve la valeur du Y pour le X de notre point sur la droite
+                Y = (Mper * normalPosition.X) + Bper;//On trouve la valeur du Y pour le X de notre point sur la droite
 
                 if (Mper == 0)
                 {
@@ -71,18 +74,18 @@ namespace The_Apocalypse
                     X = (Y / Mper) + Bper;//On trouve la valeur du X pour le Y de notre point sur la droite
                 }
 
-                if (mouse.Y < Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
+                if (positionStartMouse.Y < Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
                 {
                     return underRight;
                 }
-                else if (mouse.Y > Y)//Sinon le point se trouve au dessus
+                else if (positionStartMouse.Y > Y)//Sinon le point se trouve au dessus
                 {
                     return upperRight;
                 }
 
-                if (mouse.X < X)//Si le point à évalué est plus petit que le point trouvé, le point se trouve à gauche de la droite
+                if (positionStartMouse.X < X)//Si le point à évalué est plus petit que le point trouvé, le point se trouve à gauche de la droite
                 {
-                    return leftOfRight;  
+                    return leftOfRight;
                 }
                 else//Sinon il se trouve à droite
                 {
