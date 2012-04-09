@@ -160,15 +160,26 @@ namespace The_Apocalypse
 
         public Position nextMove(Position evaluate,int width, int height, Position target)
         {
-            /* DEBUG SI L'OBJET EST A L'INTERIEUR D'UN AUTRE OBJET, TRES INSTABLE... A AMÉLIORER
-             if (ValidCoordinates((int)evaluate.X, (int)evaluate.Y) && ValidCoordinates((int)evaluate.X + width, (int)evaluate.Y) && ValidCoordinates((int)evaluate.X, (int)evaluate.Y + height) && ValidCoordinates((int)evaluate.X + width, (int)evaluate.Y + height))
+             //DEBUG SI L'OBJET EST A L'INTERIEUR D'UN AUTRE OBJET, TRES INSTABLE... A AMÉLIORER
+             /*if (ValidCoordinates((int)evaluate.X, (int)evaluate.Y) && ValidCoordinates((int)evaluate.X + width, (int)evaluate.Y) && ValidCoordinates((int)evaluate.X, (int)evaluate.Y + height) && ValidCoordinates((int)evaluate.X + width, (int)evaluate.Y + height))
                 if (_squares[(int)evaluate.X, (int)evaluate.Y] != SquareContent.Empty || _squares[(int)evaluate.X + width, (int)evaluate.Y] != SquareContent.Empty || _squares[(int)evaluate.X, (int)evaluate.Y + height] != SquareContent.Empty || _squares[(int)evaluate.X + width, (int)evaluate.Y + height] != SquareContent.Empty)
                 {
-                    DiceRoller rand = new DiceRoller();
-                    int randNb = rand.Roll(8) - 1;
-                    return new Position((int)evaluate.X + _moveByDirection[4][randNb].X, (int)evaluate.Y + _moveByDirection[4][randNb].Y);
+                    Random rand = new Random();
+                    int randomX = rand.Next(-200, 1110);
+                    int randomY = rand.Next(-200, 750);
+                    if (randomX <= 960 && randomX >= -50)
+                    {
+                        if (randomY > 550 || randomY < -50)
+                            return new Position(randomX, randomY);
+                        else
+                            return new Position(randomX, -200);
+                    }
+                    else
+                        return new Position(randomX, randomY);
                 }*/
-            
+
+
+
             bool findPath = false;
             //temporairement bouger normalement vers le joueur
             //Modification du X

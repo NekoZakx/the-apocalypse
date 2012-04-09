@@ -81,17 +81,6 @@ namespace The_Apocalypse
             bgm = (Content.Load<SoundEffect>(@"Music/bgmusic")).CreateInstance();
             bgm.IsLooped = true;
             bgm.Volume = (float)0.25;
-
-            /*for (int i = 0; i < 15; i++)
-            {
-                Monster enemy = new Normal();
-                enemy.hp = 100;
-                enemy.position = new Position(rand.Next(0, 910), rand.Next(0, 550));
-                enemy.Initialize();
-                enemy.LoadContent(Content, GraphicsDevice);
-                monster.Add(enemy);
-                player.Attach(enemy);
-            }*/
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)
@@ -103,17 +92,6 @@ namespace The_Apocalypse
             spriteBatch.Begin(SpriteSortMode.Immediate, contrastBlend);
             spriteBatch.Draw(whiteTexture, new Rectangle(0, 0, width, height), new Color(contrast, contrast, contrast, 255));
             spriteBatch.End();
-
-            /******* For testing Collision *******/
-            /*for (int i = 0; i < enemy.Length; i++)
-            {
-                if (enemy[i].hp > 0)
-                {
-                    spriteBatch.Begin(SpriteSortMode.Immediate, brightnessBlend);
-                    spriteBatch.Draw(whiteTexture, new Rectangle((int)enemy[i].position.X, (int)enemy[i].position.Y, 50, 50), new Color(50, 50, 50, 255));
-                    spriteBatch.End();
-                }
-            }*/
 
             GraphicsDevice.BlendState = BlendState.Opaque;
         }

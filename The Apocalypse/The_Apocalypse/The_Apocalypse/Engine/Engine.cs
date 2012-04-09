@@ -55,8 +55,9 @@ namespace The_Apocalypse
                 file.WriteNextTextNode("username", "Player");
                 file.WriteNextTextNode("brightness", "255");
                 file.WriteNextTextNode("contrast", "128");
-                file.WriteNextTextNode("volume", "1");
-                file.WriteNextTextNode("pitch", "0");
+                file.WriteNextTextNode("Mvolume", "1");
+                file.WriteNextTextNode("SFXvolume", "1");
+                file.WriteNextTextNode("SFXpitch", "0");
                 file.WriteNextTextNode("pan", "0");
                 file.WriteNextTextNode("fullscreen", "False");
                 file.WriteNextTextNode("width", this.graphics.PreferredBackBufferWidth.ToString());
