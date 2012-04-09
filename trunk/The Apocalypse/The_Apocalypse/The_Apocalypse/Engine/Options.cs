@@ -22,14 +22,14 @@ namespace The_Apocalypse
         }
         const int NUMBER_OF_BUTTONS = 18,
 
-            SVOLUMEPLUS_BUTTON_INDEX = 0,
-            SVOLUMEMINUS_BUTTON_INDEX = 1,
-            PITCHPLUS_BUTTON_INDEX = 2,
-            PITCHMINUS_BUTTON_INDEX = 3,
-            PANPLUS_BUTTON_INDEX = 4,
-            PANMINUS_BUTTON_INDEX = 5,
-            MVOLUMEPLUS_BUTTON_INDEX = 6,
-            MVOLUMEMINUS_BUTTON_INDEX = 7,
+            MVOLUMEPLUS_BUTTON_INDEX = 0,
+            MVOLUMEMINUS_BUTTON_INDEX = 1,
+            SVOLUMEPLUS_BUTTON_INDEX = 2,
+            SVOLUMEMINUS_BUTTON_INDEX = 3,
+            PITCHPLUS_BUTTON_INDEX = 4,
+            PITCHMINUS_BUTTON_INDEX = 5,
+            PANPLUS_BUTTON_INDEX = 6,
+            PANMINUS_BUTTON_INDEX = 7,
             BRIGHTNESSPLUS_BUTTON_INDEX = 8,
             BRIGHTNESSMINUS_BUTTON_INDEX = 9,
             CONTRASTPLUS_BUTTON_INDEX = 10,
@@ -58,7 +58,7 @@ namespace The_Apocalypse
         BlendState contrastBlend;
 
         SoundEffectInstance Sound_Preview;
-        //SoundEffectInstance BGM;
+        SoundEffectInstance Music_Preview;
         GraphicsDevice GraphicsDevice;
         GraphicsDeviceManager graphics;
 
@@ -155,6 +155,14 @@ namespace The_Apocalypse
 
             //Ligne du mode Plein Écran
             buttons[FULLSCREEN_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/fullscreen"));
+            
+            //Ligne du Volume de la musique de fond
+            buttons[MVOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/mvolume-"));
+            buttons[MVOLUMEPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/mvolume+"));
+            
+            //Ligne du Volume des effets sonores
+            buttons[SVOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/svolume-"));
+            buttons[SVOLUMEPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/svolume+"));
 
             //Ligne du Volume des effets sonores
             buttons[SVOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/svolume-"));
@@ -167,10 +175,6 @@ namespace The_Apocalypse
             //Ligne de la Balance des effets sonores
             buttons[PANMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>( @"Button/pan-"));
             buttons[PANPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/pan+"));
-
-            //Ligne du Volume de la musique de fond
-            buttons[MVOLUMEMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/mvolume-"));
-            buttons[MVOLUMEPLUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/mvolume+"));
 
             //Ligne du Brightness
             buttons[BRIGHTNESSMINUS_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/bright-"));
@@ -196,6 +200,7 @@ namespace The_Apocalypse
             whiteTexture.SetData<Color>(new Color[] { Color.White });
 
             Sound_Preview = (Content.Load<SoundEffect>(@"SoundFX/pistolshoot")).CreateInstance();
+            Music_Preview = (Content.Load<SoundEffect>(@"Music/bgmusic")).CreateInstance();
 
             LoadPreferenceData();
         }
@@ -228,25 +233,24 @@ namespace The_Apocalypse
                 spriteBatch.Draw(buttons[i].texture, buttons[i].rectangle, buttons[i].color);
                 if (i == 1)
                 {
-                    spriteBatch.DrawString(font, ((int)(Sound_Preview.Volume * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
-                }
-                else if (i == 3)
+                    spriteBatch.DrawString(font, ((int)(Music_Preview.Volume * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
+                }else if (i == 3)
                 {
-                    spriteBatch.DrawString(font, ((int)(Sound_Preview.Pitch * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
+                    spriteBatch.DrawString(font, ((int)(Sound_Preview.Volume * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
                 else if (i == 5)
                 {
+                    spriteBatch.DrawString(font, ((int)(Sound_Preview.Pitch * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
+                }
+                else if (i == 7)
+                {
                     spriteBatch.DrawString(font, ((int)(Sound_Preview.Pan * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
-                /*if (i == 7)
-                {
-                    spriteBatch.DrawString(font, ((int)(BGM.Volume * 100)).ToString() + "%", new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
-                }*/
-                else if (i == 9)
+                else if (i == 11)
                 {
                     spriteBatch.DrawString(font, brightness.ToString(), new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
-                else if (i == 11)
+                else if (i == 13)
                 {
                     spriteBatch.DrawString(font, contrast.ToString(), new Vector2(buttons[i].rectangle.X + BUTTON_WIDTH * 2 + 50, buttons[i].rectangle.Y), Color.White);
                 }
@@ -278,6 +282,20 @@ namespace The_Apocalypse
             //take action corresponding to which button was clicked
             switch (i)
             {
+                case MVOLUMEPLUS_BUTTON_INDEX:
+                    Music_Preview.Play();
+                    if (Music_Preview.Volume + (float)0.01 <= 1)
+                        Music_Preview.Volume += (float)0.01;
+                    else if (Music_Preview.Volume + (float)0.01 >= 1)
+                        Music_Preview.Volume = 1;
+                    break;
+                case MVOLUMEMINUS_BUTTON_INDEX:
+                    Music_Preview.Play();
+                    if (Music_Preview.Volume - (float)0.01 >= 0)
+                        Music_Preview.Volume -= (float)0.01;
+                    else if (Music_Preview.Volume - (float)0.01 < 0)
+                        Music_Preview.Volume = 0;
+                    break;
                 case SVOLUMEPLUS_BUTTON_INDEX:
                     Sound_Preview.Play();
                     if (Sound_Preview.Volume + (float)0.01 <= 1)
@@ -319,19 +337,7 @@ namespace The_Apocalypse
                         Sound_Preview.Pan -= (float)0.01;
                     else if (Sound_Preview.Pan - (float)0.01 <= -1)
                         Sound_Preview.Pan = -1;
-                    break;
-                /*case MVOLUMEPLUS_BUTTON_INDEX:
-                    if (BGM.Volume + (float)0.01 <= 1)
-                        BGM.Volume += (float)0.01;
-                    else if (BGM.Volume + (float)0.01 >= 1)
-                        BGM.Volume = 1;
-                    break;
-                case MVOLUMEMINUS_BUTTON_INDEX:
-                    if (BGM.Volume - (float)0.01 >= 0)
-                        BGM.Volume -= (float)0.01;
-                    else if (BGM.Volume - (float)0.01 < 0)
-                        BGM.Volume = 0;
-                    break;*/
+                    break;                
                 case BRIGHTNESSPLUS_BUTTON_INDEX:
                     if(brightness < 255)
                         brightness++;
@@ -372,6 +378,7 @@ namespace The_Apocalypse
             }
         }
 
+        DateTime timeMusic = DateTime.Now;
         public void Update(GameTime gameTime)
         {
             for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
@@ -380,6 +387,11 @@ namespace The_Apocalypse
                 {
                     take_action_on_button(i);
                 }
+            }
+            if ((DateTime.Now - timeMusic).TotalMilliseconds >= 5000)
+            {
+                timeMusic = DateTime.Now;
+                Music_Preview.Stop();
             }
         }
 
@@ -392,6 +404,7 @@ namespace The_Apocalypse
             buttons[TEXTBOX_INDEX].Text = file.ReadNextTextNode();
             brightness = Int32.Parse(file.ReadNextTextNode());
             contrast = Int32.Parse(file.ReadNextTextNode());
+            Music_Preview.Volume = float.Parse(file.ReadNextTextNode());
             Sound_Preview.Volume = float.Parse(file.ReadNextTextNode());
             Sound_Preview.Pitch = float.Parse(file.ReadNextTextNode());
             Sound_Preview.Pan = float.Parse(file.ReadNextTextNode());
@@ -411,8 +424,9 @@ namespace The_Apocalypse
             file.WriteNextTextNode("username", buttons[TEXTBOX_INDEX].Text);
             file.WriteNextTextNode("brightness", brightness.ToString());
             file.WriteNextTextNode("contrast", contrast.ToString());
-            file.WriteNextTextNode("volume", Sound_Preview.Volume.ToString());
-            file.WriteNextTextNode("pitch", Sound_Preview.Pitch.ToString());
+            file.WriteNextTextNode("Mvolume", Music_Preview.ToString());
+            file.WriteNextTextNode("SFXvolume", Sound_Preview.Volume.ToString());
+            file.WriteNextTextNode("SFXpitch", Sound_Preview.Pitch.ToString());
             file.WriteNextTextNode("pan", Sound_Preview.Pan.ToString());
             file.WriteNextTextNode("fullscreen", graphics.IsFullScreen.ToString());
             file.WriteNextTextNode("width", this.graphics.PreferredBackBufferWidth.ToString());
@@ -433,8 +447,9 @@ namespace The_Apocalypse
             file.WriteNextTextNode("username", buttons[TEXTBOX_INDEX].Text);
             file.WriteNextTextNode("brightness", "255");
             file.WriteNextTextNode("contrast", "128");
-            file.WriteNextTextNode("volume", "1");
-            file.WriteNextTextNode("pitch", "0");
+            file.WriteNextTextNode("Mvolume", "1");
+            file.WriteNextTextNode("SFXvolume", "1");
+            file.WriteNextTextNode("SFXpitch", "0");
             file.WriteNextTextNode("pan", "0");
             file.WriteNextTextNode("fullscreen", graphics.IsFullScreen.ToString());
             file.WriteNextTextNode("width", this.graphics.PreferredBackBufferWidth.ToString());
