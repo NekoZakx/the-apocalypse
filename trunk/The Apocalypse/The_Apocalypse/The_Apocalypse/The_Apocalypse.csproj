@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area\Area Type\Direct.cs" />
+    <Compile Include="Area\Area Type\Proximity.cs" />
     <Compile Include="Area\Area.cs" />
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Monster Type\Normal.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Engine\SpriteSheet.cs" />
     <Compile Include="Ressource\XmlReaderWriter.cs" />
     <Compile Include="Weapons\Weapon Type\AssaultRiffle.cs" />
+    <Compile Include="Weapons\Weapon Type\ChainSaw.cs" />
     <Compile Include="Weapons\Weapon Type\Gatling.cs" />
     <Compile Include="Weapons\Weapon Type\Shotgun.cs" />
     <Compile Include="Weapons\Weapon Type\Handgun.cs" />

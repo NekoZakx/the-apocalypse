@@ -14,7 +14,6 @@ namespace The_Apocalypse
         private string _name;
         private int _hp = 100, _kill = 0;
         private Position _position;
-        private Position _NormalPosition = new Position(0,0);
         private SpriteSheet _spriteSheet;
         private int _width = 50;
         private int _height = 50;
@@ -168,18 +167,6 @@ namespace The_Apocalypse
             }
         }
 
-        public Position NormalPosition
-        {
-            get
-            {
-                return _NormalPosition;
-            }
-            set
-            {
-                _NormalPosition = value;
-            }
-        }
-
         public Weapon getWeapon()
         {
             return _weapon;
@@ -330,12 +317,6 @@ namespace The_Apocalypse
             ChangeWeapon();
             bulletState();
             noMoreHp();
-            _cpt++;
-            if(_cpt == 8)
-            {
-                looseHp(isInCircle());
-                _cpt = 0;
-            }
         }
 
         void bulletState()
@@ -499,64 +480,6 @@ namespace The_Apocalypse
             }
 
             return _hp;
-        }
-
-        public bool isInCircle()
-        {
-            if (Math.Pow((_NormalPosition.X - position.X), 2) + Math.Pow((_NormalPosition.Y + position.Y), 2) != 100)//Si le point se trouve dans le cercle on retourne vraie
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public void proximity()
-        {
-            //Finir ici
-            MouseState mouseState = Mouse.GetState();
-            double deltaX = mouseState.X - position.X, deltaY = mouseState.Y - position.Y;
-            double Mper = 0, Yper = 0, Xper = 0, Y = 0, X = 0, slope = 0, Bper = 0;
-
-            if (Math.Pow((_NormalPosition.X - position.X), 2) + Math.Pow((_NormalPosition.Y + position.Y), 2) != 100)//Si le point se trouve dans le cercle on retourne vraie
-            {
-                slope = deltaY / deltaX;//On calcule la pente de la première droite
-
-                if (slope != 0)
-                {
-                    Mper = -1 / slope;//On calcule la pente de la droite perpendiculaire
-                }
-
-                if (Mper != 0 || position.X != 0)
-                {
-                    Bper = position.Y / (Mper * position.X);//On calcule le B de la droite perpendiculaire
-                }
-
-                Yper = (Mper * position.X) + Bper;//On calcule la formule de la droite perpendiculaire
-
-                Y = (Mper * _NormalPosition.X) + Bper;//On trouve la valeur du Y pour le X de notre point sur la droite 
-                X = (Y / Mper) + Bper;//On trouve la valeur du X pour le Y de notre point sur la droite
-
-                if (_NormalPosition.Y < Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
-                {
-
-                }
-                else//Sinon le point se trouve au dessus
-                {
-
-                }
-
-                if (_NormalPosition.X < X)//Si le point à évalué est plus petit que le point trouvé, le point se trouve à gauche de la droite
-                {
-
-                }
-                else//Sinon il se trouve à droite
-                {
-
-                }
-            }
         }
     }
 }
