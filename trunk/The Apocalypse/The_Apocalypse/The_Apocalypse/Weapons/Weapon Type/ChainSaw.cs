@@ -65,6 +65,11 @@ namespace The_Apocalypse.Weapons.Weapon_Type
             }
         }
 
+        public ChainSaw()
+        {
+            near = new List<Proximity>();
+        }
+
         public int hit(Position point1, Position point2)
         {
             foreach (Proximity point in near)
