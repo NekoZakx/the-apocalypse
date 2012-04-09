@@ -76,5 +76,25 @@ namespace The_Apocalypse.Weapons.Weapon_Type
             }
             return 0;
         }
+
+        public void Delete()
+        {
+            
+        }
+
+        public void Draw(SpriteBatch spriteBatch, bool pause)
+        {
+
+        }
+
+        public void shoot(Position playerPosition, GraphicsDevice GraphicsDevice)
+        {
+
+        }
+
+        public void reset()
+        {
+
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace The_Apocalypse
         Position positionStart = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
 
+        Thread t1;
+
         public Proximity(Position player, Position mouse)
         {
             positionStart.X = player.X;
@@ -125,5 +127,40 @@ namespace The_Apocalypse
             }
             return false;
         }
+
+        public void Draw(SpriteBatch spriteBatch, bool pause)
+        {
+            
+        }
+
+        //Arrete le processus de force d'avancement de la balle
+        public void ForceStop()
+        {
+            t1.Abort();
+        }
+
+        //Obtient les limites de l'écran de jeu
+        public void GetLimit()
+        {
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            positionEnd.X = Int32.Parse(file.FindReadNode("width"));
+            positionEnd.Y = Int32.Parse(file.FindReadNode("height"));
+
+            file.ReadClose();
+        }
+
+        public void UpdatePosition()
+        {
+
+        }
+
+        //Retourne la position actuel de la balle.
+        public Position GetPosition()
+        {
+            return positionNow;
+        }
+
     }
 }
