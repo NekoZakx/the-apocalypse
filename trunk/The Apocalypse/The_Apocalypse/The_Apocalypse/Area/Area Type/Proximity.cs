@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Threading;
+using Microsoft.Xna.Framework.Input;
 
 namespace The_Apocalypse
 {
@@ -13,35 +14,24 @@ namespace The_Apocalypse
         //Fait un ménage des variables inutiles.
         double deltaX = 0, deltaY = 0;
         double Mper = 0, Yper = 0, Xper = 0, Y = 0, X = 0, slope = 0, Bper = 0;
-        bool underRight = true, upperRight = true, leftOfRight = true, rightOfRight = true;
         bool hit = false;
         bool multikill = false;
         public bool state = false;
 
         Position positionNow = new Position(0, 0);
-        Position positionStart = new Position(0, 0);
-        Position positionStartMouse = new Position(0, 0);
-        Position positionEnd = new Position(0, 0);
-
-        Thread t1;//Aucune Thread n'est supposé apparaitre ici.
 
         //Constructeur vide
-        public Proximity(Position player, Position mouse)
+        public Proximity()
         {
-            positionStart.X = player.X;
-            positionStart.Y = player.Y;
-            positionStartMouse.X = mouse.X;
-            positionStartMouse.Y = mouse.Y;
-            positionNow.X = positionStart.X;
-            positionNow.Y = positionStart.Y;
+
         }
 
-        public bool proximity(Position normalPosition)//Ajoute la position du joueur ici et appelle ta fonction Evaluate,met des noms significatif a tes variables (NormalPosition -> pointToEvaluate)
+        public bool evaluate(Position player, Position pointToEvaluate, MouseState mouse)
         {
-            if (Math.Pow((normalPosition.X - positionStart.X), 2) + Math.Pow((normalPosition.Y + positionStart.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
+            if (Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y + player.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
             {
-                deltaX = positionStartMouse.X - positionStart.X;
-                deltaY = positionStartMouse.Y - positionStart.Y;
+                deltaX = mouse.X - player.X;
+                deltaY = mouse.Y - player.Y;
 
                 slope = deltaY / deltaX;//On calcule la pente de la première droite
 
@@ -56,16 +46,16 @@ namespace The_Apocalypse
 
                 if (Mper == 0)
                 {
-                    Bper = positionStart.Y;
+                    Bper = player.Y;
                 }
                 else
                 {
-                    Bper = positionStart.Y / (Mper * positionStart.X);//On calcule le B de la droite perpendiculaire
+                    Bper = player.Y / (Mper * player.X);//On calcule le B de la droite perpendiculaire
                 }
 
-                Yper = (Mper * positionStart.X) + Bper;//On calcule la formule de la droite perpendiculaire
+                Yper = (Mper * player.X) + Bper;//On calcule la formule de la droite perpendiculaire
 
-                Y = (Mper * normalPosition.X) + Bper;//On trouve la valeur du Y pour le X de notre point sur la droite
+                Y = (Mper * pointToEvaluate.X) + Bper;//On trouve la valeur du Y pour le X de notre point sur la droite
 
                 if (Mper == 0)
                 {
@@ -77,34 +67,32 @@ namespace The_Apocalypse
                 }
 
                 /***********************************************
-                IL MANQUE DES CAS A ÉVALUER, DE PLUS LES VARIABLES 
-                NE SONT PAS MODIFIER ALORS SEULEMENT RETOURNER true
+                IL MANQUE DES CAS A ÉVALUER 
                 ************************************************/
-                if (positionStartMouse.Y < Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
+                if (mouse.Y <= Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
                 {
-                    return underRight;
+                    return true;
                 }
-                else if (positionStartMouse.Y > Y)//Sinon le point se trouve au dessus
+                else if (mouse.Y >= Y)//Sinon le point se trouve au dessus
                 {
-                    return upperRight;
+                    return true;
                 }
-
-                if (positionStartMouse.X < X)//Si le point à évalué est plus petit que le point trouvé, le point se trouve à gauche de la droite
+                else if (mouse.X <= X)//Si le point à évalué est plus petit que le point trouvé, le point se trouve à gauche de la droite
                 {
-                    return leftOfRight;
+                    return true;
                 }
-                else//Sinon il se trouve à droite
+                else if(mouse.X >= X)//Sinon il se trouve à droite
                 {
-                    return rightOfRight;
+                    return true;
                 }
             }
 
             return false;
         }
 
-        public bool isInCircle(Position player, Position normal)
+        public bool isInCircle(Position player, Position pointToEvaluate)
         {
-            if (Math.Pow((normal.X - player.X), 2) + Math.Pow((normal.Y + player.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
+            if (Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y + player.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
             {
                 return true;
             }
@@ -145,19 +133,13 @@ namespace The_Apocalypse
         //Arrete le processus de force d'avancement de la balle
         public void ForceStop()
         {
-            t1.Abort();
+
         }
 
         //Obtient les limites de l'écran de jeu
         public void GetLimit()
         {
-            XmlReaderWriter file = new XmlReaderWriter();
-            file.OpenRead("Preference.xml");
 
-            positionEnd.X = Int32.Parse(file.FindReadNode("width"));
-            positionEnd.Y = Int32.Parse(file.FindReadNode("height"));
-
-            file.ReadClose();
         }
 
         public void UpdatePosition()
