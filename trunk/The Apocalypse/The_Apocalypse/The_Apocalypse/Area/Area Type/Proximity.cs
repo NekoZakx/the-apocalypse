@@ -10,6 +10,7 @@ namespace The_Apocalypse
 {
     class Proximity : Area
     {
+        //Fait un ménage des variables inutiles.
         double deltaX = 0, deltaY = 0;
         double Mper = 0, Yper = 0, Xper = 0, Y = 0, X = 0, slope = 0, Bper = 0;
         bool underRight = true, upperRight = true, leftOfRight = true, rightOfRight = true;
@@ -22,9 +23,10 @@ namespace The_Apocalypse
         Position positionStartMouse = new Position(0, 0);
         Position positionEnd = new Position(0, 0);
 
-        Thread t1;
+        Thread t1;//Aucune Thread n'est supposé apparaitre ici.
 
-        public Proximity(Position player, Position mouse, GraphicsDevice GraphicsDevice)
+        //Constructeur vide
+        public Proximity(Position player, Position mouse)
         {
             positionStart.X = player.X;
             positionStart.Y = player.Y;
@@ -34,7 +36,7 @@ namespace The_Apocalypse
             positionNow.Y = positionStart.Y;
         }
 
-        public bool proximity(Position normalPosition)
+        public bool proximity(Position normalPosition)//Ajoute la position du joueur ici et appelle ta fonction Evaluate,met des noms significatif a tes variables (NormalPosition -> pointToEvaluate)
         {
             if (Math.Pow((normalPosition.X - positionStart.X), 2) + Math.Pow((normalPosition.Y + positionStart.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
             {
@@ -45,11 +47,11 @@ namespace The_Apocalypse
 
                 if (slope == 0)
                 {
-                    Mper = double.PositiveInfinity;//On calcule la pente de la droite perpendiculaire
+                    Mper = double.PositiveInfinity;
                 }
                 else
                 {
-                    Mper = -1 / slope;
+                    Mper = -1 / slope;//On calcule la pente de la droite perpendiculaire
                 }
 
                 if (Mper == 0)
@@ -74,6 +76,10 @@ namespace The_Apocalypse
                     X = (Y / Mper) + Bper;//On trouve la valeur du X pour le Y de notre point sur la droite
                 }
 
+                /***********************************************
+                IL MANQUE DES CAS A ÉVALUER, DE PLUS LES VARIABLES 
+                NE SONT PAS MODIFIER ALORS SEULEMENT RETOURNER true
+                ************************************************/
                 if (positionStartMouse.Y < Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
                 {
                     return underRight;
