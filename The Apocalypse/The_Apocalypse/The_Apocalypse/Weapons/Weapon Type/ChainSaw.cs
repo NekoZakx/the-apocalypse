@@ -13,7 +13,8 @@ namespace The_Apocalypse.Weapons.Weapon_Type
         private string _name = "ChainSaw";
         private int _damage = 30;
         private int _ammo = -1;
-        private List<Proximity> near;
+        private bool _shot = false;
+        private List<Proximity> near;//Modifier pour l'objet lui-même(Retire la liste)
 
         private float _speed = 0;
 
@@ -67,40 +68,49 @@ namespace The_Apocalypse.Weapons.Weapon_Type
 
         public ChainSaw()
         {
+            //Aucune liste est nécessaire.
+            //Créer l'instance de ton objet proximity ici.
             near = new List<Proximity>();
         }
 
         public int hit(Position point1, Position point2)
         {
-            foreach (Proximity point in near)
+            //point1 et point2 sont les points qui définissent la zone de la cible a vérifier.
+            //Verifier a l'aide de la variable du positionnement du joueur
+            if (_shot)
             {
-                if (point.CompareAreatoLine(point1, point2))
+                MouseState mousePosition = Mouse.GetState();
+                if(true)//Code qui retourne true ou false
                 {
                     return _damage;
                 }
             }
+            _shot = false;
             return 0;
         }
 
         public void Delete()
         {
-            
+            //Supprimer la zone et la position du joueur.
         }
 
         public void Draw(SpriteBatch spriteBatch, bool pause)
         {
-
+            //Laisser vide
+            return;
         }
 
         public void shoot(Position playerPosition, GraphicsDevice GraphicsDevice)
         {
-            MouseState mousePosition = Mouse.GetState();
-            near.Add(new Proximity(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice));
+            //ne pas créer de nouvelles instance de l'objet
+            //Enregistré la position du joueur dans une variable
+            _shot = true;
         }
 
         public void reset()
         {
-
+            //ne pas faire de redéfinition d'objet
+            _shot = false;
         }
     }
 }
