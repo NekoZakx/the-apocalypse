@@ -88,6 +88,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoundFX\assaultrifle.wav">
+      <Name>assaultrifleshoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SoundFX\fullshotgun.wav">
+      <Name>shotgunshoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SoundFX\gatlinggun.wav">
+      <Name>gatlingshoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
     <Compile Include="SoundFX\pistol 38 cal x2.wav">
       <Name>pistolshoot</Name>
       <Importer>WavImporter</Importer>
@@ -255,27 +270,6 @@
       <Name>arrowM4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="SoundFX\fullshotgun.wav">
-      <Name>shotgunshoot</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="SoundFX\assaultrifle.wav">
-      <Name>assaultrifleshoot</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="SoundFX\gatlinggun.wav">
-      <Name>gatlingshoot</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>

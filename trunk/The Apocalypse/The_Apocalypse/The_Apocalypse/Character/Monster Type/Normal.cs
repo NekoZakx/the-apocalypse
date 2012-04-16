@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System.Security.Cryptography;
 
 namespace The_Apocalypse
 {
@@ -25,6 +26,7 @@ namespace The_Apocalypse
         private int _height = 50;
         private PathFinder pathData;
         private int score = 100;
+        private SoundEffect[] _sounds;
 
         public Position PlayerPosition
         {
@@ -155,6 +157,18 @@ namespace The_Apocalypse
             set
             {
                 score = value;
+            }
+        }
+
+        public SoundEffect[] sounds
+        {
+            get
+            {
+                return _sounds;
+            }
+            set
+            {
+                _sounds = value;
             }
         }
 

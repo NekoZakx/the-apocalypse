@@ -424,7 +424,7 @@ namespace The_Apocalypse
             file.WriteNextTextNode("username", buttons[TEXTBOX_INDEX].Text);
             file.WriteNextTextNode("brightness", brightness.ToString());
             file.WriteNextTextNode("contrast", contrast.ToString());
-            file.WriteNextTextNode("Mvolume", Music_Preview.ToString());
+            file.WriteNextTextNode("Mvolume", Music_Preview.Volume.ToString());
             file.WriteNextTextNode("SFXvolume", Sound_Preview.Volume.ToString());
             file.WriteNextTextNode("SFXpitch", Sound_Preview.Pitch.ToString());
             file.WriteNextTextNode("pan", Sound_Preview.Pan.ToString());

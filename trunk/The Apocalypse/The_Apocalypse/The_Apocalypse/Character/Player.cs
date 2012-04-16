@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,6 +25,7 @@ namespace The_Apocalypse
         private SpriteFont font;
         private List<Monster> observers = new List<Monster>();
         private PathFinder pathData;
+        private SoundEffect[] _sounds;
         private int _score;
         private int _life = 3;
         private int _cpt = 0;
@@ -67,6 +69,7 @@ namespace The_Apocalypse
 
             _position = new Position((int)limit.X / 2, (int)limit.Y / 2);
             _weapon = new Handgun();
+            _weapon.shootSound = _sounds[0];
 
             file.ReadClose();
         }
@@ -167,6 +170,18 @@ namespace The_Apocalypse
             }
         }
 
+        public SoundEffect[] sounds
+        {
+            get
+            {
+                return _sounds;
+            }
+            set
+            {
+                _sounds = value;
+            }
+        }
+
         public Weapon getWeapon()
         {
             return _weapon;
@@ -197,18 +212,22 @@ namespace The_Apocalypse
             if (newState.IsKeyDown(Keys.D1))
             {
                 _weapon = new Handgun();
+                _weapon.shootSound = _sounds[0];
             }else
             if (newState.IsKeyDown(Keys.D2))
             {
                 _weapon = new AssaultRiffle();
+                _weapon.shootSound = _sounds[1];
             }else
             if (newState.IsKeyDown(Keys.D3))
             {
                 _weapon = new Shotgun();
+                _weapon.shootSound = _sounds[2];
             }else
             if (newState.IsKeyDown(Keys.D4))
             {
                 _weapon = new Gatling();
+                _weapon.shootSound = _sounds[3];
             }
         }
 
@@ -355,6 +374,11 @@ namespace The_Apocalypse
             this.GraphicsDevice = GraphicsDevice;
             _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/arrow", contentManager);
             font = contentManager.Load<SpriteFont>(@"Fonts/TextFont");
+            sounds = new SoundEffect[] { contentManager.Load<SoundEffect>(@"SoundFX/pistolshoot"),
+                                         contentManager.Load<SoundEffect>(@"SoundFX/assaultrifleshoot"),
+                                         contentManager.Load<SoundEffect>(@"SoundFX/shotgunshoot"),
+                                         contentManager.Load<SoundEffect>(@"SoundFX/gatlingshoot") };
+            _weapon.shootSound = _sounds[0];
         }
 
         //Fonction pour calculer l'angle entre deux points

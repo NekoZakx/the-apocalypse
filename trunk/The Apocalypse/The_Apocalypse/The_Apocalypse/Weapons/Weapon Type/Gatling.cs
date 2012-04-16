@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace The_Apocalypse
 {
@@ -17,6 +17,9 @@ namespace The_Apocalypse
         private int _ammo = 200;
         private List<Direct> bulletShot;
         private SoundEffect _shootSound;
+        private float _soundVolume;
+        private float _soundPitch;
+        private float _soundPan;
 
         private float _speed = 1;
 
@@ -80,9 +83,46 @@ namespace The_Apocalypse
             }
         }
 
+        public float soundVolume
+        {
+            get
+            {
+                return _soundVolume;
+            }
+            set
+            {
+                _soundVolume = value;
+            }
+        }
+
+        public float soundPitch
+        {
+            get
+            {
+                return _soundPitch;
+            }
+            set
+            {
+                _soundPitch = value;
+            }
+        }
+
+        public float soundPan
+        {
+            get
+            {
+                return _soundPan;
+            }
+            set
+            {
+                _soundPan = value;
+            }
+        }
+
         public Gatling()
         {
             bulletShot = new List<Direct>();
+            LoadPreferenceData();
         }
 
         public void reset()
@@ -111,6 +151,7 @@ namespace The_Apocalypse
             {
                 _ammo--;
                 bulletShot.Add(new Direct(playerPosition, new Position(mousePosition.X, mousePosition.Y), GraphicsDevice, rand.Next(-50, 50)));
+                _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
             }
 
         }
@@ -140,6 +181,18 @@ namespace The_Apocalypse
                     return _damage;
             }
             return 0;
+        }
+
+        public void LoadPreferenceData()
+        {
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            _soundVolume = float.Parse(file.FindReadNode("SFXvolume"));
+            _soundPitch = float.Parse(file.FindReadNode("SFXpitch"));
+            _soundPan = float.Parse(file.FindReadNode("pan"));
+
+            file.ReadClose();
         }
 
     }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace The_Apocalypse.Weapons.Weapon_Type
 {
@@ -16,6 +17,10 @@ namespace The_Apocalypse.Weapons.Weapon_Type
         private bool _shot = false;
         private Proximity proximity;
         private Position _playerPosition = new Position(0,0);
+        private SoundEffect _shootSound;
+        private float _soundVolume;
+        private float _soundPitch;
+        private float _soundPan;
 
         private float _speed = 0;
 
@@ -67,9 +72,58 @@ namespace The_Apocalypse.Weapons.Weapon_Type
             }
         }
 
+        public SoundEffect shootSound
+        {
+            get
+            {
+                return _shootSound;
+            }
+            set
+            {
+                _shootSound = value;
+            }
+        }
+
+        public float soundVolume
+        {
+            get
+            {
+                return _soundVolume;
+            }
+            set
+            {
+                _soundVolume = value;
+            }
+        }
+
+        public float soundPitch
+        {
+            get
+            {
+                return _soundPitch;
+            }
+            set
+            {
+                _soundPitch = value;
+            }
+        }
+
+        public float soundPan
+        {
+            get
+            {
+                return _soundPan;
+            }
+            set
+            {
+                _soundPan = value;
+            }
+        }
+
         public ChainSaw()
         {
             proximity = new Proximity();
+            LoadPreferenceData();
         }
 
         public int hit(Position point1, Position point2)
@@ -94,6 +148,11 @@ namespace The_Apocalypse.Weapons.Weapon_Type
             _playerPosition = null; 
         }
 
+        public void LoadSound(SoundEffect newSound)
+        {
+            this._shootSound = newSound;
+        }
+
         public void Draw(SpriteBatch spriteBatch, bool pause)
         {
             return;
@@ -110,6 +169,18 @@ namespace The_Apocalypse.Weapons.Weapon_Type
             _playerPosition.X = 0;
             _playerPosition.Y = 0;
             _shot = false;
+        }
+
+        public void LoadPreferenceData()
+        {
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+
+            _soundVolume = float.Parse(file.FindReadNode("SFXvolume"));
+            _soundPitch = float.Parse(file.FindReadNode("SFXpitch"));
+            _soundPan = float.Parse(file.FindReadNode("pan"));
+
+            file.ReadClose();
         }
     }
 }
