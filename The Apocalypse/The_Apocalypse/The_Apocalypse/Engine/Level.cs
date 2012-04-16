@@ -80,7 +80,6 @@ namespace The_Apocalypse
             Random rand = new Random();
             bgm = (Content.Load<SoundEffect>(@"Music/bgmusic")).CreateInstance();
             bgm.IsLooped = true;
-            bgm.Volume = (float)0.25;
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)
@@ -169,11 +168,6 @@ namespace The_Apocalypse
             contrast = Int32.Parse(file.FindReadNode("contrast"));
 
             file.ReadClose();
-        }
-
-        public SoundEffectInstance getBGM()
-        {
-            return this.bgm;
         }
     }
 }

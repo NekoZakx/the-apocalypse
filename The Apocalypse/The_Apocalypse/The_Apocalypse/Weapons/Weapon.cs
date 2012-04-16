@@ -39,6 +39,24 @@ namespace The_Apocalypse
             set;
         }
 
+        float soundVolume
+        {
+            get;
+            set;
+        }
+
+        float soundPitch
+        {
+            get;
+            set;
+        }
+
+        float soundPan
+        {
+            get;
+            set;
+        }
+
         void shoot(Position playerPosition, GraphicsDevice GraphicsDevice);
 
         void reset();
@@ -48,6 +66,8 @@ namespace The_Apocalypse
         void Draw(SpriteBatch spriteBatch, bool pause);
 
         int hit(Position point1, Position point2);
+
+        void LoadPreferenceData();
 
     }
 }
