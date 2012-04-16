@@ -52,7 +52,7 @@ namespace The_Apocalypse
         int width = 0;
         int height = 0;
 
-        public bool closeProgram = false, mainMenu = false;
+        public bool closeProgram = false, mainMenu = false, changes = false;
 
         BlendState brightnessBlend;
         BlendState contrastBlend;
@@ -435,6 +435,7 @@ namespace The_Apocalypse
             file.WriteEndCategory();
 
             file.WriteClose();
+            changes = true;
         }
 
         void DefaultConfig()

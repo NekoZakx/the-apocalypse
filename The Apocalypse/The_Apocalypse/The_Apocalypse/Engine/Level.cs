@@ -169,5 +169,10 @@ namespace The_Apocalypse
 
             file.ReadClose();
         }
+
+        public void ReloadContent()
+        {
+            //TO DO: Reload all content with the appropriate XML value!
+        }
     }
 }

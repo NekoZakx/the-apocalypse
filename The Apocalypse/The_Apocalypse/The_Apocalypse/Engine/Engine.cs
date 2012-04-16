@@ -120,7 +120,6 @@ namespace The_Apocalypse
             {
                 if (options.closeProgram)
                 {
-
                     this.Exit();
                 }
                     
@@ -131,6 +130,11 @@ namespace The_Apocalypse
                     isPaused = false;
                     options.mainMenu = false;
                     game.LoadPreferenceData();
+                }
+                if (options.changes)
+                {
+                    options.changes = false;
+                    game.ReloadContent();
                 }
                 options.Update(gameTime);
             }
