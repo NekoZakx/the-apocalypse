@@ -26,6 +26,7 @@ namespace The_Apocalypse
         private List<Monster> observers = new List<Monster>();
         private PathFinder pathData;
         private SoundEffect[] _sounds;
+        private SoundEffectInstance steps;
         private int _score;
         private int _life = 3;
         private int _cpt = 0;
@@ -267,6 +268,13 @@ namespace The_Apocalypse
             pathData.removeData(_position, _width, _height);
             
             KeyboardState newState = Keyboard.GetState();
+
+            if (newState.IsKeyDown(Keys.D) || newState.IsKeyDown(Keys.A) || newState.IsKeyDown(Keys.W) || newState.IsKeyDown(Keys.S))
+            {
+                steps.Play();
+            }
+            else
+                steps.Stop();
             
             if (newState.IsKeyDown(Keys.D))
             {
@@ -377,8 +385,11 @@ namespace The_Apocalypse
             sounds = new SoundEffect[] { contentManager.Load<SoundEffect>(@"SoundFX/pistolshoot"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/assaultrifleshoot"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/shotgunshoot"),
-                                         contentManager.Load<SoundEffect>(@"SoundFX/gatlingshoot") };
+                                         contentManager.Load<SoundEffect>(@"SoundFX/gatlingshoot"),
+                                         contentManager.Load<SoundEffect>(@"SoundFX/footsteps") };
             _weapon.shootSound = _sounds[0];
+            steps = _sounds[4].CreateInstance();
+            steps.IsLooped = true;
         }
 
         //Fonction pour calculer l'angle entre deux points
