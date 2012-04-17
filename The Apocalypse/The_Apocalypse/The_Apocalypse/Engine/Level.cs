@@ -173,6 +173,12 @@ namespace The_Apocalypse
         public void ReloadContent()
         {
             //TO DO: Reload all content with the appropriate XML value!
+            Console.WriteLine("FCT TEST");
+        }
+
+        public void pause(bool state)
+        {
+
         }
     }
 }

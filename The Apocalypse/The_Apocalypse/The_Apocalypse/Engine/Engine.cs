@@ -114,10 +114,13 @@ namespace The_Apocalypse
                 isPaused = !isPaused;
                 options.LoadPreferenceData();
                 game.LoadPreferenceData();
+                if(!isPaused)
+                    game.pause(false);
             }
 
             if (isPaused)
             {
+                game.pause(true);
                 if (options.closeProgram)
                 {
                     this.Exit();
@@ -129,7 +132,9 @@ namespace The_Apocalypse
                     main.play = false;
                     isPaused = false;
                     options.mainMenu = false;
+                    game.ForceClose();
                     game.LoadPreferenceData();
+                    
                 }
                 if (options.changes)
                 {
@@ -152,6 +157,7 @@ namespace The_Apocalypse
                     main.Update(gameTime);
                 }else
                     game.Update(gameTime);
+                
             }
 
             oldState = newState;
