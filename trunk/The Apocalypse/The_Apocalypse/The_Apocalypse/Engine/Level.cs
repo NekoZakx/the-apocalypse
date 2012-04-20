@@ -28,7 +28,6 @@ namespace The_Apocalypse
         {
             width = WIDTH; 
             height = HEIGHT;
-            LoadPreferenceData();
 
             brightnessBlend = new BlendState();
             brightnessBlend.ColorSourceBlend = brightnessBlend.AlphaSourceBlend = Blend.Zero;
@@ -42,7 +41,6 @@ namespace The_Apocalypse
             monster = new List<Monster>();
             pathData = new PathFinder(width, height);
             player.addPathData(pathData);
-            
         }
 
         public bool saveData()
@@ -80,6 +78,7 @@ namespace The_Apocalypse
             Random rand = new Random();
             bgm = (Content.Load<SoundEffect>(@"Music/bgmusic")).CreateInstance();
             bgm.IsLooped = true;
+            LoadPreferenceData();
         }
 
         public void DrawContrastAndBrightness(SpriteBatch spriteBatch)
@@ -165,6 +164,7 @@ namespace The_Apocalypse
             file.OpenRead("Preference.xml");
 
             brightness = Int32.Parse(file.FindReadNode("brightness"));
+            bgm.Volume = float.Parse(file.FindReadNode("Mvolume"));
             contrast = Int32.Parse(file.FindReadNode("contrast"));
 
             file.ReadClose();
