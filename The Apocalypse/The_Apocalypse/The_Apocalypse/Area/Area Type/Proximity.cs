@@ -28,7 +28,8 @@ namespace The_Apocalypse
 
         public bool evaluate(Position player, Position pointToEvaluate, MouseState mouse)
         {
-            if (Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y + player.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
+
+            if ((Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y - player.Y), 2)) <= 10000)//Si le point se trouve dans le cercle on retourne vraie
             {
                 deltaX = mouse.X - player.X;
                 deltaY = mouse.Y - player.Y;
@@ -69,6 +70,9 @@ namespace The_Apocalypse
                 /***********************************************
                 IL MANQUE DES CAS A ÉVALUER 
                 ************************************************/
+
+                return true;
+
                 if (mouse.Y <= Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
                 {
                     return true;

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace The_Apocalypse.Weapons.Weapon_Type
+namespace The_Apocalypse
 {
     class ChainSaw : Weapon
     {
@@ -133,7 +133,7 @@ namespace The_Apocalypse.Weapons.Weapon_Type
             if (_shot)
             {
                 MouseState mousePosition = Mouse.GetState();
-                if(proximity.evaluate(point1, point2, mousePosition))//Code qui retourne true ou false
+                if (proximity.evaluate(_playerPosition, point1, mousePosition))//Code qui retourne true ou false
                 {
                     return _damage;
                 }
@@ -162,6 +162,7 @@ namespace The_Apocalypse.Weapons.Weapon_Type
         {
             _playerPosition = playerPosition;
             _shot = true;
+            _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
         }
 
         public void reset()

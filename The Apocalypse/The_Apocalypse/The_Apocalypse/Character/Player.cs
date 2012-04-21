@@ -229,6 +229,11 @@ namespace The_Apocalypse
             {
                 _weapon = new Gatling();
                 _weapon.shootSound = _sounds[3];
+            }else
+            if (newState.IsKeyDown(Keys.D5))
+            {
+                _weapon = new ChainSaw();
+                _weapon.shootSound = _sounds[3];
             }
         }
 
