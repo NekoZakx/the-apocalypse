@@ -27,6 +27,11 @@ namespace The_Apocalypse
         private PathFinder pathData;
         private int score = 100;
         private SoundEffect[] _sounds;
+        private float _soundVolume;
+        private float _soundPitch;
+        private float _soundPan;
+        private int timeBeforeSoundPlay, timeElapsed = 0;
+        private bool soundWillPlay = true;
 
         public Position PlayerPosition
         {
@@ -195,8 +200,14 @@ namespace The_Apocalypse
             int width = Int32.Parse(file.FindReadNode("width"));
             int height = Int32.Parse(file.FindReadNode("height"));
 
+            _soundVolume = float.Parse(file.FindReadNode("SFXvolume"));
+            _soundPitch = float.Parse(file.FindReadNode("SFXpitch"));
+            _soundPan = float.Parse(file.FindReadNode("pan"));
+
 
             file.ReadClose();
+
+            timeBeforeSoundPlay = rand.Next(0, 20000);
 
             limit = new Vector2(width + _width, height + _height);
         }
@@ -213,7 +224,15 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
+            Random rand = new Random();
             orientation((int)_playerPosition.X, (int)_playerPosition.Y);
+            if (timeElapsed >= timeBeforeSoundPlay && soundWillPlay)
+            {
+                sounds[rand.Next(0, _sounds.Length)].Play(_soundVolume, _soundPitch, _soundPan);
+                soundWillPlay = false;
+            }
+            else
+                timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
             move(gameTime);
         }
 
@@ -324,6 +343,8 @@ namespace The_Apocalypse
         {
             this.GraphicsDevice = GraphicsDevice;
             _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/Monster/arrowM", contentManager);
+            sounds = new SoundEffect[] { contentManager.Load<SoundEffect>(@"SoundFX/zombie1"),
+                                         contentManager.Load<SoundEffect>(@"SoundFX/zombie2") };
         }
 
         //Fonction pour calculer l'angle entre deux points

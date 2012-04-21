@@ -37,7 +37,7 @@ namespace The_Apocalypse
             file.OpenRead("Preference.xml");
 
             limit = new Vector2(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
-
+        
             _position = new Position((int)limit.X/2, (int)limit.Y/2);
 
             file.ReadClose();
@@ -68,11 +68,24 @@ namespace The_Apocalypse
 
             limit = new Vector2(Int32.Parse(file.FindReadNode("width")), Int32.Parse(file.FindReadNode("height")));
 
+            loadSoundSettings();
+
             _position = new Position((int)limit.X / 2, (int)limit.Y / 2);
             _weapon = new Handgun();
             _weapon.shootSound = _sounds[0];
 
             file.ReadClose();
+        }
+
+        public void loadSoundSettings()
+        {
+            XmlReaderWriter file = new XmlReaderWriter();
+            file.OpenRead("Preference.xml");
+            steps.Volume = float.Parse(file.FindReadNode("SFXvolume"));
+            steps.Pitch = float.Parse(file.FindReadNode("SFXpitch"));
+            steps.Pan = float.Parse(file.FindReadNode("pan"));
+            file.ReadClose();
+            _weapon.LoadPreferenceData();
         }
 
         public string name

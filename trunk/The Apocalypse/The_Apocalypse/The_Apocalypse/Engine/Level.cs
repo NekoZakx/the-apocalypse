@@ -172,13 +172,21 @@ namespace The_Apocalypse
 
         public void ReloadContent()
         {
-            //TO DO: Reload all content with the appropriate XML value!
-            Console.WriteLine("FCT TEST");
+            player.loadSoundSettings();
         }
 
         public void pause(bool state)
         {
-
+            if (state)
+                bgm.Pause();
+            else
+            {
+                XmlReaderWriter file = new XmlReaderWriter();
+                file.OpenRead("Preference.xml");
+                bgm.Volume = float.Parse(file.FindReadNode("Mvolume"));
+                file.ReadClose();
+                bgm.Play();
+            }
         }
     }
 }
