@@ -28,7 +28,6 @@ namespace The_Apocalypse
 
         public bool evaluate(Position player, Position pointToEvaluate, MouseState mouse)
         {
-
             if ((Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y - player.Y), 2)) <= 10000)//Si le point se trouve dans le cercle on retourne vraie
             {
                 deltaX = mouse.X - player.X;
@@ -67,17 +66,11 @@ namespace The_Apocalypse
                     X = (Y / Mper) + Bper;//On trouve la valeur du X pour le Y de notre point sur la droite
                 }
 
-                /***********************************************
-                IL MANQUE DES CAS A ÉVALUER 
-                ************************************************/
-
-                return true;
-
                 if (mouse.Y <= Y)//Si le point à évalué est plus petit que le point trouvé, le point se trouve en dessous de la droite
                 {
                     return true;
                 }
-                else if (mouse.Y >= Y)//Sinon le point se trouve au dessus
+                else if (mouse.Y > Y)//Sinon le point se trouve au dessus
                 {
                     return true;
                 }
@@ -85,7 +78,7 @@ namespace The_Apocalypse
                 {
                     return true;
                 }
-                else if(mouse.X >= X)//Sinon il se trouve à droite
+                else if(mouse.X > X)//Sinon il se trouve à droite
                 {
                     return true;
                 }
@@ -96,7 +89,7 @@ namespace The_Apocalypse
 
         public bool isInCircle(Position player, Position pointToEvaluate)
         {
-            if (Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y + player.Y), 2) <= 100)//Si le point se trouve dans le cercle on retourne vraie
+            if ((Math.Pow((pointToEvaluate.X - player.X), 2) + Math.Pow((pointToEvaluate.Y - player.Y), 2)) <= 10000)//Si le point se trouve dans le cercle on retourne vraie
             {
                 return true;
             }

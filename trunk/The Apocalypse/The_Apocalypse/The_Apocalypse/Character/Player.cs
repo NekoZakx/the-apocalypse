@@ -30,6 +30,8 @@ namespace The_Apocalypse
         private int _score;
         private int _life = 3;
         private int _cpt = 0;
+        private Proximity _proximity = new Proximity();
+        private Position _normalPosition = new Position(0, 0);
 
         public Player()
         {
@@ -133,6 +135,18 @@ namespace The_Apocalypse
             set
             {
                 _position = value;
+            }
+        }
+
+        public Position NormalPosition
+        {
+            get
+            {
+                return _normalPosition;
+            }
+            set
+            {
+                _normalPosition = value;
             }
         }
 
@@ -243,6 +257,12 @@ namespace The_Apocalypse
                 _weapon = new Gatling();
                 _weapon.shootSound = _sounds[3];
             }else
+            if (newState.IsKeyDown(Keys.D5))
+            {
+                _weapon = new ChainSaw();
+                _weapon.shootSound = _sounds[3];
+            }
+            else
             if (newState.IsKeyDown(Keys.D5))
             {
                 _weapon = new ChainSaw();
@@ -362,6 +382,7 @@ namespace The_Apocalypse
             ChangeWeapon();
             bulletState();
             noMoreHp();
+            looseHp((_proximity.isInCircle(_position, _normalPosition)));
         }
 
         void bulletState()
