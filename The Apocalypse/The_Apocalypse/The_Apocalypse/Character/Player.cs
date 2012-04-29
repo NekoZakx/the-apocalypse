@@ -381,8 +381,8 @@ namespace The_Apocalypse
             shootWeapon();
             ChangeWeapon();
             bulletState();
-            noMoreHp();
             looseHp((_proximity.isInCircle(_position, _normalPosition)));
+            noMoreHp();
         }
 
         void bulletState()

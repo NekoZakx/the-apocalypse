@@ -113,8 +113,17 @@ namespace The_Apocalypse
                 enemy.addPathData(pathData);
                 monster.Add(enemy);
                 player.Attach(enemy);
-
             }
+            else if (monster.Count > 9 && monster.Count <= 10)
+            {
+                Monster enemy2 = new Sherif();
+                enemy2.Initialize();
+                enemy2.LoadContent(Content, GraphicsDevice);
+                enemy2.addPathData(pathData);
+                monster.Add(enemy2);
+                player.Attach(enemy2);
+            }
+
             bool restart = true;
             while(restart)
             {
