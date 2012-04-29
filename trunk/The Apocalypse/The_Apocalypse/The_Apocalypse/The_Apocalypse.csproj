@@ -113,6 +113,7 @@
     <Compile Include="Area\Area.cs" />
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Monster Type\Normal.cs" />
+    <Compile Include="Character\Monster Type\Sherif.cs" />
     <Compile Include="Character\PathFinder.cs" />
     <Compile Include="Engine\DiceRoller.cs" />
     <Compile Include="Engine\Level.cs" />
