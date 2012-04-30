@@ -250,7 +250,7 @@ namespace The_Apocalypse
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 0));
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 27));
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 45));
-            //_shootSound.Play(_soundVolume, _soundPitch, _soundPan);
+            _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
 
             foreach (Direct bullet in bulletShot)
             {
