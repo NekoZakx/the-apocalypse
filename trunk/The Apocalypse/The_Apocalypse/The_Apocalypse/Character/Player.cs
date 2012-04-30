@@ -389,7 +389,7 @@ namespace The_Apocalypse
         {
             foreach (Monster o in observers)
             {
-                o.hp -= _weapon.hit(o.position, new Position((int)o.position.X + 50, (int)o.position.Y + 50));
+                o.hp -= _weapon.hit(o.position, new Position((int)o.position.X + o.width, (int)o.position.Y + o.height));
                 if (o.hp <= 0)
                     kill++;
             }
