@@ -34,8 +34,8 @@ namespace The_Apocalypse
         private float _soundPan;
         private int timeBeforeSoundPlay, timeElapsed = 0;
         private bool soundWillPlay = true;
-        private bool _shoot = true;
         private SoundEffect _shootSound;
+        private Character _player;
 
         public Position PlayerPosition
         {
@@ -243,19 +243,28 @@ namespace The_Apocalypse
 
         public void attack()
         {
-            if (_shoot)
+            int playerX = (int)_playerPosition.X;
+            int playerY = (int)_playerPosition.Y;
+            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, -45));
+            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, -27));
+            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 0));
+            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 27));
+            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 45));
+            //_shootSound.Play(_soundVolume, _soundPitch, _soundPan);
+
+            foreach (Direct bullet in bulletShot)
             {
-                int playerX = (int)_playerPosition.X;
-                int playerY = (int)_playerPosition.Y;
-                bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, -45));
-                bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, -27));
-                bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 0));
-                bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 27));
-                bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 45));
-                _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
-                _shoot = false;
+                if (bullet.CompareAreatoLine(_playerPosition, new Position((int)_playerPosition.X + _width, (int)_playerPosition.Y + _height)))
+                {
+                    if (_player.hp > 0)
+                    {
+                        _player.hp = _player.hp - _damage;
+                    }
+                }
             }
         }
+
+        DateTime wait = DateTime.Now;
 
         public void Update(GameTime gameTime)
         {
@@ -269,13 +278,14 @@ namespace The_Apocalypse
             else
                 timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
 
-            int rand2 = rand.Next(1, 10);
+            double test = (DateTime.Now - wait).Seconds;
 
-            if (rand2 == 5)
+            if ((DateTime.Now - wait).Seconds >= 5)
             {
+                wait = DateTime.Now;
                 attack();
             }
-
+ 
             move(gameTime);
         }
 
@@ -432,6 +442,7 @@ namespace The_Apocalypse
         public void Update(Character Player)
         {
             _playerPosition = Player.position;
+            _player = Player;
         }
 
         public void Draw(SpriteBatch spriteBatch, bool pause)
