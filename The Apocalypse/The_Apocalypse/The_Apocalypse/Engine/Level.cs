@@ -114,7 +114,7 @@ namespace The_Apocalypse
                 monster.Add(enemy);
                 player.Attach(enemy);
             }
-            else if (monster.Count > 9 && monster.Count <= 10)
+            else if (monster.Count == 10)
             {
                 Monster enemy2 = new Sherif();
                 enemy2.Initialize();
