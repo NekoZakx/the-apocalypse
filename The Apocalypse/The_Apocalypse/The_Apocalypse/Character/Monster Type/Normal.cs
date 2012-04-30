@@ -20,6 +20,7 @@ namespace The_Apocalypse
         private Vector2 _speed = new Vector2(150, 150);
         private GraphicsDevice GraphicsDevice;
         private Vector2 limit;
+        private Character _player;
         private Position _playerPosition = new Position(0, 0);
         private SpriteSheet _spriteSheet;
         private int _width = 50;
@@ -387,6 +388,7 @@ namespace The_Apocalypse
         public void Update(Character Player)
         {
             _playerPosition = Player.position;
+            _player = Player;
         }
 
         public void Draw(SpriteBatch spriteBatch, bool pause)

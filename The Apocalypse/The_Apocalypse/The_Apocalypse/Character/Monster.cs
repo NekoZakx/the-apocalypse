@@ -54,12 +54,6 @@ namespace The_Apocalypse
             set;
         }
 
-        Position PlayerPosition
-        {
-            get;
-            set;
-        }
-
         int damage
         {
             get;
