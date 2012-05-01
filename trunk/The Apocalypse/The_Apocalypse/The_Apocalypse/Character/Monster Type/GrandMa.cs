@@ -246,7 +246,7 @@ namespace The_Apocalypse
             int playerX = (int)_playerPosition.X;
             int playerY = (int)_playerPosition.Y;
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 0));
-            //_shootSound.Play(_soundVolume, _soundPitch, _soundPan);
+            _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
 
             foreach (Direct bullet in bulletShot)
             {
@@ -394,7 +394,7 @@ namespace The_Apocalypse
             _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/Monster/arrowM", contentManager);
             sounds = new SoundEffect[] { contentManager.Load<SoundEffect>(@"SoundFX/zombie1"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/zombie2"),
-                                         contentManager.Load<SoundEffect>(@"SoundFX/shotgunshoot")};
+                                         contentManager.Load<SoundEffect>(@"SoundFX/knifeshoot")};
             _shootSound = sounds[2];
         }
 
