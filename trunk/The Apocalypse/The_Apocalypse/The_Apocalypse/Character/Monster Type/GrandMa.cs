@@ -11,13 +11,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace The_Apocalypse
 {
-    class Sherif : Monster
+    class GrandMa : Monster
     {
-        private string _name = "Sherif";
+        private string _name = "GrandMa";
         private int _hp;
         private Area _area; //À faire (Area::Near)
         private Position _position;
-        private int _damage = 50;
+        private int _damage = 25;
         private List<Direct> bulletShot;
         private Vector2 _speed = new Vector2(50, 50);
         private GraphicsDevice GraphicsDevice;
@@ -193,9 +193,9 @@ namespace The_Apocalypse
             }
         }
 
-        public Sherif()
+        public GrandMa()
         {
-            _hp = 30;
+            _hp = 40;
 
             bulletShot = new List<Direct>();
 
@@ -245,12 +245,8 @@ namespace The_Apocalypse
         {
             int playerX = (int)_playerPosition.X;
             int playerY = (int)_playerPosition.Y;
-            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, -45));
-            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, -27));
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 0));
-            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 27));
-            bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 45));
-            _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
+            //_shootSound.Play(_soundVolume, _soundPitch, _soundPan);
 
             foreach (Direct bullet in bulletShot)
             {

@@ -105,7 +105,7 @@ namespace The_Apocalypse
 
         public void Update(GameTime gameTime)
         {
-            if (monster.Count < 10)
+            if (monster.Count < 9)
             {
                 Monster enemy = new Normal();
                 enemy.Initialize();
@@ -114,7 +114,7 @@ namespace The_Apocalypse
                 monster.Add(enemy);
                 player.Attach(enemy);
             }
-            else if (monster.Count == 10)
+            else if (monster.Count == 9)
             {
                 Monster enemy2 = new Sherif();
                 enemy2.Initialize();
@@ -122,6 +122,15 @@ namespace The_Apocalypse
                 enemy2.addPathData(pathData);
                 monster.Add(enemy2);
                 player.Attach(enemy2);
+            }
+            else if (monster.Count == 10)
+            {
+                Monster enemy3 = new GrandMa();
+                enemy3.Initialize();
+                enemy3.LoadContent(Content, GraphicsDevice);
+                enemy3.addPathData(pathData);
+                monster.Add(enemy3);
+                player.Attach(enemy3);
             }
 
             bool restart = true;
