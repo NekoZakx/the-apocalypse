@@ -16,7 +16,7 @@ namespace The_Apocalypse
         private int _hp = 100, _kill = 0;
         private Position _position;
         private SpriteSheet _spriteSheet;
-        private int _width = 50;
+        private int _width = 25;
         private int _height = 50;
         private Vector2 _speed = new Vector2(150, 150);
         private Vector2 limit;
@@ -26,12 +26,18 @@ namespace The_Apocalypse
         private List<Monster> observers = new List<Monster>();
         private PathFinder pathData;
         private SoundEffect[] _sounds;
-        private SoundEffectInstance steps;
+        private float _soundVolume;
+        private float _soundPitch;
+        private float _soundPan;
         private int _score;
         private int _life = 3;
         private int _cpt = 0;
         private Proximity _proximity = new Proximity();
         private Position _normalPosition = new Position(0, 0);
+        private bool isMoving = false;
+        private int currentFrameTime = 0;
+        private int frameTime = 180;
+        private bool reverseAnimation = false;
 
         public Player()
         {
@@ -83,9 +89,9 @@ namespace The_Apocalypse
         {
             XmlReaderWriter file = new XmlReaderWriter();
             file.OpenRead("Preference.xml");
-            steps.Volume = float.Parse(file.FindReadNode("SFXvolume"));
-            steps.Pitch = float.Parse(file.FindReadNode("SFXpitch"));
-            steps.Pan = float.Parse(file.FindReadNode("pan"));
+            _soundVolume = float.Parse(file.FindReadNode("SFXvolume"));
+            _soundPitch = float.Parse(file.FindReadNode("SFXpitch"));
+            _soundPan = float.Parse(file.FindReadNode("pan"));
             file.ReadClose();
             _weapon.LoadPreferenceData();
         }
@@ -281,21 +287,21 @@ namespace The_Apocalypse
             // 22.5 + 45 + 45 + 45 + 45 +45 + 45 + 45 + 22.5 = 360
 
             if ((angle >= 0 && angle < 22.5) || (angle >= 337.5 && angle < 360))
-                _spriteSheet.setCurrentFrame(0);
+                _spriteSheet.setCurrentDirection(0);
             else if (angle >= 22.5 && angle < 67.5)
-                _spriteSheet.setCurrentFrame(1);
+                _spriteSheet.setCurrentDirection(1);
             else if (angle >= 67.5 && angle < 112.5)
-                _spriteSheet.setCurrentFrame(2);
+                _spriteSheet.setCurrentDirection(2);
             else if (angle >= 112.5 && angle < 157.5)
-                _spriteSheet.setCurrentFrame(3);
+                _spriteSheet.setCurrentDirection(3);
             else if (angle >= 157.5 && angle < 202.5)
-                _spriteSheet.setCurrentFrame(4);
+                _spriteSheet.setCurrentDirection(4);
             else if (angle >= 202.5 && angle < 247.5)
-                _spriteSheet.setCurrentFrame(5);
+                _spriteSheet.setCurrentDirection(5);
             else if (angle >= 247.5 && angle < 292.5)
-                _spriteSheet.setCurrentFrame(6);
+                _spriteSheet.setCurrentDirection(6);
             else if (angle >= 292.5 && angle < 337.5)
-                _spriteSheet.setCurrentFrame(7);
+                _spriteSheet.setCurrentDirection(7);
 
         }
 
@@ -308,11 +314,9 @@ namespace The_Apocalypse
             KeyboardState newState = Keyboard.GetState();
 
             if (newState.IsKeyDown(Keys.D) || newState.IsKeyDown(Keys.A) || newState.IsKeyDown(Keys.W) || newState.IsKeyDown(Keys.S))
-            {
-                steps.Play();
-            }
+                isMoving = true;
             else
-                steps.Stop();
+                isMoving = false;
             
             if (newState.IsKeyDown(Keys.D))
             {
@@ -374,9 +378,46 @@ namespace The_Apocalypse
             pathData.ChangeData(_position, _width,_height, SquareContent.Hero);
         }
 
+        void animate(GameTime gameTime)
+        {
+            if (isMoving)
+            {
+                currentFrameTime += gameTime.ElapsedGameTime.Milliseconds;
+                if (currentFrameTime >= frameTime)
+                {
+                    switch (_spriteSheet.getCurrentFrame())
+                    {
+                        case 0:
+                            reverseAnimation = false;
+                            _spriteSheet.setCurrentFrame(1);
+                            _sounds[4].Play(_soundVolume, _soundPitch, _soundPan);
+                            break;
+                        case 1:
+                            if (reverseAnimation)
+                                _spriteSheet.setCurrentFrame(0);
+                            else
+                                _spriteSheet.setCurrentFrame(2);
+                            break;
+                        case 2:
+                            reverseAnimation = true;
+                            _spriteSheet.setCurrentFrame(1);
+                            _sounds[4].Play(_soundVolume, _soundPitch, _soundPan);
+                            break;
+                    }
+                    currentFrameTime = 0;
+                }
+            }
+            else
+            {
+                _spriteSheet.setCurrentFrame(1);
+                currentFrameTime = 0;
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             orientation();
+            animate(gameTime);
             move(gameTime);
             shootWeapon();
             ChangeWeapon();
@@ -419,16 +460,14 @@ namespace The_Apocalypse
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
         {
             this.GraphicsDevice = GraphicsDevice;
-            _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/arrow", contentManager);
+            _spriteSheet = new SpriteSheet(@"SpriteSheet/player/p", contentManager);
             font = contentManager.Load<SpriteFont>(@"Fonts/TextFont");
             sounds = new SoundEffect[] { contentManager.Load<SoundEffect>(@"SoundFX/pistolshoot"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/assaultrifleshoot"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/shotgunshoot"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/gatlingshoot"),
-                                         contentManager.Load<SoundEffect>(@"SoundFX/footsteps") };
+                                         contentManager.Load<SoundEffect>(@"SoundFX/footstep") };
             _weapon.shootSound = _sounds[0];
-            steps = _sounds[4].CreateInstance();
-            steps.IsLooped = true;
         }
 
         //Fonction pour calculer l'angle entre deux points

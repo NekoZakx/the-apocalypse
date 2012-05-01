@@ -23,7 +23,7 @@ namespace The_Apocalypse
         private Character _player;
         private Position _playerPosition = new Position(0, 0);
         private SpriteSheet _spriteSheet;
-        private int _width = 50;
+        private int _width = 25;
         private int _height = 50;
         private PathFinder pathData;
         private int score = 100;
@@ -221,7 +221,7 @@ namespace The_Apocalypse
         public void attack()
         {
             //À faire
-        }
+        }  
 
         public void Update(GameTime gameTime)
         {
@@ -246,21 +246,21 @@ namespace The_Apocalypse
             // 22.5 + 45 + 45 + 45 + 45 +45 + 45 + 45 + 22.5 = 360
 
             if ((angle >= 0 && angle < 22.5) || (angle >= 337.5 && angle < 360))
-                _spriteSheet.setCurrentFrame(0);
+                _spriteSheet.setCurrentDirection(0);
             else if (angle >= 22.5 && angle < 67.5)
-                _spriteSheet.setCurrentFrame(1);
+                _spriteSheet.setCurrentDirection(1);
             else if (angle >= 67.5 && angle < 112.5)
-                _spriteSheet.setCurrentFrame(2);
+                _spriteSheet.setCurrentDirection(2);
             else if (angle >= 112.5 && angle < 157.5)
-                _spriteSheet.setCurrentFrame(3);
+                _spriteSheet.setCurrentDirection(3);
             else if (angle >= 157.5 && angle < 202.5)
-                _spriteSheet.setCurrentFrame(4);
+                _spriteSheet.setCurrentDirection(4);
             else if (angle >= 202.5 && angle < 247.5)
-                _spriteSheet.setCurrentFrame(5);
+                _spriteSheet.setCurrentDirection(5);
             else if (angle >= 247.5 && angle < 292.5)
-                _spriteSheet.setCurrentFrame(6);
+                _spriteSheet.setCurrentDirection(6);
             else if (angle >= 292.5 && angle < 337.5)
-                _spriteSheet.setCurrentFrame(7);
+                _spriteSheet.setCurrentDirection(7);
 
         }
         public void move(GameTime gameTime)
@@ -343,7 +343,7 @@ namespace The_Apocalypse
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
         {
             this.GraphicsDevice = GraphicsDevice;
-            _spriteSheet = new SpriteSheet(8, @"SpriteSheet/ArrowTest/Monster/arrowM", contentManager);
+            _spriteSheet = new SpriteSheet(@"SpriteSheet/monster/m", contentManager);
             sounds = new SoundEffect[] { contentManager.Load<SoundEffect>(@"SoundFX/zombie1"),
                                          contentManager.Load<SoundEffect>(@"SoundFX/zombie2") };
         }
