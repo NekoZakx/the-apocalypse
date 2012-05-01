@@ -112,6 +112,7 @@
     <Compile Include="Area\Area Type\Proximity.cs" />
     <Compile Include="Area\Area.cs" />
     <Compile Include="Character\Character.cs" />
+    <Compile Include="Character\Monster Type\GrandMa.cs" />
     <Compile Include="Character\Monster Type\Normal.cs" />
     <Compile Include="Character\Monster Type\Sherif.cs" />
     <Compile Include="Character\PathFinder.cs" />
