@@ -36,6 +36,10 @@ namespace The_Apocalypse
         private bool soundWillPlay = true;
         private SoundEffect _shootSound;
         private Character _player;
+        private bool isMoving = true;
+        private int currentFrameTime = 0;
+        private int frameTime = 180;
+        private bool reverseAnimation = false;
 
         public Position PlayerPosition
         {
@@ -260,6 +264,40 @@ namespace The_Apocalypse
             }
         }
 
+        void animate(GameTime gameTime)
+        {
+            if (isMoving)
+            {
+                currentFrameTime += gameTime.ElapsedGameTime.Milliseconds;
+                if (currentFrameTime >= frameTime)
+                {
+                    switch (_spriteSheet.getCurrentFrame())
+                    {
+                        case 0:
+                            reverseAnimation = false;
+                            _spriteSheet.setCurrentFrame(1);
+                            break;
+                        case 1:
+                            if (reverseAnimation)
+                                _spriteSheet.setCurrentFrame(0);
+                            else
+                                _spriteSheet.setCurrentFrame(2);
+                            break;
+                        case 2:
+                            reverseAnimation = true;
+                            _spriteSheet.setCurrentFrame(1);
+                            break;
+                    }
+                    currentFrameTime = 0;
+                }
+            }
+            else
+            {
+                _spriteSheet.setCurrentFrame(1);
+                currentFrameTime = 0;
+            }
+        }
+
         DateTime wait = DateTime.Now;
 
         public void Update(GameTime gameTime)
@@ -283,6 +321,8 @@ namespace The_Apocalypse
             }
  
             move(gameTime);
+
+            animate(gameTime);
         }
 
         public void orientation(int pX, int pY)
@@ -344,10 +384,14 @@ namespace The_Apocalypse
             }
             else
             {
-                
                 pathData.removeData(_position, _width, _height);
-                _position = pathData.nextMove(_position,_width,_height, _playerPosition);
-                pathData.ChangeData(_position, _width,_height, SquareContent.Monster);
+                Position temp = pathData.nextMove(_position, _width, _height, _playerPosition);
+                if (temp.X - _position.X == 0 && temp.Y - _position.Y == 0)
+                    isMoving = false;
+                else
+                    isMoving = true;
+                _position = temp;
+                pathData.ChangeData(_position, _width, _height, SquareContent.Monster);
             }
         }
 
