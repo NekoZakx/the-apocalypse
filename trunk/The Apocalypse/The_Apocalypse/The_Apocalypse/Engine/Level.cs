@@ -16,7 +16,7 @@ namespace The_Apocalypse
         GraphicsDevice GraphicsDevice;
         BlendState brightnessBlend;
         BlendState contrastBlend;
-        Texture2D whiteTexture;
+        Texture2D whiteTexture, ground;
         ContentManager Content;
         Player player;
         List<Monster> monster;
@@ -73,6 +73,7 @@ namespace The_Apocalypse
             this.GraphicsDevice = GraphicsDevice;
             whiteTexture = new Texture2D(GraphicsDevice, 1, 1);
             whiteTexture.SetData<Color>(new Color[] { Color.White });
+            ground = Content.Load<Texture2D>(@"SpriteSheet/ground");
 
             player.LoadContent(Content, GraphicsDevice);
             Random rand = new Random();
@@ -96,6 +97,7 @@ namespace The_Apocalypse
 
         public void Draw(SpriteBatch spriteBatch,bool pause)
         {
+            spriteBatch.Draw(ground, new Vector2(0, 0), Color.White);
             foreach(Monster m in monster)
             {
                 m.Draw(spriteBatch, pause);

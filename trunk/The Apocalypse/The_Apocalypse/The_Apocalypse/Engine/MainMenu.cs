@@ -28,6 +28,7 @@ namespace The_Apocalypse
 
         GraphicButton[] buttons = new GraphicButton[NUMBER_OF_BUTTONS];
         SpriteFont font;
+        Texture2D logo, ground;
 
         public bool closeProgram = false, play = false;
 
@@ -66,13 +67,18 @@ namespace The_Apocalypse
             buttons[EXIT_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/exit"));
             buttons[PLAY_BUTTON_INDEX].LoadContent(Content.Load<Texture2D>(@"Button/play"));
 
+            logo = Content.Load<Texture2D>(@"SpriteSheet/logo");
+            ground = Content.Load<Texture2D>(@"SpriteSheet/ground");
+
             font = Content.Load<SpriteFont>(@"Fonts/TextFont");
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Main Menu", new Vector2(10, 5), Color.White);
+            spriteBatch.Draw(ground, new Vector2(0, 0), Color.White);
+            //spriteBatch.DrawString(font, "Main Menu", new Vector2(10, 5), Color.White);
+            spriteBatch.Draw(logo, new Vector2(80, 133), Color.White);
 
             for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
             {
