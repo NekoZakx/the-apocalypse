@@ -116,7 +116,7 @@ namespace The_Apocalypse
                 monster.Add(enemy);
                 player.Attach(enemy);
             }
-            else if (monster.Count == 9)
+            else if (monster.Count >= 9 && monster.Count <= 10)
             {
                 Monster enemy2 = new Sherif();
                 enemy2.Initialize();
@@ -124,9 +124,7 @@ namespace The_Apocalypse
                 enemy2.addPathData(pathData);
                 monster.Add(enemy2);
                 player.Attach(enemy2);
-            }
-            else if (monster.Count == 10)
-            {
+
                 Monster enemy3 = new GrandMa();
                 enemy3.Initialize();
                 enemy3.LoadContent(Content, GraphicsDevice);
