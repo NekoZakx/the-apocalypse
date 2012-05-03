@@ -267,6 +267,8 @@ namespace The_Apocalypse
             }
         }
 
+        DateTime wait = DateTime.Now;
+
         public void Update(GameTime gameTime)
         {
             Random rand = new Random();
@@ -278,11 +280,17 @@ namespace The_Apocalypse
             }
             else
                 timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            
+            double test = (DateTime.Now - wait).Seconds;
 
-            if (_proximity.isInCircle(_player.position, _position))
+            if ((DateTime.Now - wait).Seconds >= 10)
             {
-                attack();
-            }            
+
+                if (_proximity.isInCircle(_player.position, _position))
+                {
+                    attack();
+                }
+            }
 
             move(gameTime);
             animate(gameTime);
