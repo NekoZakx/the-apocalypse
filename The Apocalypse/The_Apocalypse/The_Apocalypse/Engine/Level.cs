@@ -58,6 +58,10 @@ namespace The_Apocalypse
         public void ForceClose()
         {
             player.Delete();
+            foreach (Monster mdel in monster)
+            {
+                mdel.delete();
+            }
         }
 
         public void resetData()
