@@ -561,7 +561,7 @@ namespace The_Apocalypse
 
         public int noMoreHp()
         {
-            if (_hp == 0)
+            if (_hp <= 0)
             {
                 if (_life != 0)
                 {

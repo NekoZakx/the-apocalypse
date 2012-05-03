@@ -255,17 +255,6 @@ namespace The_Apocalypse
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 27));
             bulletShot.Add(new Direct(_position, new Position(playerX, playerY), GraphicsDevice, 45));
             _shootSound.Play(_soundVolume, _soundPitch, _soundPan);
-
-            foreach (Direct bullet in bulletShot)
-            {
-                if (bullet.CompareAreatoLine(_playerPosition, new Position((int)_playerPosition.X + _player.width, (int)_playerPosition.Y + _player.height)))
-                {
-                    if (_player.hp > 0)
-                    {
-                        _player.hp = _player.hp - _damage;
-                    }
-                }
-            }
         }
 
         void animate(GameTime gameTime)
@@ -322,6 +311,17 @@ namespace The_Apocalypse
             {
                 wait = DateTime.Now;
                 attack();
+            }
+
+            foreach (Direct bullet in bulletShot)
+            {
+                if (bullet.CompareAreatoLine(_playerPosition, new Position((int)_playerPosition.X + _player.width, (int)_playerPosition.Y + _player.height)))
+                {
+                    if (_player.hp > 0)
+                    {
+                        _player.hp = _player.hp - _damage;
+                    }
+                }
             }
  
             move(gameTime);
