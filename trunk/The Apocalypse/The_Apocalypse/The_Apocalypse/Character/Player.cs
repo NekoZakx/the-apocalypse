@@ -446,13 +446,15 @@ namespace The_Apocalypse
             else
                 spriteBatch.DrawString(font, _weapon.ammo + " Ammo", new Vector2(0, 0), Color.Yellow);
 
-            spriteBatch.DrawString(font, _kill + " KILL", new Vector2(0, 40), Color.Green);
+            spriteBatch.DrawString(font, _kill + " KILL", new Vector2(0, 40), Color.Black);
             spriteBatch.DrawString(font, observers.Count + " ACTIVE ZOMBIES", new Vector2(0, 60), Color.White);
             spriteBatch.DrawString(font, "Score: " + _score, new Vector2(0, 80), Color.White);
             if(_life == 0)
                 spriteBatch.DrawString(font, "Dead: " + _life, new Vector2(0, 100), Color.White);
             else
                 spriteBatch.DrawString(font, "Life: " + _life, new Vector2(0, 100), Color.White);
+
+            spriteBatch.DrawString(font, "HP: " + _hp, new Vector2(0, 120), Color.White);
         }
 
         public void LoadContent(ContentManager contentManager, GraphicsDevice GraphicsDevice)
