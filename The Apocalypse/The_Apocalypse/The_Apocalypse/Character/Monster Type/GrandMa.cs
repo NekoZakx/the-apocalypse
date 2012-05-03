@@ -254,7 +254,7 @@ namespace The_Apocalypse
 
             foreach (Direct bullet in bulletShot)
             {
-                if (bullet.CompareAreatoLine(_playerPosition, new Position((int)_playerPosition.X + _width, (int)_playerPosition.Y + _height)))
+                if (bullet.CompareAreatoLine(_playerPosition, new Position((int)_playerPosition.X + _player.width, (int)_playerPosition.Y + _player.height)))
                 {
                     if (_player.hp > 0)
                     {

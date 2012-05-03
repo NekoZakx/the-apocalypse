@@ -16,6 +16,7 @@ namespace The_Apocalypse
         private int _hp;
         private Area _area; //À faire (Area::Near)
         private Position _position;
+        private Proximity _proximity;
         private int _damage = 1;
         private Vector2 _speed = new Vector2(150, 150);
         private GraphicsDevice GraphicsDevice;
@@ -186,6 +187,8 @@ namespace The_Apocalypse
         {
             _hp = 10;
 
+            _proximity = new Proximity();
+
             Random rand = new Random();
             int randomX = rand.Next(-200, 1110);
             int randomY = rand.Next(-200, 750);
@@ -223,8 +226,11 @@ namespace The_Apocalypse
         }
 
         public void attack()
-        {
-            //À faire
+        {       
+            if (_player.hp > 0)
+            {
+                _player.hp = _player.hp - _damage;
+            }
         }
 
         void animate(GameTime gameTime)
@@ -272,6 +278,12 @@ namespace The_Apocalypse
             }
             else
                 timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (_proximity.isInCircle(_player.position, _position))
+            {
+                attack();
+            }            
+
             move(gameTime);
             animate(gameTime);
         }
