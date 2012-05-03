@@ -32,7 +32,6 @@ namespace The_Apocalypse
         private int _score;
         private int _life = 3;
         private int _cpt = 0;
-        private Proximity _proximity = new Proximity();
         private Position _normalPosition = new Position(0, 0);
         private bool isMoving = false;
         private int currentFrameTime = 0;
@@ -422,7 +421,6 @@ namespace The_Apocalypse
             shootWeapon();
             ChangeWeapon();
             bulletState();
-            looseHp((_proximity.isInCircle(_position, _normalPosition)));
             noMoreHp();
         }
 
@@ -585,14 +583,5 @@ namespace The_Apocalypse
             return _life;
         }
 
-        public int looseHp(bool isInCircle)
-        {
-            if(isInCircle)
-            {
-                _hp--;
-            }
-
-            return _hp;
-        }
     }
 }
